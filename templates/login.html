@@ -24,73 +24,127 @@
         crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/a73607bda8.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="jquery-3.5.1.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#register").click(function () {
+                if ($("#signup_id").val() == "") {
+                    alert("아이디를 입력해주세요.");
+                    $("#signup_id").focus();
+                    return false;
+                }
+
+                if ($("#signup_nick").val() == "") {
+                    alert("닉네임을 입력해주세요.");
+                    $("#signup_id").focus();
+                    return false;
+                }
+
+                if ($("#sign_pass").val() == "") {
+                    alert("암호를 입력해주세요.");
+                    $("#sign_pass").focus();
+                    return false;
+                }
+
+                if ($("#signup_pass").val() == "") {
+                    alert("암호확인을 입력해주세요.");
+                    $("#signup_pass").focus();
+                    return false;
+                }
+                //암호확인
+                var userPwd = $("#sign_pass").val();
+                var userPwdConfirm = $("#signup_pass").val();
+
+                if (userPwd != userPwdConfirm) {
+                    alert("암호와 암호확인이  일치하지않습니다.");
+                    $("#signup_pass").focus();
+                    return false;
+                }
+                //  else{
+                //     $('#join').submit(function(event){
+                //         event.preventDefault();
+                //         console.log(event);
+                //     })
+                // }
+
+                return false;
+            });
+        });
+    </script>
     <title>로그인 - 오늘의 코딩은 맑음</title>
 
 </head>
 
 <body>
-<div class="container">
-<div class="move_btn">
-    <a href="sunny.html"><i class="fas fa-arrow-circle-right"></i></a>
-</div>
-<!-- 로그인 하기 -->
-<div class="login-form">
-    <form>
-        <div class="login_title">Login</div>
-        <div class="form-group">
-            <input type="text" id="signin_id" placeholder="User ID">
-            <span class="input-icon"><i class="fas fa-user"></i></span>
+    <div class="container">
+        <div class="move_btn">
+            <a href="sunny.html"><i class="fas fa-arrow-circle-right"></i></a>
         </div>
-        <div class="form-group">
-            <input type="password" id="signin_pass" placeholder="Password">
-            <span class="input-icon"><i class="fa fa-lock"></i></span>
-        </div>
-        <div class="haha">
-            <button type="button" style="margin-top: 15px;" class="login-btn" onclick="">Login</button>
-        </div>
-        <a class="reset-psw" type="button" data-toggle="modal" data-target="#signin_modal" href="#" id="signup" style="margin-top: 20px">회원가입</a>
-        <div class="seperator" style="margin-top: 30px"></div>
-        <p class="login_inform" style="margin-top: 13px">오늘의 코딩은 맑음입니다</p>
-    </form>
-</div>
-
-<!-- 회원가입 디자인 -->
-<div class="modal" id="signin_modal">
-    <div class="modal_content">
-        <!-- 나가기 버튼 -->
-        <div>
-            <button type="button" class="close_btn" data-dismiss="modal">
-                <span>&times</span>
-            </button>
-        </div>
-        <!-- 양식  -->
+        <!-- 로그인 하기 -->
         <div class="login-form">
-            <div class="signup-title">회원 가입</div>
-            <div class="form-group">
-                <input id="signup_id" type="email" name="email" placeholder="User ID" onchange="">
-                <span class="input-icon"><i class="fa fa-user"></i></span>
-            </div>
-            <div class="form-group">
-                <input id="signup_nick" type="text" name="nickname" placeholder="Nickname" onchange="">
-                <span class="input-icon"><i class="fas fa-user"></i></span>
-            </div>
-            <div class="form-group">
-                <input type="password" name="psw" placeholder="비밀번호" onchange="">
-                <span class="input-icon"><i class="fa-solid fa-unlock"></i></span>
-            </div>
-            <div class="form-group">
-                <input type="password" id="signup_pass" name="psw_check" placeholder="비밀번호 확인" onchange="">
-                <span class="input-icon"><i class="fa fa-lock"></i></span>
-                <span class="check-pw"></span>
-            </div>
+            <form>
+                <div class="login_title">Login</div>
+                <div class="form-group">
+                    <input type="text" id="signin_id" placeholder="User ID">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signin_pass" placeholder="Password">
+                    <span class="input-icon"><i class="fa fa-lock"></i></span>
+                </div>
+                <div class="haha">
+                    <button type="button" style="margin-top: 15px;" class="login-btn" onclick="">Login</button>
+                </div>
+                <a class="reset-psw" type="button" data-toggle="modal" data-target="#signin_modal" href="#" id="signup"
+                    style="margin-top: 20px">회원가입</a>
+                <div class="seperator" style="margin-top: 30px"></div>
+                <p class="login_inform" style="margin-top: 13px">오늘의 코딩은 맑음입니다</p>
+            </form>
+        </div>
 
-            <button type="button" class="sign-up" onclick=""><i class="fa-solid fa-user-plus"></i></button>
+        <!-- 회원가입 디자인 -->
+        <div class="modal" id="signin_modal">
+            <div class="modal_content">
+                <!-- 나가기 버튼 -->
+                <div>
+                    <button type="button" class="close_btn" data-dismiss="modal">
+                        <span>&times</span>
+                    </button>
+                </div>
+                <!-- 양식  -->
+                <form id="join" method="post" action="login.html">
+                    <div class="login-form">
+                        <div class="signup-title">회원 가입</div>
+                        <div class="form-group">
+                            <input id="signup_id" type="email" name="email" placeholder="User ID" onchange="">
+                            <span class="input-icon"><i class="fa fa-user"></i></span>
+                            <!-- <button id="namecheck" onClick="registerCheckFunction();" type="button"><img
+                                    src="../static/images/check.webp" width="30"></button> -->
+                        </div>
+                        <div class="form-group">
+                            <input id="signup_nick" type="text" name="nickname" placeholder="Nickname" onchange="">
+                            <span class="input-icon"><i class="fas fa-user"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <input id="sign_pass" type="password" name="psw" placeholder="비밀번호" onchange="">
+                            <span class="input-icon"><i class="fa-solid fa-unlock"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="signup_pass" name="psw_check" placeholder="비밀번호 확인" onchange="">
+                            <span class="input-icon"><i class="fa fa-lock"></i></span>
+                            <span class="check-pw"></span>
+                        </div>
 
+                        <button id="register" type="button" class="sign-up" onclick=""><i
+                                class="fa-solid fa-user-plus"></i></button>
+
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </body>
 
 </html>
