@@ -1,1027 +1,661 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Local CSS -->
-    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link rel="stylesheet" href="../static/css/styles.css">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
     <!-- bootstrap fas icon을 사용하기 위해 필요 -->
-    <script
-      src="https://kit.fontawesome.com/a73607bda8.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <script src="{{ url_for('static', filename='js/likeAPI.js') }}"></script>
+    <script src="https://kit.fontawesome.com/a73607bda8.js" crossorigin="anonymous"></script>
 
     <title>오늘의 코딩은 맑음</title>
 
     <style>
-      /*각 날씨 페이지마다 다른 이미지를 넣기 위해 css에서 옮김*/
-      .banner:after {
-        content: "";
-        background-image: url("../../static/images/sunny.jpg");
-        background-position: center;
-        background-size: cover;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-        z-index: -1;
-      }
+        /*각 날씨 페이지마다 다른 이미지를 넣기 위해 css에서 옮김*/
+        .banner:after {
+            content: "";
+            background-image: url("../../static/images/sunny.jpg");
+            background-position: center;
+            background-size: cover;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 1.0;
+            z-index: -1;
+        }
     </style>
-  </head>
 
-  <body>
-    <div class="container">
-      <span class="username">KSH</span>
-      <header>
-        <section class="header">
-          <div class="top_corner">
-            <div class="city_temp_wt">
-              <p>서울 22.5 맑음</p>
-            </div>
-            <div class="btn_mypage">
-              <a href="mypage.html">마이페이지</a>
-            </div>
-            <div class="btn_login">
-              <a href="login.html">로그인</a>
-            </div>
-          </div>
-          <h1>하늘에서 음악이 내린다면</h1>
-          <!-- Image and text -->
-          <nav class="navbar navbar-light">
-            <a id="nav_color" class="navbar-brand" href="sunny.html">
-              <img
-                src="../static/images/picto_sunny.png"
-                width="30"
-                height="30"
-                class="d-inline-block align-top"
-                alt=""
-              />
-              Sunny
-            </a>
-            <a id="nav_color" class="navbar-brand" href="cloudy.html">
-              <img
-                src="../static/images/picto_cloudy.png"
-                width="30"
-                height="30"
-                class="d-inline-block align-top"
-                alt=""
-              />
-              Cloudy
-            </a>
-            <a id="nav_color" class="navbar-brand" href="rainy.html">
-              <img
-                src="../static/images/picto_rainy.png"
-                width="30"
-                height="30"
-                class="d-inline-block align-top"
-                alt=""
-              />
-              Rainy
-            </a>
-            <a id="nav_color" class="navbar-brand" href="snowy.html">
-              <img
-                src="../static/images/picto_snowy.png"
-                width="30"
-                height="30"
-                class="d-inline-block align-top"
-                alt=""
-              />
-              Snowy
-            </a>
-          </nav>
-        </section>
-      </header>
-      <main>
-        <section class="banner">
-          <div>
-            <h2>오늘의 날씨는 <span class="song_title1">#맑음</span>입니다.</h2>
-            <p>#맑음에 어울리는 노래를 추천합니다!</p>
-          </div>
-        </section>
-        <section>
-          <div class="chart_title">
-            <h3><span>#맑음</span>에 어울리는 노래 순위</h3>
-            <p>
-              여러분의 선택으로 순위가 결정됩니다. 날씨 아이콘을 클릭해 보세요.
-            </p>
-          </div>
-          <div class="chart">
-            <div class="chart_first">
-              <div class="chart_cloumn">
-                <div class="chart_list" onclick="onclickHandler(this)">
-                  <div class="rank">1</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail1">
-                    <div class="artist">A</div>
-                    <div class="song-title">AAA</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button id="Sunny-btn" type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">2</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail2">
-                    <div class="artist">B</div>
-                    <div class="song-title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">3</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail3">
-                    <div class="artist">C</div>
-                    <div class="song-title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">4</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail4">
-                    <div class="artist">D</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">5</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail5">
-                    <div class="artist">E</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="chart_second">
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">6</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail6">
-                    <div class="artist">F</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">7</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail7">
-                    <div class="artist">G</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">8</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail8">
-                    <div class="artist">H</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">9</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail9">
-                    <div class="artist">J</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="chart_cloumn">
-                <div class="chart_list">
-                  <div class="rank">10</div>
-                  <div>
-                    <img
-                      src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
-                      art="albumart"
-                    />
-                  </div>
-                  <div class="chart_list_detail10">
-                    <div class="artist">K</div>
-                    <div class="song_title">사랑하기 때문에</div>
-                  </div>
-                  <div class="player">
-                    <button
-                      class="play-pause-button fa fa-play-circle"
-                      style="font-size: 25px"
-                      data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                    ></button>
-                  </div>
-                  <div class="weather_icon">
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_sunny.png"
-                          alt="sunny"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">7</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_cloudy.png"
-                          alt="cloudy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">3</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_rainy.png"
-                          alt="rainy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">10</p>
-                    </div>
-                    <div class="weather_cloumn">
-                      <button type="button" onclick="">
-                        <img
-                          src="../static/images/picto_snowy.png"
-                          alt="snowy"
-                        />
-                      </button>
-                      <p class="weather_cloumn_txt">2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="search_bar">
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="노래 / 아티스트 입력"
-                aria-label="Recipient's username"
-                aria-describedby="button-addon2"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon2"
-                  onclick="location.href='search.html'"
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="random_title">
-            <h3><span>#맑음</span>에 어울리는 노래 추천</h3>
-            <p>
-              추천 노래들을 들어보시고 날씨에 어울리는 아이콘을 클릭해 보세요.
-              순위에 반영됩니다.
-            </p>
-          </div>
-          <div class="random">
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">
-                  어떻게 이별까지 사랑하겠어, 널 사랑하는거지
-                </div>
-                <div class="random_artist">
-                  악동뮤지션과 아이유가 만나 듀엣을
-                </div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-            <div class="random_list">
-              <div>
-                <img
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#random_modal"
-                  src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                  art="albumart"
-                />
-              </div>
-              <div class="random_list_detail">
-                <div class="random_song_title">strawberry moon</div>
-                <div class="random_artist">아이유</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+</head>
 
-      <!------------------------------Modal 부분 ----------------------------->
-      <div
-        class="modal fade"
-        id="random_modal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">아티스트 이름</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img
-                src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                art="albumart"
-              />
-            </div>
-            <div class="modal_song_title">
-              노래제목: 제목이 너무 길어서 보기 싫어지면 안되니까 아무말이나
-              하하하하하하하하
-            </div>
-            <div class="modal-footer">
-              <div class="weather_icon" id="modal_wt_icon">
-                <button type="button" onclick="">
-                  <img src="../static/images/picto_sunny.png" alt="sunny" />
-                </button>
-                <button type="button" onclick="">
-                  <img src="../static/images/picto_cloudy.png" alt="cloudy" />
-                </button>
-                <button type="button" onclick="">
-                  <img src="../static/images/picto_rainy.png" alt="rainy" />
-                </button>
-                <button type="button" onclick="">
-                  <img src="../static/images/picto_snowy.png" alt="snowy" />
-                </button>
-              </div>
-              <audio controls id="modal_player">
-                <source
-                  src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                  type="audio/mpeg"
-                />
-              </audio>
-            </div>
-          </div>
+<body>
+<div class="container">
+  <header>
+    <section class="header">
+      <div class="top_corner">
+        <div class="city_temp_wt">
+          <p>서울 22.5 맑음</p>
+        </div>
+        <div class="btn_login">
+          <a href="mypage.html">마이페이지</a>
+        </div>
+          <div class="btn_login">
+          <a href="login.html">로그인</a>
         </div>
       </div>
+      <h1>하늘에서 음악이 내린다면</h1>
+      <!-- Image and text -->
+      <nav class="navbar navbar-light">
+        <a id="nav_color" class="navbar-brand" href="sunny.html">
+          <img src="../static/images/picto_sunny.png" width="30" height="30"
+               class="d-inline-block align-top" alt="">
+          Sunny
+        </a>
+        <a id="nav_color" class="navbar-brand" href="cloudy.html">
+          <img src="../static/images/picto_cloudy.png" width="30" height="30"
+               class="d-inline-block align-top" alt="">
+          Cloudy
+        </a>
+        <a id="nav_color" class="navbar-brand" href="rainy.html">
+          <img src="../static/images/picto_rainy.png" width="30" height="30"
+               class="d-inline-block align-top" alt="">
+          Rainy
+        </a>
+        <a id="nav_color" class="navbar-brand" href="snowy.html">
+          <img src="../static/images/picto_snowy.png" width="30" height="30"
+               class="d-inline-block align-top" alt="">
+          Snowy
+        </a>
+      </nav>
+    </section>
+  </header>
+  <main>
+      <section class="banner">
+          <div>
+              <h2>오늘의 날씨는 <span>#맑음</span>입니다.</h2>
+              <p>#맑음에 어울리는 노래를 추천합니다!</p>
+          </div>
+      </section>
+      <section>
+      <div class="chart_title">
+          <h3><span>#맑음</span>에 어울리는 노래 순위</h3>
+          <p>여러분의 선택으로 순위가 결정됩니다. 날씨 아이콘을 클릭해 보세요.</p>
+      </div>
+      <div class="chart">
+          <div class="chart_first">
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">1</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/>
+                              </button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png"
+                                                                    alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">2</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">3</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">4</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">5</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="chart_second">
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">6</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">7</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">8</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">9</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="chart_cloumn">
+                  <div class="chart_list">
+                      <div class="rank">10</div>
+                      <div>
+                          <img src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
+                      </div>
+                      <div class="chart_list_detail">
+                          <div class="artist">유재하</div>
+                          <div class="song_title">사랑하기 때문에</div>
+                      </div>
+                      <div class="player">
+                          <button class="play-pause-button fa fa-play-circle" style="font-size: 25px;"
+                                  data-url="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"></button>
+                      </div>
+                      <div class="weather_icon">
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/></button>
+                              <p class="weather_cloumn_txt">7</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/></button>
+                              <p class="weather_cloumn_txt">3</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/></button>
+                              <p class="weather_cloumn_txt">10</p>
+                          </div>
+                          <div class="weather_cloumn">
+                              <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                              </button>
+                              <p class="weather_cloumn_txt">2</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+          <div class="search_bar">
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="노래 / 아티스트 입력"
+                         aria-label="Recipient's username" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="location.href='search.html'">Search</button>
+                  </div>
+              </div>
+          </div>
+          <div class="random_title">
+              <h3><span>#맑음</span>에 어울리는 노래 추천</h3>
+              <p>추천 노래들을 들어보시고 날씨에 어울리는 아이콘을 클릭해 보세요. 순위에 반영됩니다.</p>
+          </div>
+          <div class="random">
+              <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">어떻게 이별까지 사랑하겠어, 널 사랑하는거지</div>
+                  <div class="random_artist">악동뮤지션과 아이유가 만나 듀엣을</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+          <div class="random_list">
+              <div>
+                  <img type="button" data-toggle="modal" data-target="#random_modal"
+                       src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                       art="albumart"/>
+              </div>
+              <div class="random_list_detail">
+                  <div class="random_song_title">strawberry moon</div>
+                  <div class="random_artist">아이유</div>
+              </div>
+          </div>
+      </div>
+  </section>
+  </main>
 
-      <footer class="footer">
-        <div class="move_btn">
-          <a href="about.html"
-            ><i class="fas fa-compass"></i><span> </span>About us</a
-          >
+<!------------------------------Modal 부분 ----------------------------->
+    <div class="modal fade" id="random_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">아티스트 이름</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
+                         art="albumart"/>
+                </div>
+                <div class="modal_song_title">노래제목: 제목이 너무 길어서 보기 싫어지면 안되니까 아무말이나 하하하하하하하하</div>
+                <div class="modal-footer">
+                    <div class="weather_icon" id="modal_wt_icon">
+                        <button type="button" onclick=""><img src="../static/images/picto_sunny.png" alt="sunny"/>
+                        </button>
+                        <button type="button" onclick=""><img src="../static/images/picto_cloudy.png" alt="cloudy"/>
+                        </button>
+                        <button type="button" onclick=""><img src="../static/images/picto_rainy.png" alt="rainy"/>
+                        </button>
+                        <button type="button" onclick=""><img src="../static/images/picto_snowy.png" alt="snowy"/>
+                        </button>
+                    </div>
+                    <audio controls id="modal_player">
+                        <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
         </div>
-        <div class="copyright">
-          <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
 
-    <script>
-      const playPauseButtons = document.querySelectorAll(".play-pause-button");
-      let audio = new Audio();
-      for (let button of playPauseButtons) {
-        button.addEventListener("click", (event) => {
-          let btn = event.target;
-          if (audio) {
-            audio.pause();
-          }
-          audio = new Audio(btn.dataset.url);
-          audio.volume = 0.1;
-          if ([...btn.classList].some((x) => x === "fa-play-circle")) {
-            btn.classList.remove("fa-play-circle");
-            btn.classList.add("fa-pause-circle");
-            audio.play();
-          } else {
-            btn.classList.add("fa-play-circle");
-            btn.classList.remove("fa-pause-circle");
-          }
-        });
-      }
-    </script>
-  </body>
+    <footer class="footer">
+        <div class="move_btn">
+            <a href="about.html"><i class="fas fa-compass"></i><span> </span>About us</a>
+        </div>
+        <div class="copyright">
+            <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const playPauseButtons = document.querySelectorAll(".play-pause-button");
+    let audio = new Audio();
+    for (let button of playPauseButtons) {
+      button.addEventListener("click", (event) => {
+        let btn = event.target;
+        if (audio) {
+          audio.pause();
+        }
+        audio = new Audio(btn.dataset.url);
+        audio.volume = 0.5;
+        if ([...btn.classList].some(x => x === "fa-play-circle")) {
+          btn.classList.remove("fa-play-circle");
+          btn.classList.add("fa-pause-circle");
+          audio.play();
+        } else {
+          btn.classList.add("fa-play-circle");
+          btn.classList.remove("fa-pause-circle");
+        }
+      })
+    }
+</script>
+
+</body>
 </html>

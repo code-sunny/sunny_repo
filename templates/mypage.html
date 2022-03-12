@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/mypage.css">
@@ -17,11 +17,11 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
     <!-- bootstrap fas icon을 사용하기 위해 필요 -->
     <script src="https://kit.fontawesome.com/a73607bda8.js" crossorigin="anonymous"></script>
@@ -31,359 +31,408 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <script src="jquery-3.4.1.js"></script>
     <title>오늘의 코딩은 맑음 - 마이페이지</title>
 
 </head>
 
 <body>
-<div class="container">
-    <header>
-        <section class="header">
-            <div class="top">
-                <div class="top_left">
-                    <a href="sunny.html"><i class="fas fa-arrow-circle-left"></i></a>
-                </div>
-                <div class="top_corner">
-                    <div class="city_temp_wt">
-                        <p>서울 22.5 맑음</p>
+    <script>
+          $("#delete").click(function () {
+            $.ajax({
+                url: "/mypage/list",
+                method: "DELETE",
+                dataType: "text",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    </script>
+    <div class="container">
+        <header>
+            <section class="header">
+                <div class="top">
+                    <div class="top_left">
+                        <a href="sunny.html"><i class="fas fa-arrow-circle-left"></i></a>
+                    </div>
+                    <div class="top_corner">
+                        <div class="city_temp_wt">
+                            <p>서울 22.5 맑음</p>
+                        </div>
                     </div>
                 </div>
+                <h1><i class="fas fa-id-card"></i> My page</h1>
+                <div class="my_txt">
+                    <p><span>'홍길동'</span>님의 좋아요 리스트 입니다.</p>
+                </div>
+            </section>
+        </header>
+        <main>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#sunny" data-toggle="tab">Sunny</a></li>
+                    <li><a href="#cloudy" data-toggle="tab">Cloudy</a></li>
+                    <li><a href="#rainy" data-toggle="tab">Rainy</a></li>
+                    <li><a href="#snowy" data-toggle="tab">Snowy</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <!------------- 맑음 탭 ---------------->
+                        <div class="tab-pane fade in active" id="sunny">
+                            <table class="table table-hover" id="search_table">
+                                <thead>
+                                    <tr>
+                                        <th id="th_first" scope="col">앨범</th>
+                                        <th id="th_second" scope="col">제목</th>
+                                        <th id="th_third" scope="col">아티스트</th>
+                                        <th id="th_fourth" scope="col">미리듣기</th>
+                                        <th id="th_fifth" scope="col">삭제</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="table_td">
+                                            <img class="my_img"
+                                                src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                art="albumart" />
+                                        </td>
+                                        <td class="title" id="table_title">사랑하기 때문에 가가가가가가가ㅏ가가가가가가가가가가각</td>
+                                        <td class="artist" id="table_artist">유재하와 하하하하하하하하하하하</td>
+                                        <td id="table_play">
+                                            <audio controls>
+                                                <source
+                                                    src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                    type="audio/mpeg">
+                                            </audio>
+                                        </td>
+                                        <td id="table_delete">
+                                            <div class="btn-group">
+                                                <button type="button" id="delete" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    삭제
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">확인</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="table_td">
+                                            <img class="my_img"
+                                                src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                art="albumart" />
+                                        </td>
+                                        <td class="title" id="table_td">사랑하기 때문에</td>
+                                        <td class="artist" id="table_td">유재하</td>
+                                        <td id="table_td">
+                                            <audio controls>
+                                                <source
+                                                    src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                    type="audio/mpeg">
+                                            </audio>
+                                        </td>
+                                        <td id="table_td">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    삭제
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">확인</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="table_td">
+                                            <img class="my_img"
+                                                src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                art="albumart" />
+                                        </td>
+                                        <td class="title" id="table_td">사랑하기 때문에</td>
+                                        <td class="artist" id="table_td">유재하</td>
+                                        <td id="table_td">
+                                            <audio controls>
+                                                <source
+                                                    src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                    type="audio/mpeg">
+                                            </audio>
+                                        </td>
+                                        <td id="table_td">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    삭제
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">확인</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="table_td">
+                                            <img class="my_img"
+                                                src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                art="albumart" />
+                                        </td>
+                                        <td class="title" id="table_td">사랑하기 때문에</td>
+                                        <td class="artist" id="table_td">유재하</td>
+                                        <td id="table_td">
+                                            <audio controls>
+                                                <source
+                                                    src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                    type="audio/mpeg">
+                                            </audio>
+                                        </td>
+                                        <td id="table_td">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-danger dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    삭제
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">확인</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <! ------------ 흐림 탭 ---------------->
+                            <div class="tab-pane fade" id="cloudy">
+                                <table class="table table-hover" id="search_table">
+                                    <thead>
+                                        <tr>
+                                            <th id="th_first" scope="col">앨범</th>
+                                            <th id="th_second" scope="col">제목</th>
+                                            <th id="th_third" scope="col">아티스트</th>
+                                            <th id="th_fourth" scope="col">미리듣기</th>
+                                            <th id="th_fifth" scope="col">삭제</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="table_td">
+                                                <img class="my_img"
+                                                    src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                    art="albumart" />
+                                            </td>
+                                            <td class="title" id="table_td">사랑하기 때문에</td>
+                                            <td class="artist" id="table_td">유재하</td>
+                                            <td id="table_td">
+                                                <audio controls>
+                                                    <source
+                                                        src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                        type="audio/mpeg">
+                                                </audio>
+                                            </td>
+                                            <td id="table_td">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-danger dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        삭제
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">확인</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="table_td">
+                                                <img class="my_img"
+                                                    src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                    art="albumart" />
+                                            </td>
+                                            <td class="title" id="table_td">사랑하기 때문에</td>
+                                            <td class="artist" id="table_td">유재하</td>
+                                            <td id="table_td">
+                                                <audio controls>
+                                                    <source
+                                                        src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                        type="audio/mpeg">
+                                                </audio>
+                                            </td>
+                                            <td id="table_td">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-danger dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        삭제
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">확인</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="table_td">
+                                                <img class="my_img"
+                                                    src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                    art="albumart" />
+                                            </td>
+                                            <td class="title" id="table_td">사랑하기 때문에</td>
+                                            <td class="artist" id="table_td">유재하</td>
+                                            <td id="table_td">
+                                                <audio controls>
+                                                    <source
+                                                        src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                        type="audio/mpeg">
+                                                </audio>
+                                            </td>
+                                            <td id="table_td">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-danger dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        삭제
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">확인</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <! -------------- 비 탭 ----------------->
+                                <div class="tab-pane fade" id="rainy">
+                                    <table class="table table-hover" id="search_table">
+                                        <thead>
+                                            <tr>
+                                                <th id="th_first" scope="col">앨범</th>
+                                                <th id="th_second" scope="col">제목</th>
+                                                <th id="th_third" scope="col">아티스트</th>
+                                                <th id="th_fourth" scope="col">미리듣기</th>
+                                                <th id="th_fifth" scope="col">삭제</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="table_td">
+                                                    <img class="my_img"
+                                                        src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                        art="albumart" />
+                                                </td>
+                                                <td class="title" id="table_td">사랑하기 때문에</td>
+                                                <td class="artist" id="table_td">유재하</td>
+                                                <td id="table_td">
+                                                    <audio controls>
+                                                        <source
+                                                            src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                            type="audio/mpeg">
+                                                    </audio>
+                                                </td>
+                                                <td id="table_td">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-danger dropdown-toggle"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            삭제
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">확인</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <! ---------------- 눈 탭 ---------------->
+                                    <div class="tab-pane fade" id="snowy">
+                                        <table class="table table-hover" id="search_table">
+                                            <thead>
+                                                <tr>
+                                                    <th id="th_first" scope="col">앨범</th>
+                                                    <th id="th_second" scope="col">제목</th>
+                                                    <th id="th_third" scope="col">아티스트</th>
+                                                    <th id="th_fourth" scope="col">미리듣기</th>
+                                                    <th id="th_fifth" scope="col">삭제</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td id="table_td">
+                                                        <img class="my_img"
+                                                            src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                            art="albumart" />
+                                                    </td>
+                                                    <td class="title" id="table_td">사랑하기 때문에</td>
+                                                    <td class="artist" id="table_td">유재하</td>
+                                                    <td id="table_td">
+                                                        <audio controls>
+                                                            <source
+                                                                src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                                type="audio/mpeg">
+                                                        </audio>
+                                                    </td>
+                                                    <td id="table_td">
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-danger dropdown-toggle"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                삭제
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" href="#">확인</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="table_td">
+                                                        <img class="my_img"
+                                                            src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg"
+                                                            art="albumart" />
+                                                    </td>
+                                                    <td class="title" id="table_td">사랑하기 때문에</td>
+                                                    <td class="artist" id="table_td">유재하</td>
+                                                    <td id="table_td">
+                                                        <audio controls>
+                                                            <source
+                                                                src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
+                                                                type="audio/mpeg">
+                                                        </audio>
+                                                    </td>
+                                                    <td id="table_td">
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-danger dropdown-toggle"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                삭제
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" href="#">확인</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                </div>
             </div>
-            <h1><i class="fas fa-id-card"></i> My page</h1>
-            <div class="my_txt">
-                <p><span>'홍길동'</span>님의 좋아요 리스트 입니다.</p>
+        </main>
+        <footer class="footer">
+            <div class="move_btn">
+                <a href="about.html"><i class="fas fa-compass"></i><span> </span>About us</a>
             </div>
-        </section>
-    </header>
-    <main>
-        <div>
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#sunny" data-toggle="tab">Sunny</a></li>
-                <li><a href="#cloudy" data-toggle="tab">Cloudy</a></li>
-                <li><a href="#rainy" data-toggle="tab">Rainy</a></li>
-                <li><a href="#snowy" data-toggle="tab">Snowy</a></li>
-            </ul>
-
-            <div class="tab-content">
-                <! ------------- 맑음 탭 ---------------->
-                <div class="tab-pane fade in active" id="sunny">
-                    <table class="table table-hover" id="search_table">
-                        <thead>
-                        <tr>
-                            <th id="th_first" scope="col">앨범</th>
-                            <th id="th_second" scope="col">제목</th>
-                            <th id="th_third" scope="col">아티스트</th>
-                            <th id="th_fourth" scope="col">미리듣기</th>
-                            <th id="th_fifth" scope="col">삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에 가가가가가가가ㅏ가가가가가가가가가가각</td>
-                            <td class="artist" id="table_td">유재하와 하하하하하하하하하하하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <! ------------ 흐림 탭 ---------------->
-                <div class="tab-pane fade" id="cloudy">
-                    <table class="table table-hover" id="search_table">
-                        <thead>
-                        <tr>
-                            <th id="th_first" scope="col">앨범</th>
-                            <th id="th_second" scope="col">제목</th>
-                            <th id="th_third" scope="col">아티스트</th>
-                            <th id="th_fourth" scope="col">미리듣기</th>
-                            <th id="th_fifth" scope="col">삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <! -------------- 비 탭 ----------------->
-                <div class="tab-pane fade" id="rainy">
-                    <table class="table table-hover" id="search_table">
-                        <thead>
-                        <tr>
-                            <th id="th_first" scope="col">앨범</th>
-                            <th id="th_second" scope="col">제목</th>
-                            <th id="th_third" scope="col">아티스트</th>
-                            <th id="th_fourth" scope="col">미리듣기</th>
-                            <th id="th_fifth" scope="col">삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <! ---------------- 눈 탭 ---------------->
-                <div class="tab-pane fade" id="snowy">
-                    <table class="table table-hover" id="search_table">
-                        <thead>
-                        <tr>
-                            <th id="th_first" scope="col">앨범</th>
-                            <th id="th_second" scope="col">제목</th>
-                            <th id="th_third" scope="col">아티스트</th>
-                            <th id="th_fourth" scope="col">미리듣기</th>
-                            <th id="th_fifth" scope="col">삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="table_td">
-                                <img class="my_img" src="https://cdloft.co.kr/web/product/big/cdloft_97785.jpg" art="albumart"/>
-                            </td>
-                            <td class="title" id="table_td">사랑하기 때문에</td>
-                            <td class="artist" id="table_td">유재하</td>
-                            <td id="table_td">
-                                <audio controls>
-                                    <source src="https://p.scdn.co/mp3-preview/73bbc165dc2883cc59a0c8b46700af11eba03bc7?cid=ea29245b299b4ed9b0a83436450a9c6c"
-                                            type="audio/mpeg">
-                                </audio>
-                            </td>
-                            <td id="table_td">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        삭제
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">확인</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="copyright">
+                <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
             </div>
-        </div>
-    </main>
-    <footer class="footer">
-        <div class="move_btn">
-            <a href="about.html"><i class="fas fa-compass"></i><span> </span>About us</a>
-        </div>
-        <div class="copyright">
-            <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
-        </div>
-    </footer>
-</div>
+        </footer>
+    </div>
 </body>
+
 </html>
