@@ -1,0 +1,7 @@
+.env
+.cache
+.vscode
+__pycache__
+hyunsug_tempfiles
+Pipfile
+Pipfile.lock
