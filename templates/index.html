@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+    <title>landing</title>
+
+    <style>
+        .landing-wrap {
+            padding: 20px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .landing-header {
+            padding: 5px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .login-box {
+            text-align: right;
+        }
+        .login-text {
+            color: gray;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .login-text:hover {
+            text-decoration: none;
+            color: #fcb69f;
+        }
+        .logo-box{
+            text-align: center;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .logo-text {
+            color: black;
+            font-size: 20px;
+        }
+        .logo-text:hover {
+            text-decoration: none;
+            color: #fcb69f;
+        }
+        .landing-content {
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            height: 40%;
+            padding: 20px;
+            margin: auto;
+            text-align: center;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .main-text {
+            font-weight: bold;
+        }
+        .weather-box {
+            margin: 30px 0 40px 0;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .modal-header {
+            border-bottom: none;
+        }
+        /*.modal-body {*/
+        /*    background-image: url("https://cdn.pixabay.com/photo/2019/03/09/02/12/vinyl-record-4043560_1280.png");*/
+        /*    background-position: center;*/
+        /*    background-size: cover;*/
+        /*}*/
+        .music-box-img {
+            width: 300px;
+            height: 300px;
+        }
+        .music-box-title {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .music-box-artist {
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        .today-wether-icon {
+            margin-bottom: 30px;
+        }
+        .another-wether-icon {
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+        .close:hover {
+            outline: none;
+        }
+        .btn-container {
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            margin: 15px 0 50px 0;
+        }
+        .btn00 {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px 10px 20px;
+            text-align: center;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px #D8D8D8;
+            border-radius: 15px;
+
+         }
+        .btn00:hover {
+            background-position: right center;
+            text-decoration: none;
+            color: white
+        }
+        .btn01{
+            background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 51%, #ffecd2 100%);
+        }
+        .btn02 {
+            background-image: linear-gradient(to right, #c2e9fb 0%, #a1c4fd 51%, #c2e9fb 100%);
+        }
+
+    </style>
+
+    <script>
+
+        $(document).ready(function($) {
+            $(".scroll_move").click(function(event){
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="landing-wrap">
+    <div class="landing-header">
+        <div class="login-box">
+            <a href="" class="login-text">로그인</a>
+        </div>
+        <div class="logo-box">
+            <a href="" class="logo-text">오늘의 코딩은 맑음</a>
+        </div>
+    </div>
+    <div class="landing-content">
+        <div class="box01">
+            <h1 class="main-text">오늘의 날씨에</h1>
+            <h1 class="main-text">어울리는 음악은 뭐야?</h1>
+            <div class="weather-box">
+                <p class="local">위치 : <span id="now_local">서울</span></p>
+                <p class="temperature">기온 : <span id="now_temperature">16°C</span></p>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <div class="btn00 btn01" data-toggle="modal" data-target="#popup_box">추천 받기</div>
+        </div>
+        <div class="modal fade" id="popup_box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <p></p>
+                    </div>
+                    <div class="modal-body">
+                        <div class="music-box-in">
+                            <img class="music-box-img"
+                                 src="https://mountainholic.com/data/file/gallery/1794564802_GrmVxJz4_4f69963f2aec263bf84140cbb0de9d5dd61fc60a.png"
+                                 alt="Card image cap">
+                            <p class="music-box-title">노래 제목</p>
+                            <p class="music-box-artist">가수 이름</p>
+                            <span>오늘의 날씨에는 이런 노래,</span>
+                            <span class="today-wether-icon">
+                                <a href="https://www.naver.com/" class="wether-icon-01">좋아요</a>
+                            </span>
+                            <div class="another-wether-icon">
+                                <p>다른 날씨에 더 어울릴까요?</p>
+                                <a href="https://www.naver.com/" class="wether-icon-02">#흐림</a>
+                                <a href="https://www.naver.com/" class="wether-icon-03">#비</a>
+                                <a href="https://www.naver.com/" class="wether-icon-04">#눈</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="btn-container">
+                         <a href="https://music.youtube.com/" target="_blank" class="btn00 btn02">
+                            지금 재생
+                         </a>
+                        <a href="" target="" class="btn00 btn02">
+                            다른 노래 추천
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
