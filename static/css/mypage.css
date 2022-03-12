@@ -1,0 +1,132 @@
+/* ---------- header ---------- */
+/*.container {*/
+/*    border: solid blue;*/
+/*}*/
+
+.header {
+    padding: 2vh 0 1vh 0;
+    text-align: start;
+}
+
+/* 우축 상단 현재 위치, 기온, 날씨, 로그인 */
+/*.top {*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr;*/
+/*}*/
+.top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.top_left a {
+    justify-content: start;
+    text-decoration-line: none;
+    color: dimgrey;
+    font-size: 25px;
+}
+
+.top_left a:hover {
+    color: orange;
+}
+
+.top_corner {
+    display: flex;
+    justify-content: end;
+}
+
+.city_temp_wt {
+    color: dimgrey;
+}
+.header h1 {
+    color: dimgrey;
+    font-weight: 700;
+    margin: 4%;
+}
+
+.my_txt {
+    margin: 4%;
+}
+
+.my_txt span {
+    color: steelblue;
+    font-weight: 900;
+}
+
+#search_table {
+    table-layout: fixed;
+}
+
+.my_img {
+    width: 6em;
+}
+
+#th_first {
+    width: 8%;
+}
+
+#th_second {
+    width: 15%;
+}
+
+#th_third {
+    width: 15%;
+}
+
+#th_fourth {
+    width: 25%;
+}
+
+#th_fifth {
+    width: 7%;
+}
+
+#table_td {
+    vertical-align: middle;
+}
+
+/* --------------------footer--------------------- */
+.footer {
+    margin-top: 5%;
+}
+
+.move_btn {
+    text-align: center;
+}
+
+.move_btn a {
+    text-decoration-line: none;
+    color: dimgrey;
+}
+
+.move_btn a:hover {
+    color: orange;
+}
+
+.copyright {
+    margin-top: 1%;
+    color: grey;
+    font-size: 0.9em;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+/* --------------------- 반응형 ------------------------- */
+@media all and (max-width: 1024px) {
+    .chart {
+        margin: 5% 11% 5% 11%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media all and (max-width: 992px) {
+    .navbar {
+        margin: 0;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .navbar {
+        margin: 0;
+    }
+}

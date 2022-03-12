@@ -1,0 +1,241 @@
+* {
+    list-style: none;
+    text-decoration: none;
+    border-collapse: collapse;
+    font-family: 'Noto Sans KR', sans-serif;
+    /*text-align: center;*/
+}
+
+body {
+    background: #fff;
+}
+
+.move_btn {
+    margin-top: 1em;
+    text-align: end;
+}
+
+.move_btn a {
+    text-decoration-line: none;
+    color: dimgrey;
+    font-size: 25px;
+}
+
+.move_btn a:hover {
+    color: orange;
+}
+
+.login_title {
+    font-size: 36px;
+    text-align: center;
+    color: dimgrey;
+    margin-bottom: 30px;
+    font-weight: normal;
+    margin-top: 150px;
+    font-weight: 600;
+}
+
+.signup-title {
+    font-size: 36px;
+    text-align: center;
+    color: dimgrey;
+    margin-bottom: 50px;
+    font-weight: 600;
+}
+
+.login-form .social-icon {
+    width: 100%;
+    font-size: 20px;
+    padding-top: 20px;
+    color: #fff;
+    text-align: center;
+    float: left;
+}
+
+.login-form {
+    background: #fff;
+    width: 450px;
+    border-radius: 6px;
+    margin: 0 auto;
+    display: table;
+    padding: 15px 30px 30px;
+    box-sizing: border-box;
+    /* margin-top: 120px; */
+}
+
+.form-group {
+    float: left;
+    width: 100%;
+    margin: 0 0 15px;
+    position: relative;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 5px;
+    height: 56px;
+    border-radius: 74px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding-left: 75px;
+}
+
+.login-form .form-group .input-icon {
+    font-size: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    border-radius: 25px;
+    bottom: 0;
+    height: 100%;
+    padding-left: 35px;
+    color: #666;
+}
+
+.login-form .login-btn {
+    background: dimgrey;
+    padding: 11px 50px;
+    border-color: dimgrey;
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 20px;
+    border: 1px solid dimgrey;
+    border-radius: 44px;
+    width: 60%;
+    height: 56px;
+    cursor: pointer;
+    /*text-align: center;*/
+}
+
+.haha{
+    text-align: center;
+}
+
+.login-form .reset-psw {
+    float: left;
+    width: 100%;
+    text-decoration: none;
+    color: dimgrey;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 11px;
+}
+
+.login-form .social-icon button {
+    font-size: 20px;
+    color: #f9f1dd;
+    height: 50px;
+    width: 50px;
+    background: dimgrey;
+    border-radius: 60%;
+    margin: 0px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    opacity: 0.9;
+}
+
+.login-form .seperator {
+    float: left;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    margin: 50px 0 0;
+}
+
+.login-form .seperator b {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 37px;
+    background: #fff;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    position: relative;
+    top: -22px;
+    z-index: 1;
+}
+
+.login-form p {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+
+.login_inform, .seperator {
+    color: #888;
+}
+
+@media screen and (max-width: 767px) {
+    .login-form {
+        width: 90%;
+        padding: 15px 15px 30px;
+    }
+}
+
+.modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.modal_content {
+    width: 600px;
+    height: 530px;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -230px;
+    margin-left: -300px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 50px 0;
+    line-height: 23px;
+    z-index: 2;
+}
+
+.close_btn {
+    width: 500px;
+    text-align: end;
+    font-size: 30px;
+    border: none;
+    background: white;
+    color: dimgrey;
+    cursor: pointer;
+
+}
+
+/* -버튼 누를때 생기는 파란색 테두리 없애기 */
+button:focus {
+    outline: none;
+}
+
+.sign-up {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.check-pw {
+    float: right;
+}
