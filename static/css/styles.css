@@ -14,10 +14,6 @@
     justify-content: end;
 }
 
-.btn_login {
-    margin-left: 2%;
-}
-
 .btn_login a {
     text-decoration-line: none;
     color: dimgrey;
@@ -27,17 +23,8 @@
     color: orange;
 }
 
-.btn_mypage {
-    margin-left: 2%;
-}
-
-.btn_mypage a {
-    text-decoration-line: none;
-    color: dimgrey;
-}
-
-.btn_mypage a:hover {
-    color: orange;
+.btn_login {
+    margin-left: 3%;
 }
 
 .city_temp_wt {

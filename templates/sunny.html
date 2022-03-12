@@ -56,7 +56,7 @@
         <div class="city_temp_wt">
           <p>서울 22.5 맑음</p>
         </div>
-        <div class="btn_mypage">
+        <div class="btn_login">
           <a href="mypage.html">마이페이지</a>
         </div>
           <div class="btn_login">
@@ -644,7 +644,7 @@
           audio.pause();
         }
         audio = new Audio(btn.dataset.url);
-        audio.volume = 0.1;
+        audio.volume = 0.5;
         if ([...btn.classList].some(x => x === "fa-play-circle")) {
           btn.classList.remove("fa-play-circle");
           btn.classList.add("fa-pause-circle");

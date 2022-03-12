@@ -1,0 +1,348 @@
+/* ---------- header ---------- */
+/*.container {*/
+/*    border: solid blue;*/
+/*}*/
+
+.header {
+    padding: 2vh 0 1vh 0;
+    text-align: center;
+}
+
+/* 우축 상단 현재 위치, 기온, 날씨 */
+.top_corner {
+    display: flex;
+    justify-content: end;
+}
+
+.btn_login a {
+    text-decoration-line: none;
+    color: dimgrey;
+}
+
+.btn_login a:hover {
+    color: orange;
+}
+
+.btn_login {
+    margin-left: 3%;
+}
+
+.city_temp_wt {
+    color: dimgrey;
+}
+
+
+
+
+/* 헤더 제목 */
+.header h1 {
+    font-weight: 700;
+    margin: 4vh;
+}
+
+/* 날씨별 나브바 */
+.navbar {
+    margin: 0 20% 0 20%;
+    font-style: italic;
+}
+
+#nav_color:hover {
+    color: orange;
+}
+
+
+/* ---------------------Banner-------------------- */
+.banner {
+    margin-top: 2%;
+    position: relative;
+    text-align: center;
+    padding: 7% 0;
+}
+
+/* 페이지 마다 배너 이미지 바꾸기 위해서 일단 각 html로 옮김 */
+/*.banner:after {*/
+/*    content: "";*/
+/*    background-image: url("../../static/images/rainy2.jpg");*/
+/*    background-position: center;*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    opacity: 1.0;*/
+/*    z-index: -1;*/
+/*}*/
+
+.banner div {
+    background-color: rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    padding: 2% 5%;
+    border-radius: 5px;
+}
+
+.banner div h2 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 2.5em;
+    margin: 0 0 0.65em 0;
+}
+
+.banner div p {
+    color: #fff;
+    padding: 0;
+    font-style: normal;
+    margin: 0;
+    font-size: 1.5em;
+}
+.banner span {
+    color: cornflowerblue;
+}
+
+/* --------------------------chart(날씨별 순위)---------------------- */
+/* -------------- 타이틀 --------------*/
+.chart_title {
+    margin-top: 8%;
+    text-align: center;
+}
+
+.chart_title h3 {
+    font-size: 2em;
+    color: dimgrey;
+}
+
+.chart_title p {
+    color: dimgrey;
+    font-style: italic;
+}
+
+.chart_title span {
+    color: cadetblue;
+}
+
+/* ------------- 차트박스 ------------------ */
+.chart {
+    margin-top: 3%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.chart_cloumn {
+    margin: 2% 1% 2% 1%;
+}
+
+.chart_list {
+    border: 2px solid slategray;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.6fr 0.5fr;
+    padding: 0.3em;
+}
+
+.chart_list img {
+    width: 5em;
+    height: 5em;
+    display: block;
+    align-items: center;
+}
+
+.chart_list_detail {
+    margin: 5% 0  0 5%;
+}
+
+.artist {
+    margin-top: 0;
+    font-size: 0.8em;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 10em
+}
+
+.song_title {
+    font-size: 0.8em;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    width: 10em;
+    line-heigt: 1;
+    height: 4.2em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.weather_icon {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.weather_icon button {
+    background-color: white;
+    border: none;
+    margin: 0.5em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.weather_icon img {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    border: none;
+    font-size: 0.8em;
+    text-decoration: none;
+    background-color: lightslategray;
+    color: white;
+    padding: 0;
+}
+
+.play a:hover {
+    background-color: goldenrod;
+    text-decoration-line: none;
+    color: white;
+}
+
+.rank {
+    text-align: end;
+    font-size: 2em;
+    font-weight: 900;
+    color: dimgrey;
+}
+
+/* -----------------------random(날씨별 추천곡)------------------------- */
+.random_title {
+    margin-top: 7%;
+    text-align: center;
+}
+
+.random_title h3 {
+    font-size: 2em;
+    color: dimgrey;
+}
+
+.random_title p {
+    color: dimgrey;
+    font-style: italic;
+}
+
+.random_title span {
+    color: cadetblue;
+}
+
+.random {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+
+/*.random {*/
+/*    margin: 0 10% 0 10%;*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;*/
+/*    justify-content: center;*/
+/*}*/
+
+.random_list {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+.random_list img {
+    width: 10em;
+    cursor: pointer;
+}
+
+.random_song_title {
+    font-size: 0.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 12.5em;
+}
+
+.random_artist {
+    font-size: 0.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 12.5em;
+}
+
+/* ------------------- modal ------------------------ */
+
+.modal-body {
+    text-align: center;
+}
+
+.modal_song_title {
+    text-align: center;
+    margin-bottom: 4%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    padding: 0 5% 0 5%;
+}
+
+.modal-footer {
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    text-align: end;
+}
+
+#modal_wt_icon {
+    display: block;
+    text-align: start;
+}
+
+/* --------------------footer--------------------- */
+.footer {
+    margin-top: 5%;
+}
+
+.copyright {
+    color: grey;
+    font-size: 0.9em;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+/* --------------------- 반응형 ------------------------- */
+@media all and (max-width: 1024px) {
+    .chart {
+        margin: 5% 11% 5% 11%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media all and (max-width: 992px) {
+    .navbar {
+        margin: 0;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .navbar {
+        margin: 0;
+    }
+}
