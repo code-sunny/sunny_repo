@@ -22,13 +22,13 @@ for i in track_ids_list:
         cover_image = a[3]
 
         doc = {
-            f"title": "{title}",
-            f"track_id": "{i}",
-            f"artist": "{artist_name}",
-            f"preview_url": "{preview_url}",
-            f"cover_image": "{cover_image}",
-            f"likes": {"Sunny": 0, "Snowy": 0, "Rainy": 0, "Cloudy": 0},
-            f"likedUsers": [],
+            "title": f"{title}",
+            "track_id": f"{i}",
+            "artist": f"{artist_name}",
+            "preview_url": f"{preview_url}",
+            "cover_image": f"{cover_image}",
+            "likes": {"Sunny": 0, "Snowy": 0, "Rainy": 0, "Cloudy": 0},
+            "likedUsers": [],
         }
         try:
             if preview_url == None:
