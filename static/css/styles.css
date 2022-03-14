@@ -3,6 +3,10 @@
 /*    border: solid blue;*/
 /*}*/
 
+* {
+
+}
+
 .header {
     padding: 2vh 0 1vh 0;
     text-align: center;
@@ -14,6 +18,10 @@
     justify-content: end;
 }
 
+.btn_login {
+    margin-left: 2%;
+}
+
 .btn_login a {
     text-decoration-line: none;
     color: dimgrey;
@@ -23,8 +31,17 @@
     color: orange;
 }
 
-.btn_login {
-    margin-left: 3%;
+.btn_mypage {
+    margin-left: 2%;
+}
+
+.btn_mypage a {
+    text-decoration-line: none;
+    color: dimgrey;
+}
+
+.btn_mypage a:hover {
+    color: orange;
 }
 
 .city_temp_wt {
@@ -91,6 +108,7 @@
     margin: 0;
     font-size: 1.5em;
 }
+
 .banner span {
     color: cornflowerblue;
 }
