@@ -32,7 +32,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="jquery-3.4.1.js"></script>
-    <title>오늘의 코딩은 맑음 - 마이페이지</title>
+    <title>Mypage - {{g.title}}</title>
 
 </head>
 
@@ -58,13 +58,13 @@
                     </div>
                     <div class="top_corner">
                         <div class="city_temp_wt">
-                            <p>서울 22.5 맑음</p>
+                            <p>서울 {{current_temp}} {{current_weather}</p>
                         </div>
                     </div>
                 </div>
                 <h1><i class="fas fa-id-card"></i> My page</h1>
                 <div class="my_txt">
-                    <p><span>'홍길동'</span>님의 좋아요 리스트 입니다.</p>
+                    <p><span>{{session.username}}</span>님의 좋아요 리스트 입니다.</p>
                 </div>
             </section>
         </header>

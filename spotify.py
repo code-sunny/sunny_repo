@@ -15,15 +15,7 @@ auth_manager = SpotifyClientCredentials(
 
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
-# genres
-# response = sp.recommendation_genre_seeds()["genres"]
-# print(len(response), response)
-# query = "아이유"
-# search
-# response = sp.search(query, limit=10, type="track")
-# items = response["tracks"]["items"]
-
-
+# 주어진 query에 대해 20곡의 노래를 받아 정보를 돌려보낸다.
 def get_songs(query):
     response = sp.search(query, limit=20, type="track")
     items = response["tracks"]["items"]
@@ -39,7 +31,7 @@ def get_songs(query):
         songs.append(song)
     return songs
 
-
+# 트랙id를 기준으로 노래 정보를 돌려보낸다.
 def get_track_info(track_id):
     track = sp.track(track_id)
     title = track["name"]

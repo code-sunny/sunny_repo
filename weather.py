@@ -1,6 +1,7 @@
 import requests
 from env import env_variables
 
+# 위,경도를 기준으로 현재 날씨 정보를 돌려보낸다.
 def get_current_weather(lat, lon):
     url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
