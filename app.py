@@ -14,6 +14,8 @@ from weather import get_current_weather
 app = Flask(__name__)
 app.secret_key = env_variables["FLASK_SECRET"]
 
+
+
 @app.before_request
 def global_variables():
     # flask 전체에 공유되는 변수를 설정한다. (global variables)
@@ -99,9 +101,9 @@ def show_song_ranks():
 def show_song_likes():
     title_receive = request.args['title_give']
     artist_receive = request.args['artist_give']
-    username_receive = request.args.get['username_give']
+    username_receive = request.args['username_give']
     song = db.songs.find_one(
-        {"title": title_receive, "artist": artist_receive}, {"_id": False}
+        {"title": title_receive, "artist": artist_receive, "username" : username_receive}, {"_id": False}
     )
     return jsonify({"song_info": song})
 
@@ -112,7 +114,9 @@ def like():
     if "username" in session:
         username = session["username"]
         # 트랙아이디, 날씨정보, 날씨에 눌린 좋아요 정보
-        track_id, weather, weather_like_state = request.json.values()
+        track_id = request.form['track_id_give'] 
+        weather = request.form['weather_give']
+        weather_like_state = request.form['weather_like_state_give']
         song = db.songs.find_one({"track_id": track_id})
         user = db.users.find_one({"username": username})
         # 노래가 존재하지 않을 떄
@@ -146,33 +150,46 @@ def like():
             likedUser["likes"][weather] = True
             new_song["likedUsers"].append(likedUser)
             new_song["likes"][weather] += 1
+            # track_id를 key, like 버튼 상태를 value???
             clickedSong = {track_id: likedUser["likes"]}
             user["songs_liked"].append(clickedSong)
             db.users.update_one({"username": username}, {"$set": user})
             db.songs.insert_one(new_song)
+            # 누른 날씨 버튼의 좋아요 수 리턴
             to_return = {"likes": new_song["likes"][weather]}
             return jsonify(to_return)
+        
+        # 노래가 존재할 때
         else:
+            # to_update = likes["Sunny"] 와 같은 의미
             to_update = f"likes.{weather}"
+            # count에 현재 누른 버튼 날씨의 좋아요 수 저장
             count = song["likes"][weather]
+            # 좋아요 버튼이 눌린 상태면
             if weather_like_state is True:
                 count = count - 1
                 db.songs.update_one(
                     {"track_id": track_id}, {"$set": {to_update: count}}
                 )
                 db.users.update_one(
-                    {"username": username}, {"$set": {f"likes.{weather}": False}}
+                    {"username": username}, {"$set": {to_update : False}}
                 )
+            # 좋아요 버튼이 안 눌린 상태면
             else:
                 count = count + 1
                 db.songs.update_one(
                     {"track_id": track_id}, {"$set": {to_update: count}}
                 )
                 db.users.update_one(
-                    {"username": username}, {"$set": {f"likes.{weather}": True}}
+                    {"username": username}, {"$set": {to_update : True}}
                 )
+        
+        # 좋아요 수 +1, -1을 반영한 좋아요 수 리턴
         return jsonify({"likes": count})
+    
+    # 로그인 상태가 아니면
     else:
+        # 로그인 페이지로 이동
         return redirect("/", 403)
 
 
