@@ -1,9 +1,8 @@
 from dotenv import load_dotenv
+load_dotenv()
 
 from song_recommed import song_recommend, song_ranks
-from spotify import get_songs
-
-load_dotenv()
+from spotify import get_songs, get_track_info
 
 from env import env_variables
 
@@ -116,8 +115,6 @@ def like():
         user = db.users.find_one({"username": username})
         # 노래가 존재하지 않을 떄
         if song is None:
-            from spotify import get_track_info
-
             # 스포티파이api를 이용, 트랙의 타이틀, 가수명을 불러옴
             title, artist, cover_image, preview_url = get_track_info(track_id)
             # 신규 song 문서의 작성

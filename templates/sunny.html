@@ -68,9 +68,12 @@
             <div class="city_temp_wt">
               <p>{{current_temp}} ℃ {{current_weather}}</p>
             </div>
-            {% if username != "Guest" %}
+            {% if session.username and session.username != "Guest" %}
             <div class="btn_login">
-              <a href="/user/my-profile">{{username}}</a>
+              <a href="/user/my-profile">{{session.username}}</a>
+            </div>
+            <div class="btn_login btn_logout">
+              <a href="/logout">로그아웃</a>
             </div>
             {% else %}
             <div class="btn_login">
@@ -240,7 +243,11 @@
                           alt="sunny"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Sunny }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                     <div class="weather_cloumn">
                       <button type="button" onclick="">
@@ -249,7 +256,11 @@
                           alt="cloudy"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Cloudy }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                     <div class="weather_cloumn">
                       <button type="button" onclick="">
@@ -258,7 +269,11 @@
                           alt="rainy"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Rainy }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                     <div class="weather_cloumn">
                       <button type="button" onclick="">
@@ -267,7 +282,11 @@
                           alt="snowy"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Snowy }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                   </div>
                 </div>

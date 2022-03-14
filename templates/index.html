@@ -163,9 +163,15 @@
     
 <div class="landing-wrap">
   <div class="landing-header">
-      <div class="login-box">
-          <a href="/login" class="login-text">로그인</a>
-      </div>
+      {% if session.username and username == "Guest" %}
+        <div class="login-box">
+            <a href="/login" class="login-text">로그인</a>
+        </div>
+      {% else %}
+        <div class="login-box">
+            <a href="/logout" class="login-text">로그아웃</a>
+        </div>
+      {% endif %}
       <div class="logo-box">
           <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
           <a href="/" class="logo-text">{{title}}</a>
@@ -176,7 +182,7 @@
           <h1 class="main-text">오늘의 날씨에</h1>
           <h1 class="main-text">어울리는 음악은 뭐야?</h1>
           <div class="weather-box">
-              <p class="local">위치 : <span id="now_local">서울</span></p>
+              <p class="local">위치 : <span id="now_local">{{current_city}}</span></p>
               <p class="temperature">기온 : <span id="now_temperature">{{current_temp}}</span> ℃</p>
           </div>
       </div>
