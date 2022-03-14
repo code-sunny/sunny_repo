@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- 구글 폰트 ---------------->
+
+
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/styles.css">
 
@@ -25,6 +29,9 @@
 
     <!-- bootstrap fas icon을 사용하기 위해 필요 -->
     <script src="https://kit.fontawesome.com/a73607bda8.js" crossorigin="anonymous"></script>
+
+    <!-- likeAPI.js 임포트 ---------------------->
+    <script src="{{ url_for('static', filename='js/likeAPI.js') }}"></script>
 
     <title>오늘의 코딩은 맑음</title>
 
@@ -56,18 +63,18 @@
         <div class="city_temp_wt">
           <p>서울 22.5 맑음</p>
         </div>
-        <div class="btn_login">
+        <div class="btn_mypage">
           <a href="mypage.html">마이페이지</a>
         </div>
           <div class="btn_login">
           <a href="login.html">로그인</a>
         </div>
       </div>
-      <h1>하늘에서 음악이 내린다면</h1>
+      <h1>뮤더</h1>
       <!-- Image and text -->
       <nav class="navbar navbar-light">
         <a id="nav_color" class="navbar-brand" href="sunny.html">
-          <img src="../static/images/picto_sunny.png" width="30" height="30"
+          <img onclick="img_change()" src="../static/images/picto_sunny.png" width="30" height="30"
                class="d-inline-block align-top" alt="">
           Sunny
         </a>
@@ -626,7 +633,7 @@
 
     <footer class="footer">
         <div class="move_btn">
-            <a href="about.html"><i class="fas fa-compass"></i><span> </span>About us</a>
+            <a href="aboutUs.html"><i class="fas fa-compass"></i><span> </span>About us</a>
         </div>
         <div class="copyright">
             <p>Copyright ©2022 '오늘의 코딩은 맑음'. All rights reserved.</p>
@@ -644,7 +651,7 @@
           audio.pause();
         }
         audio = new Audio(btn.dataset.url);
-        audio.volume = 0.5;
+        audio.volume = 0.1;
         if ([...btn.classList].some(x => x === "fa-play-circle")) {
           btn.classList.remove("fa-play-circle");
           btn.classList.add("fa-pause-circle");
@@ -655,6 +662,8 @@
         }
       })
     }
+
+
 </script>
 
 </body>
