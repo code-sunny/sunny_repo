@@ -9,14 +9,11 @@ pymongo = "*"
 python-dotenv = "*"
 requests = "*"
 spotipy = "*"
-pyopenssl = "*"
 bcrypt = "*"
+black = "*"
+pyopenssl = "*"
 
 [dev-packages]
-black = "*"
 
 [requires]
 python_version = "3.9"
-
-[pipenv]
-allow_prereleases = true
