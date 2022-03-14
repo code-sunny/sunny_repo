@@ -6,7 +6,7 @@ from spotify import get_songs, get_track_info
 
 from env import env_variables
 
-from flask import Flask, g, jsonify, redirect, render_template, request, session
+from flask import Flask, g, jsonify, redirect, render_template, request, session, url_for
 from bcrypt import checkpw, hashpw, gensalt
 from db import db
 from weather import get_current_weather
@@ -19,25 +19,34 @@ def global_variables():
     # flask 전체에 공유되는 변수를 설정한다. (global variables)
     g.title = "Mu:ther"
 
+@app.after_request
+def after_request(response):
+    print("After!")
+    return response
+
 @app.route("/", methods=["GET"])
 def landing_page():
+    print(session)
     # random song 가져오기 -> 보내주기 구현
     # 기본날씨 서울 종로구 기준 부여
     lat = env_variables["BASE_LAT"]
     lon = env_variables["BASE_LON"]
     # get_current_weather를 통해 날씨, 기온, 도시 이름을 받아옴
-    current_weather, current_temp, current_city = get_current_weather(lat, lon)
+    current_weather, current_temp, current_city = "", "", ""
     if "current_weather" in session:
         # get-weather가 실행되면 session에 위의 세 정보가 실제 정보로 저장된다.
         current_weather = session["current_weather"]
         current_temp = session["current_temp"]
         current_city = session["current_city"]
+    else:
+        current_weather, current_temp, current_city = get_current_weather(lat, lon)
     # landing page에 보내질 노래 정보를 db를 우선하여, 없을 시 스포티파이 api를 이용하여 받아온다. 
     song = song_recommend(current_weather)
     # 로그인된 상태라면 로그인된 유저네임을, 아닐 시 유저네임을 Guest로 설정하여 보낸다.
     if "username" in session:
         return render_template("index.html", song=song, current_weather=current_weather, current_temp=current_temp, current_city=current_city, username=session["username"])
-    return render_template("index.html", song=song, current_weather=current_weather, current_temp=current_temp, current_city=current_city, username="Guest")
+    else:
+        return render_template("index.html", song=song, current_weather=current_weather, current_temp=current_temp, current_city=current_city, username="Guest")
 
 
 @app.route("/about", methods=["GET"])
@@ -199,39 +208,32 @@ def join():
         db.users.insert_one(doc)
         return redirect("/", 201)
 
-# 로그인 페이지로의 접근
-@app.route("/login", methods=["GET"])
-def get_login():
-    # 로그인 된 유저 -> 돌려보낸다
-    if "username" in session:
-        return redirect("/", 403)
-    else:
-        # 로그인 페이지를 그린다.
-        return render_template("login.html")
-
 # 로그인 작업
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"], strict_slashes=False)
 def login():
     # 로그인 된 유저 -> 돌려보낸다.
     if "username" in session:
-        if session["username"]:
-            return redirect("/", 403)
-    # 로그인 정보를 json으로 받는다.
-    data = request.json
-    username = data["username"]
-    password = data["password"]
-    # 유저네임으로 사용자를 찾는다.
-    user = db.users.find_one({"username": username})
-    if not user:
-        # 사용자를 찾을 수 없습니다
-        return redirect("/login", 404)
-    elif not checkpw(password.encode("utf-8"), user["password"]):
-        # 비밀번호가 일치하지 않습니다
-        return redirect("/login", 401)
+        return redirect("/")
+    if request.method =="POST":
+        # 로그인 정보를 json으로 받는다.
+        data = request.json
+        username = data["username"]
+        password = data["password"]
+        # 유저네임으로 사용자를 찾는다.
+        user = db.users.find_one({"username": username})
+        if not user:
+            # 사용자를 찾을 수 없습니다
+            return redirect("/login")
+        elif not checkpw(password.encode("utf-8"), user["password"]):
+            # 비밀번호가 일치하지 않습니다
+            return redirect("/login")
+        else:
+            # 세션에 사용자명을 담고 랜딩?메인?으로 돌려보낸다
+            session["username"] = username
+            print("test")
+            return redirect("/")
     else:
-        # 세션에 사용자명을 담고 랜딩?메인?으로 돌려보낸다
-        session["username"] = username
-        return redirect("/", 200)
+        return render_template("login.html")
 
 
 @app.route("/logout", methods=["GET"])

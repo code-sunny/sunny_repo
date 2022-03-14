@@ -17,7 +17,9 @@ def song_recommend(weather):
         song = get_songs(weather)[num]
         
     return song
-    
+
+# random query generator?
+
 # 메인 페이지에 좋아요 순으로 보여주기 위한 함수
 def song_ranks(weather):
     songs = []
