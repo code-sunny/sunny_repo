@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from song_recommed import song_recommend, song_ranks
-from spotify import get_songs, get_track_info, extract_10_song 
+from spotify import get_songs, get_track_info, extract_10_songs 
 
 from env import env_variables
 
@@ -13,7 +13,6 @@ from weather import get_current_weather
 
 app = Flask(__name__)
 app.secret_key = env_variables["FLASK_SECRET"]
-
 
 
 @app.before_request
@@ -107,6 +106,7 @@ def show_song_likes():
     )
     return jsonify({"song_info": song})
 
+
 # 작업 중
 @app.route("/api/like-btn", methods=["POST"])
 def like():
@@ -194,7 +194,7 @@ def like():
     
 @app.route("/api/song-info", methods=["GET"])
 def show_song_info():
-    song_list = extract_10_song()
+    song_list = extract_10_songs()
 
     return jsonify({"song_list": song_list})
 
@@ -291,10 +291,12 @@ def get_weather():
     # 날씨, 기온, 도시를 받아온다.
     weather, weather_temp, weather_city = get_current_weather(lat, lon)
     # 세션에 현재 사용자의 날씨, 기온, 도시명을 담아 다른 곳에서도 활용할 수 있게 한다.
-    session["current_weather"] = weather;
-    session["current_temp"] = weather_temp;
-    session["current_city"] = weather_city;
+    session["current_weather"] = weather
+    session["current_temp"] = weather_temp
+    session["current_city"] = weather_city
     return jsonify({"weather": weather, "temp": weather_temp, "city": weather_city})
+
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", env_variables["PORT"] or 5000, debug=True)
