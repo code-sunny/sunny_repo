@@ -168,7 +168,7 @@ def like():
             clickedSong = {track_id: likedUser["likes"]}
             # 사용자가 좋아요를 누른 곡 목록에 위 내용을 더한다
             print(user["songs_liked"])
-            user["songs_liked"].append(clickedSong)
+            user["songs_liked"][track_id] = likedUser["likes"]
             print(user["songs_liked"])
             # 사용자를 업데이트한다. 
             db.users.update_one({"username": username}, {user})
@@ -188,16 +188,20 @@ def like():
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: -1}}
                     )
+                    user_liked = user["songs_liked"][track_id]
+                    user_liked[weather] = False
                     db.users.update_one(
-                        {"username": username}, {"$set": {track_id: {weather: False}}}
+                        {"username": username}, {"$set": {"songs_liked": user["songs_liked"]}}
                     )
                 # 좋아요를 누른 적은 있지만 해당 날씨는 아닌 경우
                 else:
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: 1}}
                     )
+                    user_liked = user["songs_liked"][track_id]
+                    user_liked[weather] = True
                     db.users.update_one(
-                        {"username": username}, {"$set": {"songs_liked": {track_id: {weather: True}}}}
+                        {"username": username}, {"$set": {"songs_liked": user["songs_liked"]}}
                     )
             # 유저가 해당 곡에 좋아요를 눌렀던 적이 없는 경우
             else:
@@ -220,9 +224,15 @@ def like():
                     {"track_id": track_id}, {"$set": {"likedUser": likedUser}}
                 )
                 # 해당 날씨를 업데이트한다.
-                user["songs_liked"][track_id] = {weather: True}
+                user["songs_liked"][track_id] = {
+                    "Sunny": False,
+                    "Rainy": False,
+                    "Cloudy": False,
+                    "Snowy": False,
+                }    
+                user["songs_liked"][track_id][weather] = True
                 db.users.update_one(
-                    {"username": username}, {"$set": user["songs_liked"]}
+                    {"username": username}, {"$set": {"songs_liked": user["songs_liked"]}}
                 )
         return jsonify({"msg": "Likes updated!"})
     else:
@@ -250,7 +260,7 @@ def join():
         # 암호화한 비밀번호를 문서에 담아 db에 저장한다.
         password = password.encode("utf-8")
         hashed_password = hashpw(password, gensalt())
-        doc = {"username": username, "password": hashed_password, "songs_liked": []}
+        doc = {"username": username, "password": hashed_password, "songs_liked": {}}
         db.users.insert_one(doc)
         return redirect("/")
 

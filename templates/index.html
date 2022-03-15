@@ -1,258 +1,381 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
 
+<head>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <link
-      href="{{ url_for('static', filename='css/styles.css') }}"
-      rel="stylesheet"
-    />
-
-    <!-- <script src="{{ url_for('static', filename='js/likeAPI.js') }}"></script> -->
 
     <title>{{g.title}}</title>
+
     <style>
-      .landing-wrap {
-          padding: 20px;
-          /*border: 1px solid #bcbcbc;*/
-      }
-      .landing-header {
-          padding: 5px;
-          /*border: 1px solid #bcbcbc;*/
-      }
-      .login-box {
-          text-align: right;
-      }
-      .login-text {
-          color: gray;
-          /*border: 1px solid #bcbcbc;*/
-      }
-      .login-text:hover {
-          text-decoration: none;
-          color: #fcb69f;
-      }
-      .logo-box{
-          text-align: center;
-          /*border: 1px solid #bcbcbc;*/
-      }
-      .logo-text {
-          color: black;
-          font-size: 20px;
-      }
-      .logo-text:hover {
-          text-decoration: none;
-          color: #fcb69f;
-      }
-      .landing-content {
-          position: absolute;
-          top: 0; left: 0; bottom: 0; right: 0;
-          height: 40%;
-          padding: 20px;
-          margin: auto;
-          text-align: center;
-          /*border: 1px solid #bcbcbc;*/
-      }
-      .main-text {
-          font-weight: bold;
-      }
-      .weather-box {
-          margin: 30px 0 40px 0;
-          /*border: 1px solid #bcbcbc;*/
-      }
-      .modal-header {
-          border-bottom: none;
-      }
-      /*.modal-body {*/
-      /*    background-image: url("https://cdn.pixabay.com/photo/2019/03/09/02/12/vinyl-record-4043560_1280.png");*/
-      /*    background-position: center;*/
-      /*    background-size: cover;*/
-      /*}*/
-      .music-box-img {
-          width: 300px;
-          height: 300px;
-      }
-      .music-box-title {
-          font-weight: bold;
-          margin-top: 20px;
-      }
-      .music-box-artist {
-          font-weight: bold;
-          margin-bottom: 40px;
-      }
-      .today-wether-icon {
-          margin-bottom: 30px;
-      }
-      .another-wether-icon {
-          margin-top: 30px;
-          margin-bottom: 5px;
-      }
-      .close:hover {
-          outline: none;
-      }
-      .btn-container {
-          justify-content: center;
-          align-items: center;
-          align-content: center;
-          margin: 15px 0 50px 0;
-      }
-      .btn00 {
-          display: inline-block;
-          margin: 10px;
-          padding: 10px 20px 10px 20px;
-          text-align: center;
-          transition: 0.5s;
-          background-size: 200% auto;
-          color: white;
-          text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-          box-shadow: 0 0 10px #D8D8D8;
-          border-radius: 15px;
+        @font-face {
+            font-family: 'Yoonwoo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Yoonwoo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'YdestreetL';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetL.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
 
-       }
-      .btn00:hover {
-          background-position: right center;
-          text-decoration: none;
-          color: white
-      }
-      .btn01{
-          background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 51%, #ffecd2 100%);
-      }
-      .btn02 {
-          background-image: linear-gradient(to right, #c2e9fb 0%, #a1c4fd 51%, #c2e9fb 100%);
-      }
+        body {
+            background:
+                url('../static/images/bg/bg-1.png'),
+                radial-gradient(circle, #ffffff 0%, #ffffff 50%, #f5ebff 100%);
+            height: 100vh;
+            background-repeat : no-repeat;
+            background-size : cover;
+        }
+        .landing-wrap {
+            padding: 20px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .landing-header {
+            padding: 5px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .login-box {
+            text-align: right;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .login-text {
+            font-family: 'Gothic A1', sans-serif;
+            color: gray;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .login-text:hover {
+            text-decoration: none;
+            color: black;
+        }
+        .logo-box{
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .logo-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
 
-  </style>
+        /* .logo-text { */
+            /*border: 1px solid #bcbcbc;*/
+        /* } */
+        
+        .logo-text:hover {
+            text-decoration: none;
+            color: #fcb69f;
+        }
+        .landing-content {
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            height: 40%;
+            padding: 20px;
+            margin: auto;
+            text-align: center;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .main-text {
+            font-family: 'YdestreetL';
+            font-weight: bold;
+            font-size: 50px;
+        }
+        .main-text-blue {
+            background: linear-gradient(to left, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .main-text-yellow {
+            background: linear-gradient(to left, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .weather-box {
+            font-family: 'Yoonwoo';
+            font-weight: bold;
+            font-size: 35px;
+            margin: 30px 0 40px 0;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .modal-header {
+            border-bottom: none;
+        }
+        .music-box-in{
+            font-family: 'Gothic A1', sans-serif;
+            font-size: 18px;
+        }
+        .music-box-img {
+            width: 300px;
+            height: 300px;
+        }
+        .music-box-title {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .music-box-artist {
+            font-family: "NEXON Lv1 Gothic OTF";
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        .today-wether-icon {
+            margin-bottom: 30px;
+        }
+        .another-wether-icon {
+            margin-top: 35px;
+            margin-bottom: 5px;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .close:hover {
+            outline: none;
+        }
+        .btn-container {
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            margin: 15px 0 50px 0;
+        }
+        .btn00 {
+            font-family: 'Gothic A1', sans-serif;
+            font-size: 20px;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px 10px 20px;
+            text-align: center;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px #D8D8D8;
+            border-radius: 15px;
+
+         }
+        .btn00:hover {
+            background-position: right center;
+            text-decoration: none;
+            color: white
+        }
+        .btn01{
+            background-image: linear-gradient(to right, #e9d4ff 0%, #cba0f9 51%, #e9d4ff 100%);
+        }
+        .btn02 {
+            background-image: linear-gradient(to right, #c2e9fb 0%, #a1c4fd 51%, #c2e9fb 100%);
+        }
+        .weather_icon {
+            display: flex;
+            align-items: center;
+            margin: -2% 30% 0 30%;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .weather_cloumn {
+            text-align: center;
+            /*margin-top: 0.8em;*/
+        }
+        .weather_icon button {
+            background-color: white;
+            border: none;
+            margin: 0.3em;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .weather_icon img {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .weather_cloumn_txt {
+            font-size: 0.65em;
+            color: slategray;
+        }
+
+    </style>
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png">
     <script>
-      $(document).ready(function($) {
-        $(".scroll_move").click(function(event){
-          event.preventDefault();
-          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
-        });
-      });
-    </script>
-  </head>
 
-  <body>
-    
+        $(document).ready(function($) {
+            $(".scroll_move").click(function(event){
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
 <div class="landing-wrap">
-  <div class="landing-header">
-      {% if username == "Guest" %}
+    <div class="landing-header">
+        {% if not session.username and session.username == "Guest" %}
         <div class="login-box">
             <a href="/login" class="login-text">로그인</a>
         </div>
-      {% else %}
-        <div class="login-box">
-            <a href="/logout" class="login-text">로그아웃</a>
+        {% endif %}
+        <div class="logo-box">
+            <a href="index.html" class="logo-text">
+                <img src="../static/images/logo/muther_logo.png" width="800" alt="logo">
+            </a>
         </div>
-      {% endif %}
-      <div class="logo-box">
-          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
-          <a href="/" class="logo-text">{{title}}</a>
-      </div>
-  </div>
-  <div class="landing-content">
-      <div class="box01">
-          <h1 class="main-text">오늘의 날씨에</h1>
-          <h1 class="main-text">어울리는 음악은 뭐야?</h1>
-          <div class="weather-box">
-              <p class="local">위치 : <span id="now_local">{{current_city}}</span></p>
-              <p class="temperature">기온 : <span id="now_temperature">{{current_temp}}</span> ℃</p>
-          </div>
-      </div>
-      <div class="btn-container">
-          <div class="btn00 btn01" id="get-recommend" data-toggle="modal" data-target="#popup_box">추천 받기</div>
-      </div>
-      <div class="modal fade" id="popup_box">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <p></p>
-                  </div>
-                  <div class="modal-body">
-                      <div class="music-box-in">
-                          <img class="music-box-img"
-                               src="{{ song.cover_image }}"
-                               alt="Card image cap">
-                          <p class="music-box-title">{{song.title}}</p>
-                          <p class="music-box-artist">{{song.artist}}</p>
-                          <span>오늘의 날씨에는 이런 노래,</span>
-                          <span class="today-weather-icon">
-                              <a href="https://www.naver.com/" value="{{session.current_weather}}" class="weather-icon-01 weather-like-btn">좋아요</a>
-                          </span>
-                          <div class="another-weather-icon">
-                              <p>다른 날씨에 더 어울릴까요?</p>
-                          </div>
-                      </div>
-                  </div>
+    </div>
+    <div class="landing-content">
+        <div class="box01">
+            <h1 class="main-text">오늘의 <span class="main-text-yellow">날씨</span>에</h1>
+            <h1 class="main-text">어울리는 <span class="main-text-blue">음악</span> 은 뭐야?</h1>
+            <div class="weather-box">
+                <p class="local">위치 : <span id="now_local">서울</span></p>
+                <p class="temperature">기온 : <span id="now_temperature">{{current_temp}}℃</span></p>
+            </div>
+        </div>
 
-                  <span class="btn-container">
-                       <a href="#" id="play-recommended" class="btn00 btn02">
-                          지금 재생
-                       </a>
-                      <a href="/main" target="" class="btn00 btn02">
-                          다른 노래 추천
-                      </a>
-                  </span>
+        <div class="btn-container">
+            <div class="btn00 btn01" data-toggle="modal" data-target="#popup_box">추천 받기</div>
+        </div>
+        <div class="modal fade" id="popup_box">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <p></p>
+                    </div>
+                    <div class="modal-body">
+                        <div class="music-box-in">
+                            <img class="music-box-img"
+                                 src="{{song.cover_image}}"
+                                 alt="Card image cap">
+                            <p class="music-box-title">{{song.title}}</p>
+                            <p class="music-box-artist">{{song.artist}}</p>
+                            <span>오늘의 날씨에는 이런 노래,</span>
+                            <span class="today-wether-icon">
+                                <a href="https://www.naver.com/" class="wether-icon-01">좋아요</a>
+                            </span>
 
-              </div>
-          </div>
-      </div>
-  </div>
+                            <div class="another-wether-icon">
+                                <p>다른 날씨에 더 어울릴까요?</p>
+                                <div class="weather_icon">
+                                    <div class="weather_cloumn">
+                                        <button type="button" value="Sunny"><img src="../static/images/picto_sunny.png"
+                                                                              alt="sunny"/>
+                                        </button>
+                                        {% if song.likes %}
+                                        <p class="weather_cloumn_txt">{{ song.likes.Sunny }}</p>
+                                        {% else %}
+                                        <p class="weather_cloumn_txt">7</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="weather_cloumn">
+                                        <button type="button" value="Cloudy"><img src="../static/images/picto_cloudy.png"
+                                                                              alt="cloudy"/></button>
+                                        {% if song.likes %}
+                                        <p class="weather_cloumn_txt">{{ song.likes.Cloudy }}</p>
+                                        {% else %}
+                                        <p class="weather_cloumn_txt">0</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="weather_cloumn">
+                                        <button type="button" value="Rainy"><img src="../static/images/picto_rainy.png"
+                                                                              alt="rainy"/>
+                                        </button>
+                                        {% if song.likes %}
+                                        <p class="weather_cloumn_txt">{{ song.likes.Rainy }}</p>
+                                        {% else %}
+                                        <p class="weather_cloumn_txt">0</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="weather_cloumn">
+                                        <button type="button" value="Snowy"><img src="../static/images/picto_snowy.png"
+                                                                              alt="snowy"/>
+                                        </button>
+                                        {% if song.likes %}
+                                        <p class="weather_cloumn_txt">{{ song.likes.Snowy }}</p>
+                                        {% else %}
+                                        <p class="weather_cloumn_txt">0</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="btn-container">
+                         <a href="#" class="btn00 btn02">
+                             지금 재생
+                             <audio src="{{song.preview_url}}">
+                             </audio>
+                         </a>
+                        <a href="/main" class="btn00 btn02" id="get-recommend">
+                            다른 노래 추천
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        let weathers = ["Sunny", "Cloudy", "Rainy", "Snowy"];
-        let weather_now = "{{ session.current_weather }}";
-        let weathersToRender = weathers.filter(weather => weather !== weather_now);
-        const anotherWeathers = document.querySelector(".another-weather-icon");
-        let i = 2;
-        weathersToRender.map(weather => {
-            let a = document.createElement("a");
-            a.href = "/main";
-            a.innerText = "#" + weather;
-            a.classList.add(`weather-icon-0${i++}`, 'weather-like-btn');
-            anotherWeathers.append(a);
-        })
-        const playBtn = document.getElementById("play-recommended");
-        let audio = new Audio();
-        audio.src = "{{ song.preview_url }}"
-        audio.volume = 0.5
-        playBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (audio.paused) {
-                audio.play();
-            } else {
-                audio.pause();
+        const weatherLikeBtns = document.querySelectorAll(".weather-likeBtn");
+        [...weatherLikeBtns].map(btn => btn.addEventListener("click", (e) => likeBtn(e)));
+        
+        function likeBtn(event) {
+            event.preventDefault();
+            let {target} = event;
+            if (target.tagName === "IMG") {
+            target = target.parentNode;
             }
-        })
+            let targetContainer = document.querySelector(".modal-content");
+            const weatherValue = target.value;
+            const track_id = targetContainer.dataset.track_id;
+            let liked = "False";
+            if ([...target.classList].some(x => x === "liked")) {
+            liked = "True";
+            }
+            fetch("/api/like-btn", {
+            method:"POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                track_id: track_id,
+                weather: weatherValue,
+                weather_like_state: liked,
+            })
+            }).then(res => res.json()).then(json => console.log(json));
+            target.classList.toggle("liked");
+        }
+
     </script>
-    <script src="{{ url_for('static', filename='js/getWeather.js') }}" type="module"></script>
-    <!-- <script src="{{ url_for('static', filename='js/apiLike.js') }}"></script> -->
-  </body>
+    <script src="{{url_for('static', filename='js/getWeather.js')}}"></script>
+</body>
 </html>
