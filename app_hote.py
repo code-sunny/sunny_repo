@@ -24,20 +24,17 @@ from urllib.request import HTTPError
 3. 함수가 실행될 시 값이 이상하게 나오는 경우가 있어서 강제로 실행될 때까지 다시 작동하게 하는 함수
 """
 
+cid = "e1e48c01f23740de885eff5fefba4db5"
+secret = "-"
+client_credentials_manager = SpotifyClientCredentials(
+    client_id=cid, client_secret=secret
+)
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # 1.트랙 id를 리스트로 리턴해주는 함수
 def finding_trackId():
-
-    cid = "e1e48c01f23740de885eff5fefba4db5"
-    secret = "-"
-    client_credentials_manager = SpotifyClientCredentials(
-        client_id=cid, client_secret=secret
-    )
-
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-    cate_count = 50
-    # 카테고리 50개를 가져옵니다.
+    cate_count = 20
+    # 카테고리 30개를 가져옵니다.
     info_cate = sp.categories(country=None, locale=None, limit=cate_count, offset=0)
 
     # 실질 갯수가 함수 실행시 매번 변함. 따라서 실 개수를 알아야 for문을 돌릴 수 있다.
@@ -63,7 +60,7 @@ def finding_trackId():
         # 오류를 생성하는 id가 있어서 오류 발생시에는 버리는 코드 작성
         try:
             list_id = sp.category_playlists(
-                category_id=id_, country=None, limit=20, offset=0
+                category_id=id_, country=None, limit=5, offset=0
             )
             real_total = len(list_id["playlists"]["items"])
             # id마다 가지고 있는 노래 개수가 달라서 인덱스 오류 방지를 위해 items 안의 컨텐츠 수를 받아서 for문을 돌림
@@ -90,7 +87,7 @@ def finding_trackId():
             tracks = sp.playlist_items(
                 i,
                 fields=None,
-                limit=3,
+                limit=2,
                 offset=0,
                 market=None,
                 additional_types=("track", "episode"),
@@ -111,12 +108,6 @@ def finding_trackId():
 # 2. 트랙 id를 인수로 받아 가수명, 곡명, 곡이미지, 곡 미리듣기를 리턴해주는 함수
 def giveout_etc(id):
     # 함수가 api의 내장함수를 기반으로 하는 함수로 api를 이용하기 위한 기본설정이 필수이다.
-    cid = "e1e48c01f23740de885eff5fefba4db5"
-    secret = "-"
-    client_credentials_manager = SpotifyClientCredentials(
-        client_id=cid, client_secret=secret
-    )
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
     tracks_info = sp.track(id)
 
@@ -138,13 +129,3 @@ def just_get_it_done():
         return result
     except Exception as swear:
         just_get_it_done()
-
-
-fucking_api = finding_trackId()
-
-
-for i in fucking_api:
-    try:
-        print(giveout_etc(i))
-    except:
-        continue
