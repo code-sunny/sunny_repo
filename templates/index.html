@@ -19,11 +19,41 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
 
     <title>landing</title>
 
     <style>
+        @font-face {
+            font-family: 'Yoonwoo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Yoonwoo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'YdestreetL';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetL.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background:
+                url('../static/images/bg/bg-1.png'),
+                /*radial-gradient(circle, #ffffff 0%, #ffffff 50%, #f5ebff 100%);*/
+            height: 100vh;
+            background-repeat : no-repeat;
+            background-size : cover;
+        }
         .landing-wrap {
             padding: 20px;
             /*border: 1px solid #bcbcbc;*/
@@ -34,22 +64,31 @@
         }
         .login-box {
             text-align: right;
+            /*border: 1px solid #bcbcbc;*/
         }
         .login-text {
+            font-family: 'Gothic A1', sans-serif;
             color: gray;
             /*border: 1px solid #bcbcbc;*/
         }
         .login-text:hover {
             text-decoration: none;
-            color: #fcb69f;
+            color: black;
         }
         .logo-box{
-            text-align: center;
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
             /*border: 1px solid #bcbcbc;*/
         }
+        .logo-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
         .logo-text {
-            color: black;
-            font-size: 20px;
+            /*border: 1px solid #bcbcbc;*/
         }
         .logo-text:hover {
             text-decoration: none;
@@ -65,29 +104,49 @@
             /*border: 1px solid #bcbcbc;*/
         }
         .main-text {
+            font-family: 'YdestreetL';
             font-weight: bold;
+            font-size: 50px;
+        }
+        .main-text-blue {
+            background: linear-gradient(to left, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .main-text-yellow {
+            background: linear-gradient(to left, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
         .weather-box {
+            font-family: 'Yoonwoo';
+            font-weight: bold;
+            font-size: 35px;
             margin: 30px 0 40px 0;
             /*border: 1px solid #bcbcbc;*/
         }
         .modal-header {
             border-bottom: none;
         }
-        /*.modal-body {*/
-        /*    background-image: url("https://cdn.pixabay.com/photo/2019/03/09/02/12/vinyl-record-4043560_1280.png");*/
-        /*    background-position: center;*/
-        /*    background-size: cover;*/
-        /*}*/
+        .music-box-in{
+            font-family: 'Gothic A1', sans-serif;
+            font-size: 18px;
+        }
         .music-box-img {
             width: 300px;
             height: 300px;
         }
         .music-box-title {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size: 20px;
             font-weight: bold;
             margin-top: 20px;
         }
         .music-box-artist {
+            font-family: "NEXON Lv1 Gothic OTF";
+            font-size: 20px;
             font-weight: bold;
             margin-bottom: 40px;
         }
@@ -95,8 +154,9 @@
             margin-bottom: 30px;
         }
         .another-wether-icon {
-            margin-top: 30px;
+            margin-top: 35px;
             margin-bottom: 5px;
+            /*border: 1px solid #bcbcbc;*/
         }
         .close:hover {
             outline: none;
@@ -108,6 +168,8 @@
             margin: 15px 0 50px 0;
         }
         .btn00 {
+            font-family: 'Gothic A1', sans-serif;
+            font-size: 20px;
             display: inline-block;
             margin: 10px;
             padding: 10px 20px 10px 20px;
@@ -126,14 +188,41 @@
             color: white
         }
         .btn01{
-            background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 51%, #ffecd2 100%);
+            background-image: linear-gradient(to right, #e9d4ff 0%, #cba0f9 51%, #e9d4ff 100%);
         }
         .btn02 {
             background-image: linear-gradient(to right, #c2e9fb 0%, #a1c4fd 51%, #c2e9fb 100%);
         }
+        .weather_icon {
+            display: flex;
+            align-items: center;
+            margin: -2% 30% 0 30%;
+            /*border: 1px solid #bcbcbc;*/
+        }
+        .weather_cloumn {
+            text-align: center;
+            /*margin-top: 0.8em;*/
+        }
+        .weather_icon button {
+            background-color: white;
+            border: none;
+            margin: 0.3em;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .weather_icon img {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .weather_cloumn_txt {
+            font-size: 0.65em;
+            color: slategray;
+        }
 
     </style>
-
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png">
     <script>
 
         $(document).ready(function($) {
@@ -153,13 +242,15 @@
             <a href="" class="login-text">로그인</a>
         </div>
         <div class="logo-box">
-            <a href="" class="logo-text">오늘의 코딩은 맑음</a>
+            <a href="index.html" class="logo-text">
+                <img src="../static/images/logo/muther_logo.png" width="800" alt="logo">
+            </a>
         </div>
     </div>
     <div class="landing-content">
         <div class="box01">
-            <h1 class="main-text">오늘의 날씨에</h1>
-            <h1 class="main-text">어울리는 음악은 뭐야?</h1>
+            <h1 class="main-text">오늘의 <span class="main-text-yellow">날씨</span>에</h1>
+            <h1 class="main-text">어울리는 <span class="main-text-blue">음악</span> 은 뭐야?</h1>
             <div class="weather-box">
                 <p class="local">위치 : <span id="now_local">서울</span></p>
                 <p class="temperature">기온 : <span id="now_temperature">16°C</span></p>
@@ -187,11 +278,34 @@
                             <span class="today-wether-icon">
                                 <a href="https://www.naver.com/" class="wether-icon-01">좋아요</a>
                             </span>
+
                             <div class="another-wether-icon">
                                 <p>다른 날씨에 더 어울릴까요?</p>
-                                <a href="https://www.naver.com/" class="wether-icon-02">#흐림</a>
-                                <a href="https://www.naver.com/" class="wether-icon-03">#비</a>
-                                <a href="https://www.naver.com/" class="wether-icon-04">#눈</a>
+                                <div class="weather_icon">
+                                    <div class="weather_cloumn">
+                                        <button type="button" onclick=""><img src="../static/images/picto_sunny.png"
+                                                                              alt="sunny"/>
+                                        </button>
+                                        <p class="weather_cloumn_txt">7</p>
+                                    </div>
+                                    <div class="weather_cloumn">
+                                        <button type="button" onclick=""><img src="../static/images/picto_cloudy.png"
+                                                                              alt="cloudy"/></button>
+                                        <p class="weather_cloumn_txt">3</p>
+                                    </div>
+                                    <div class="weather_cloumn">
+                                        <button type="button" onclick=""><img src="../static/images/picto_rainy.png"
+                                                                              alt="rainy"/>
+                                        </button>
+                                        <p class="weather_cloumn_txt">10</p>
+                                    </div>
+                                    <div class="weather_cloumn">
+                                        <button type="button" onclick=""><img src="../static/images/picto_snowy.png"
+                                                                              alt="snowy"/>
+                                        </button>
+                                        <p class="weather_cloumn_txt">2</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
