@@ -13,14 +13,12 @@ db = client.dbplaylist
 
 @app.route('/main/song-rank', methods=['GET'])
 def song_showRank():
-    
     # 클라이언트에게 받은 이동 버튼 이름 저장
     weatherMoveBtn_receive = request.args['weatherMoveBtn_give']
     # 이동 버튼 정보를 바탕으로 순위별 데이터 10개 조회하여 저장
     song_rank = list(db.songs.find({}, {'_id' : False}).sort(weatherMoveBtn_receive, -1).limit(10))
 
     # 클라이언트 측으로 날씨, 순위별 곡 내려주기
-
     return jsonify ({'songs_rank' : song_rank})
 
 ''' 좋아요 API (GET) 서버 '''
@@ -34,7 +32,6 @@ def song_showLike():
     # 클라이언트에게 받은 곡 가수 저장
     artist_receive = request.args['artist_give']
     
-
     # 클라이언트에게 받은 유저 닉네임 저장
     username_receive = request.args['username_give']
 

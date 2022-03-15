@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from song_recommed import song_recommend, song_ranks
-from spotify import get_songs, get_track_info
+from spotify import get_songs, get_track_info, classify_song 
 
 from env import env_variables
 
@@ -191,7 +191,11 @@ def like():
     else:
         # 로그인 페이지로 이동
         return redirect("/", 403)
-
+    
+@app.route("/api/song-info", methods=["GET"])
+def show_song_info():
+    song_list = classify_song()
+    
 
 @app.route("/join", methods=["POST"])
 def join():
