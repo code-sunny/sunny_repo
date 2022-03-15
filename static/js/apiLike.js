@@ -1,5 +1,6 @@
 $(document).ready(function () {
   console.log("성공");
+  song_info();
 });
 
 async function showRank(event) {
@@ -42,15 +43,13 @@ async function songLike(event) {
   }
 }
 
-function showLike(weatherMoveBtn) {
-  let title = $(".music-box-title").text();
-
+function song_info() {
   $.ajax({
     type: "GET",
-    url: "/api/show-like",
-    data: { title_give: title },
+    url: "/api/song-info",
+    data: {},
     success: function (response) {
-      console.log(response);
+      console.log(response["song_list"]);
     },
   });
 }

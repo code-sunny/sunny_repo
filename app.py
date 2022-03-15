@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from song_recommed import song_recommend, song_ranks
-from spotify import get_songs, get_track_info, classify_song 
+from spotify import get_songs, get_track_info, extract_10_song 
 
 from env import env_variables
 
@@ -194,8 +194,9 @@ def like():
     
 @app.route("/api/song-info", methods=["GET"])
 def show_song_info():
-    song_list = classify_song()
-    
+    song_list = extract_10_song()
+
+    return jsonify({"song_list": song_list})
 
 @app.route("/join", methods=["POST"])
 def join():

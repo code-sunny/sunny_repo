@@ -9,6 +9,7 @@ import os
 import pprint
 
 
+
 client_id = os.getenv("SPOTIFY_CLIENT_ID")
 client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
 
@@ -151,7 +152,7 @@ def classify_song():
         valence = origin_song[i]['features']['valence']
         tempo = origin_song[i]['features']['tempo']
 
-        if energy > 0.8:
+        if (energy > 0.8) and (valence > 0.5):
             Sunny_list.append(origin_song[i])
         
         if (energy < 0.65) and (valence < 0.4) and (tempo < 100):
@@ -164,9 +165,10 @@ def classify_song():
             Snowy_list.append(origin_song[i])
     
     # 날씨별 곡 수 확인용         
-    # print(len(Sunny_list), len(Cloudy_list), len(Rainy_list), len(Snowy_list))    
+    print(len(Sunny_list), len(Cloudy_list), len(Rainy_list), len(Snowy_list))    
             
     return [Sunny_list, Cloudy_list, Rainy_list, Snowy_list]
+
 
 def extract_10_song():
     song_list = classify_song()
@@ -181,11 +183,21 @@ def extract_10_song():
     extract_Snowy_list = []
     
     cnt = 0 
-    while cnt < 10:
-        num = randint(0, len(Sunny_list)-1)
-        extract_Sunny_list.append(Sunny_list.pop(num))
+    while cnt <10:
+        
+        sunny_num = randint(0, len(Sunny_list)-1)
+        extract_Sunny_list.append(Sunny_list.pop(sunny_num))
+        
+        cloudy_num = randint(0, len(Cloudy_list)-1)
+        extract_Cloudy_list.append(Cloudy_list.pop(cloudy_num))
+        
+        rainy_num = randint(0, len(Rainy_list)-1)
+        extract_Rainy_list.append(Rainy_list.pop(rainy_num))
+        
+        snowy_num = randint(0, len(Snowy_list)-1)
+        extract_Snowy_list.append(Snowy_list.pop(snowy_num))
+        
         cnt += 1
         
-    print(extract_Sunny_list)
+    return [extract_Sunny_list, extract_Cloudy_list, extract_Rainy_list, extract_Snowy_list]
     
-extract_10_song()
