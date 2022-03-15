@@ -1,7 +1,8 @@
+import json
 from dotenv import load_dotenv
 load_dotenv()
 
-from song_recommed import song_recommend, song_ranks
+from song_recommed import song_recommend, song_ranks, random_songs
 from spotify import get_songs, get_track_info
 
 from env import env_variables
@@ -16,6 +17,7 @@ app.secret_key = env_variables["FLASK_SECRET"]
 
 @app.before_request
 def global_variables():
+    print("Before!")
     # flask 전체에 공유되는 변수를 설정한다. (global variables)
     g.title = "Mu:ther"
 
@@ -58,26 +60,29 @@ def about():
 
 @app.route("/main", methods=["GET"])
 def main_page():
+    # main에 접속함은 랜딩 페이지에서 넘어온 상태이므로 세션에 날씨 정보들이 들어있다.
+    # main에 바로 접근 하는 것을 막는다.
+    if "current_weather" not in session:
+        return redirect("/")
     # main page에 있는 날씨 버튼을 누를 시 아래의 weather_to_show가 받아와진다
     weather_to_show = request.args.get("weather")
-    # main에 접속함은 랜딩 페이지에서 넘어온 상태이므로 세션에 날씨 정보들이 들어있다.
     current_weather = session["current_weather"]
     current_temp = session["current_temp"]
     current_city = session["current_city"]
     # 랭크 섹션에 전달할 노래들을 받아온다 -> DB 우선, 없을 시 스포티파이
     songs_rank = song_ranks(current_weather)
     # 랜덤 섹션에 전달할 노래들을 받아온다 -> 스포티파이
-    random_songs = get_songs(current_weather)
+    songs_random = random_songs()
     # 기본 사용자명을 게스트로 설정하고 로그인된 상태라면 로그인 유저네임으로 변경한다.
     username = "Guest"
     if username in session:
         username = session["username"]
     if weather_to_show is None:
-        return render_template("sunny.html",username=username, random_songs=random_songs, songs_rank=songs_rank, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
+        return render_template("sunny.html",username=username, random_songs=songs_random, songs_rank=songs_rank, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
     else:
         songs_rank = song_ranks(weather_to_show)
-        random_songs = get_songs(weather_to_show)
-        return render_template("sunny.html",username=username, weather_to_show=weather_to_show, random_songs=random_songs,songs_rank=songs_rank, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
+        songs_random = random_songs()
+        return render_template("sunny.html",username=username, weather_to_show=weather_to_show, random_songs=songs_random, songs_rank=songs_rank, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
 
 
 @app.route("/main/search", methods=["GET"])
@@ -106,9 +111,11 @@ def show_song_ranks():
 # 수정 중
 @app.route("/api/show-like", methods=["GET"])
 def show_song_likes():
-    title_receive, artist_receive, username_receive = request.args.get()
+    title_receive  = request.args["title_receive"]
+    artist_receive = request.args["artist_receive"]
+    username_receive = request.args["username_receive"]
     song = db.songs.find_one(
-        {"title": title_receive, "artist": artist_receive}, {"_id": False}
+        {"title": title_receive, "artist": artist_receive, "username": username_receive}, {"_id": False}
     )
     return jsonify({"song_info": song})
 
@@ -141,6 +148,7 @@ def like():
                 },
                 "likedUsers": [],
             }
+            # 좋아요를 누른 사용자
             likedUser = {
                 "user": user["username"],
                 "likes": {
@@ -150,35 +158,73 @@ def like():
                     "Snowy": False,
                 },
             }
+            # 사용자 -> 좋아요 -> 해당 날씨 True
             likedUser["likes"][weather] = True
+            # 새 노래 -> 사용자들 -> 현재 사용자 추가
             new_song["likedUsers"].append(likedUser)
-            new_song["likes"][weather] += 1
+            # 새 노래 해당 날씨의 좋아요 = 1 (최초니까)
+            new_song["likes"][weather] = 1
+            # 사용자가 좋아요를 누른 노래도 집어넣어줘야 한다
             clickedSong = {track_id: likedUser["likes"]}
+            # 사용자가 좋아요를 누른 곡 목록에 위 내용을 더한다
+            print(user["songs_liked"])
             user["songs_liked"].append(clickedSong)
-            db.users.update_one({"username": username}, {"$set": user})
+            print(user["songs_liked"])
+            # 사용자를 업데이트한다. 
+            db.users.update_one({"username": username}, {user})
+            # 신규 노래 삽입
             db.songs.insert_one(new_song)
+            # 신규 음악의 좋아요 갯수를 돌려보낸다. (받을 곳이 없어 의미는 크게 없는 듯)
             to_return = {"likes": new_song["likes"][weather]}
             return jsonify(to_return)
+        # 노래가 DB에 존재할 때
         else:
+            # 업데이트해야 하는 날씨
             to_update = f"likes.{weather}"
-            count = song["likes"][weather]
-            if weather_like_state is True:
-                count = count - 1
-                db.songs.update_one(
-                    {"track_id": track_id}, {"$set": {to_update: count}}
-                )
-                db.users.update_one(
-                    {"username": username}, {"$set": {f"likes.{weather}": False}}
-                )
+            # 유저가 해당 곡에 좋아요를 눌렀던 적이 있는 경우
+            if track_id in user["songs_liked"]:
+                # 좋아요를 누른 적도 있고, 해당 날씨에 좋아요를 누른 곡인 경우
+                if weather_like_state is True:
+                    db.songs.update_one(
+                        {"track_id": track_id}, {"$inc": {to_update: -1}}
+                    )
+                    db.users.update_one(
+                        {"username": username}, {"$set": {track_id: {weather: False}}}
+                    )
+                # 좋아요를 누른 적은 있지만 해당 날씨는 아닌 경우
+                else:
+                    db.songs.update_one(
+                        {"track_id": track_id}, {"$inc": {to_update: 1}}
+                    )
+                    db.users.update_one(
+                        {"username": username}, {"$set": {"songs_liked": {track_id: {weather: True}}}}
+                    )
+            # 유저가 해당 곡에 좋아요를 눌렀던 적이 없는 경우
             else:
-                count = count + 1
+                #유저가 해당 곡과 상호작용을 한 적이 없고 db에 노래가 있는 경우
+                # 날씨 상태가 False일 수 밖에 없다.
                 db.songs.update_one(
-                    {"track_id": track_id}, {"$set": {to_update: count}}
+                    {"track_id": track_id}, {"$inc": {to_update: 1}}
                 )
+                likedUser = {
+                    "username": username,
+                    "likes": {
+                        "Sunny": False,
+                        "Rainy": False,
+                        "Cloudy": False,
+                        "Snowy": False,
+                    },
+                }
+                likedUser["likes"][weather] = True
+                db.songs.update_one(
+                    {"track_id": track_id}, {"$set": {"likedUser": likedUser}}
+                )
+                # 해당 날씨를 업데이트한다.
+                user["songs_liked"][track_id] = {weather: True}
                 db.users.update_one(
-                    {"username": username}, {"$set": {f"likes.{weather}": True}}
+                    {"username": username}, {"$set": user["songs_liked"]}
                 )
-        return jsonify({"likes": count})
+        return jsonify({"msg": "Likes updated!"})
     else:
         return redirect("/")
 
@@ -209,7 +255,7 @@ def join():
         return redirect("/")
 
 # 로그인 작업
-@app.route("/login", methods=["GET", "POST"], strict_slashes=False)
+@app.route("/login", methods=["GET", "POST"])
 def login():
     # 로그인 된 유저 -> 돌려보낸다.
     if "username" in session:
@@ -254,6 +300,18 @@ def profile():
         return redirect("/")
     else:
         # 로그인 된 사용자는 마이페이지로 이동한다 -> 작업 필요
+        username = session["username"]
+        user = db.users.find_one({"username": username}, {"_id": False})
+        print(user)
+        track_ids = {
+            "Sunny": [],
+            "Cloudy": [],
+            "Rainy": [],
+            "Snowy": []
+        }
+        print(user["songs_liked"])
+        # print(track_ids)
+
         return render_template("mypage.html", username=session["username"])
 
 @app.route("/get-weather", methods=["POST"])

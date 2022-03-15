@@ -91,13 +91,14 @@
           <div class="random">
             {% for song in songs %}
             <div class="random_list" data-track_id="{{song.track_id}}">
-              <div>
+              <div class="empty_class">
                 <img
                   type="button"
                   data-toggle="modal"
                   data-target="#random_modal"
                   src="{{ song.cover_image }}"
                   art="albumart"
+                  class="random_albumart"
                 />
               </div>
               <div class="random_list_detail">
@@ -179,24 +180,28 @@
     <script>
       const tracks = {{songs|tojson}};
       const random_lists = document.querySelectorAll(".random_list");
-      [...random_lists].map((random_list) =>
-        random_list.addEventListener("click", (event) => setSongInfo(event))
+
+      [...random_lists].map((list) =>
+        list.addEventListener("click", (event) => openModal(event, tracks))
       );
-      const modal_content = document.querySelector(".modal-content");
-      function setSongInfo(event) {
-        event.preventDefault();
+      function openModal(event, tracks) {
         let { target } = event;
-        while (target.className !== "random_list") {
-            target = target.parentNode;
+        while (
+          target.className !== "random_list"
+        ) {
+          target = target.parentNode;
         }
         const track_id = target.dataset.track_id;
+        const modal_content = document.querySelector(".modal-content");
         modal_content.dataset.track_id = track_id;
-        const target_track = tracks.filter(({track_id: id}) => id === track_id);
+        const target_track = tracks.filter(
+          ({ track_id: id }) => id === track_id
+        );
         let modal_title = document.querySelector(".modal-title");
         modal_title.innerText = target_track[0].artist;
-        let modal_song_title = document.querySelector(".modal_song_title")
+        let modal_song_title = document.querySelector(".modal_song_title");
         modal_song_title.innerText = target_track[0].title;
-        let modal_albumart = document.querySelector(".modal-albumart")
+        let modal_albumart = document.querySelector(".modal-albumart");
         modal_albumart.src = target_track[0].cover_image;
         let modal_preview = document.querySelector("audio");
         modal_preview.src = target_track[0].preview_url;

@@ -12,6 +12,7 @@ spotipy = "*"
 bcrypt = "*"
 black = "*"
 pyopenssl = "*"
+schedule = "*"
 
 [dev-packages]
 
