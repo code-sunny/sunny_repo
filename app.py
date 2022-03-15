@@ -312,17 +312,26 @@ def profile():
         # 로그인 된 사용자는 마이페이지로 이동한다 -> 작업 필요
         username = session["username"]
         user = db.users.find_one({"username": username}, {"_id": False})
-        print(user)
-        track_ids = {
+        user_liked = user["songs_liked"]
+        tracks = {
             "Sunny": [],
             "Cloudy": [],
             "Rainy": [],
             "Snowy": []
         }
-        print(user["songs_liked"])
-        # print(track_ids)
-
-        return render_template("mypage.html", username=session["username"])
+        weathers = ["Sunny", "Cloudy", "Rainy", "Snowy"]
+        for track in user_liked:
+            for weather in weathers:
+                if user_liked[track][weather] is True:
+                    [title, artist, cover_image, preview_url] = get_track_info(track)
+                    doc = {
+                        "title": title,
+                        "artist": artist,
+                        "cover_image": cover_image,
+                        "preview_url": preview_url
+                    }
+                    tracks[weather].append(doc)
+        return render_template("mypage.html", username=session["username"], tracks=tracks)
 
 @app.route("/get-weather", methods=["POST"])
 def get_weather():
