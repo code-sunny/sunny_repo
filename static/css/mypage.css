@@ -112,21 +112,65 @@
 
 /* --------------------- 반응형 ------------------------- */
 @media all and (max-width: 1024px) {
-    .chart {
-        margin: 5% 11% 5% 11%;
-        display: grid;
-        grid-template-columns: 1fr;
+    .my_img {
+        width: 5em;
+    }
+
+    #th_first {
+        width: 5%;
+    }
+
+    #th_second {
+        width: 8%;
+    }
+
+    #th_third {
+        width: 8%;
+    }
+
+    #th_fourth {
+        width: 12%;
+    }
+
+    #th_fifth {
+        width: 4%;
+    }
+
+    .mypage_player {
+        width: 170px;
     }
 }
 
 @media all and (max-width: 992px) {
-    .navbar {
-        margin: 0;
+    .my_img {
+        width: 4em;
+    }
+
+    #th_first {
+        width: 4%;
+    }
+
+    #th_second {
+        width: 6%;
+    }
+
+    #th_third {
+        width: 4%;
+    }
+
+    #th_fourth {
+        width: 8%;
+    }
+
+    #th_fifth {
+        width: 4%;
+    }
+
+    .mypage_player {
+        width: 150px;
     }
 }
 
 @media all and (max-width: 768px) {
-    .navbar {
-        margin: 0;
-    }
+
 }
