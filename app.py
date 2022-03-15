@@ -180,14 +180,14 @@ def like():
                 )
         return jsonify({"likes": count})
     else:
-        return redirect("/", 403)
+        return redirect("/")
 
 
 @app.route("/join", methods=["POST"])
 def join():
     # 로그인 된 상태일 시 돌려보낸다.
     if "username" in session:
-        return redirect("/", 403)
+        return redirect("/")
     # json 형태로 전달된 회원가입 정보를 data로 받는다
     data = request.json
     username = data["username"]
@@ -206,7 +206,7 @@ def join():
         hashed_password = hashpw(password, gensalt())
         doc = {"username": username, "password": hashed_password, "songs_liked": []}
         db.users.insert_one(doc)
-        return redirect("/", 201)
+        return redirect("/")
 
 # 로그인 작업
 @app.route("/login", methods=["GET", "POST"], strict_slashes=False)
@@ -240,7 +240,7 @@ def login():
 def logout():
     # 로그인되지 않은 사용자는 돌려보낸다
     if not session["username"]:
-        return redirect("/", 403)
+        return redirect("/")
     else:
         # 로그인 된 사용자는 세션을 지우고 돌려보낸다.
         session.clear()
@@ -251,7 +251,7 @@ def logout():
 def profile():
     # 로그인 되지 않은 사용자는 돌려보낸다.
     if not "username" in session:
-        return redirect("/", 403)
+        return redirect("/")
     else:
         # 로그인 된 사용자는 마이페이지로 이동한다 -> 작업 필요
         return render_template("mypage.html", username=session["username"])
