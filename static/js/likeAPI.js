@@ -106,7 +106,7 @@ $(function () {
 /* 좋아요 API (POST) 클라이언트 */
 
 function likeBtnSong(weatherLikeBtn, is_weatherLike) {
-  let title = $("#song-title").text();
+  let title = $(".song-title").text();
   let artist = $(".artist").text();
   let username = $(".username").text();
   console.log(title, artist);
@@ -139,7 +139,7 @@ function likeBtnSong(weatherLikeBtn, is_weatherLike) {
 /* 좋아요 API (GET) 클라이언트 */
 
 function showLike() {
-  let title = $("#song-title").text();
+  let title = $(".song-title").text();
   let artist = $(".artist").text();
   let username = $(".username").text();
   console.log(title, artist);
@@ -231,7 +231,7 @@ function showRank(weatherMoveBtn) {
         let artist = song_rank[i]["artist"];
 
         let temp_html = `<div class="artist${i}">${artist}
-                        
+        
         
         `;
       }

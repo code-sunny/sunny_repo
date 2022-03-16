@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from song_recommed import song_recommend, song_ranks, random_songs
-from spotify import get_songs, get_track_info
+from spotify import get_songs, get_track_info, extract_10_songs 
 
 from env import env_variables
 
@@ -14,6 +14,7 @@ from weather import get_current_weather
 
 app = Flask(__name__)
 app.secret_key = env_variables["FLASK_SECRET"]
+
 
 @app.before_request
 def global_variables():
@@ -72,8 +73,16 @@ def main_page():
     # 랭크 섹션에 전달할 노래들을 받아온다 -> DB 우선, 없을 시 스포티파이
     songs_rank = song_ranks(current_weather)
     # 랜덤 섹션에 전달할 노래들을 받아온다 -> 스포티파이
-    songs_random = random_songs()
+    weather_counter = 0
+    if weather_to_show == "Cloudy":
+        weather_counter = 1
+    elif weather_to_show == "Rainy":
+        weather_counter = 2
+    elif weather_to_show == "Snowy":
+        weather_counter = 3
+    songs_random = extract_10_songs()[weather_counter]
     # 기본 사용자명을 게스트로 설정하고 로그인된 상태라면 로그인 유저네임으로 변경한다.
+    
     username = "Guest"
     if username in session:
         username = session["username"]
@@ -81,7 +90,6 @@ def main_page():
         return render_template("sunny.html",username=username, random_songs=songs_random, songs_rank=songs_rank, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
     else:
         songs_rank = song_ranks(weather_to_show)
-        songs_random = random_songs()
         return render_template("sunny.html",username=username, weather_to_show=weather_to_show, random_songs=songs_random, songs_rank=songs_rank, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
 
 
@@ -118,6 +126,7 @@ def show_song_likes():
         {"title": title_receive, "artist": artist_receive, "username": username_receive}, {"_id": False}
     )
     return jsonify({"song_info": song})
+
 
 # 작업 중
 @app.route("/api/like-btn", methods=["POST"])
@@ -236,6 +245,10 @@ def like():
     else:
         return redirect("/")
 
+@app.route("/api/song-info", methods=["GET"])
+def show_song_info():
+    song_list = extract_10_songs()
+    return jsonify({"song_list": song_list})
 
 @app.route("/join", methods=["POST"])
 def join():
@@ -345,10 +358,12 @@ def get_weather():
     # 날씨, 기온, 도시를 받아온다.
     weather, weather_temp, weather_city = get_current_weather(lat, lon)
     # 세션에 현재 사용자의 날씨, 기온, 도시명을 담아 다른 곳에서도 활용할 수 있게 한다.
-    session["current_weather"] = weather;
-    session["current_temp"] = weather_temp;
-    session["current_city"] = weather_city;
+    session["current_weather"] = weather
+    session["current_temp"] = weather_temp
+    session["current_city"] = weather_city
     return jsonify({"weather": weather, "temp": weather_temp, "city": weather_city})
+
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", env_variables["PORT"] or 5000, debug=True)

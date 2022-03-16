@@ -2,6 +2,7 @@ from random import randint
 from db import db
 from spotify import get_songs
 from random import randint
+
 # 랜딩 페이지에 보내 줄 추천곡 하나를 위한 함수
 def song_recommend(weather):
     song = ""
@@ -19,11 +20,11 @@ def song_recommend(weather):
     return song
 
 def song_ranks(weather):
-    songs = [] or list(db.songs.find({}, {"_id": False}, limit=11))
+    songs = [] or list(db.songs.find({}, {"_id": False}, limit=11).sort(f"likes.{weather}", -1))
     # db에 10곡 이상의 노래가 존재 시
     if len(songs) >= 11:
         print("11+")
-        ranks = list(db.songs.find({}, {"_id": False}).sort(f"likes.{weather}", -1))[:10]
+        ranks = list(db.songs.find({}, {"_id": False}).sort(f"likes.weather", -1))[:10]
         return ranks
     # db에 10곡 미만의 노래가 존재 시
     elif len(songs) > 0 and len(songs) < 10:
