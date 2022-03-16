@@ -64,12 +64,15 @@ def get_weather_song(keyword):
             song_name = song_info['name']
             song_preview_url = song_info['preview_url']
             song_artist = song_info["artists"][0]["name"]
+            song_track_id = song_info['id']
+            
             if song_preview_url != None:
                 song = {
                     'image_url' : song_image_url,
                     'name' : song_name,
                     'preview_url' : song_preview_url,
                     'artist' : song_artist,
+                    'track_id' : song_track_id
                     }
                 
                 songs_info.append(song)
