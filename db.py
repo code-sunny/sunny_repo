@@ -3,7 +3,7 @@ from tracks import new_song, get_track_ids
 from spotify import get_track_info
 
 # db 설정
-client = MongoClient("localhost", 27017)
+client = MongoClient('mongodb://muther:muther0315@0.0.0.0:27017')
 db = client.sunny
 
 # db에 하루에 한번씩 노래를 추가하는 코드

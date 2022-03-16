@@ -148,16 +148,16 @@
             </div>
             <div class="modal-footer">
               <div class="weather_icon" id="modal_wt_icon">
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Sunny">
                   <img src="../static/images/picto_sunny.png" alt="sunny" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Cloudy">
                   <img src="../static/images/picto_cloudy.png" alt="cloudy" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Rainy">
                   <img src="../static/images/picto_rainy.png" alt="rainy" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Snowy">
                   <img src="../static/images/picto_snowy.png" alt="snowy" />
                 </button>
               </div>
@@ -186,6 +186,9 @@
       [...random_lists].map((list) =>
         list.addEventListener("click", (event) => openModal(event, tracks))
       );
+      const weatherLikeBtns = document.querySelectorAll(".weather-likeBtn");
+      [...weatherLikeBtns].map(btn => btn.addEventListener("click", (e) => likeBtn(e)));
+
       function openModal(event, tracks) {
         let { target } = event;
         while (
@@ -207,6 +210,32 @@
         modal_albumart.src = target_track[0].cover_image;
         let modal_preview = document.querySelector("audio");
         modal_preview.src = target_track[0].preview_url;
+      }
+      function likeBtn(event) {
+        event.preventDefault();
+        let {target} = event;
+        if (target.tagName === "IMG") {
+          target = target.parentNode;
+        }
+        let targetContainer = document.querySelector(".modal-content");
+        const weatherValue = target.value;
+        const track_id = targetContainer.dataset.track_id;
+        let liked = "False";
+        if ([...target.classList].some(x => x === "liked")) {
+          liked = "True";
+        }
+        fetch("/api/like-btn", {
+          method:"POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            track_id: track_id,
+            weather: weatherValue,
+            weather_like_state: liked,
+          })
+        }).then(res => res.json()).then(json => console.log(json));
+        target.classList.toggle("liked");
       }
     </script>
   </body>

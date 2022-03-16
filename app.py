@@ -169,7 +169,7 @@ def like():
             user["songs_liked"][track_id] = likedUser["likes"]
             print(user["songs_liked"])
             # 사용자를 업데이트한다. 
-            db.users.update_one({"username": username}, {"$set": {"song_liked": user["song_liked"]}})
+            db.users.update_one({"username": username}, {"$set": {"songs_liked": user["songs_liked"]}})
             # 신규 노래 삽입
             db.songs.insert_one(new_song)
             # 신규 음악의 좋아요 갯수를 돌려보낸다. (받을 곳이 없어 의미는 크게 없는 듯)
@@ -329,6 +329,7 @@ def profile():
                         "preview_url": preview_url
                     }
                     tracks[weather].append(doc)
+        print(tracks)
         return render_template("mypage.html", username=session["username"], tracks=tracks)
 
 @app.route("/get-weather", methods=["POST"])
