@@ -1,6 +1,6 @@
 from random import randint
 from db import db
-from spotify import get_songs
+from spotify import extract_10_songs, get_songs
 from random import randint
 
 # 랜딩 페이지에 보내 줄 추천곡 하나를 위한 함수
@@ -14,14 +14,27 @@ def song_recommend(weather):
     except:
         # db에 노래가 없다면
         # 20곡의 스포티파이 노래를 받아와 랜덤한 한 곡을 보낸다.
-        num = randint(0, 19)
-        song = get_songs(weather)[num]
+        weather_counter = 0
+        if weather == "Cloudy":
+            weather_counter = 1
+        elif weather == "Rainy":
+            weather_counter = 2
+        elif weather == "Snowy":
+            weather_counter = 3
+        song = extract_10_songs()[weather_counter][0]
         
     return song
 
 def song_ranks(weather):
     songs = [] or list(db.songs.find({}, {"_id": False}, limit=11).sort(f"likes.{weather}", -1))
     # db에 10곡 이상의 노래가 존재 시
+    weather_counter = 0
+    if weather == "Cloudy":
+        weather_counter = 1
+    elif weather == "Rainy":
+        weather_counter = 2
+    elif weather == "Snowy":
+        weather_counter = 3
     if len(songs) >= 11:
         print("11+")
         ranks = list(db.songs.find({}, {"_id": False}).sort(f"likes.weather", -1))[:10]
@@ -33,25 +46,4 @@ def song_ranks(weather):
         return ranks
     # db에 노래가 없을 시
     else:
-        return get_songs(weather)[:10]
-
-def random_songs():
-    songs = [] or list(db.songs.find({}, {"_id": False}, limit=30))
-    if (len(songs) >= 11):
-        max_num = len(songs)
-        start_num = randint(0, max_num - 10)
-        return songs[start_num:start_num + 10]
-    elif len(songs) > 0 and len(songs) < 10:
-        randoms = songs[:]
-        weathers = ["Sunny", "Cloudy", "Rainy", "Snowy"]
-        random_query = weathers[randint(0, 3)]
-        spotify_songs = get_songs(random_query)
-        random_idx = randint(0, 16)
-        randoms += spotify_songs[random_idx:]
-        return randoms
-    else:
-        weathers = ["Sunny", "Cloudy", "Rainy", "Snowy"]
-        random_query = weathers[randint(0, 3)]
-        spotify_songs = get_songs(random_query)
-        random_idx = randint(0, 10)
-        return spotify_songs[random_idx:random_idx + 10]
+        return extract_10_songs()[weather_counter][:10]

@@ -74,13 +74,13 @@
                 placeholder="노래 / 아티스트 입력"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
+                id="search_input"
               />
               <div class="input-group-append">
                 <button
                   class="btn btn-outline-secondary"
                   type="button"
-                  id="button-addon2"
-                  onclick="location.href='search.html'"
+                  id="button-search"
                 >
                   Search
                 </button>
@@ -208,6 +208,18 @@
         let modal_preview = document.querySelector("audio");
         modal_preview.src = target_track[0].preview_url;
       }
+      const search_input = document.querySelector("#search_input");
+      search_input.addEventListener("submit", (e) => e.preventDefault());
+      const search_btn = document.querySelector("#button-search");
+      search_btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (search_input.value.length === 0) {
+          alert("검색어를 입력해주세요.");
+        } else {
+          query = search_input.value;
+          window.location.href = `/main/search?query=${query}`;
+        }
+      });
     </script>
     <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
   </body>

@@ -1,11 +1,10 @@
-import json
 from dotenv import load_dotenv
 load_dotenv()
 
-from song_recommed import song_recommend, song_ranks, random_songs
+from env import env_variables
+from song_recommed import song_recommend, song_ranks
 from spotify import get_songs, get_track_info, extract_10_songs 
 
-from env import env_variables
 
 from flask import Flask, g, jsonify, redirect, render_template, request, session, url_for
 from bcrypt import checkpw, hashpw, gensalt
@@ -159,8 +158,7 @@ def like():
             }
             # 좋아요를 누른 사용자
             likedUser = {
-                "username": user["username"],
-                "likes": {
+                username: {
                     "Sunny": False,
                     "Rainy": False,
                     "Cloudy": False,
@@ -168,15 +166,13 @@ def like():
                 },
             }
             # 사용자 -> 좋아요 -> 해당 날씨 True
-            likedUser["likes"][weather] = True
+            likedUser[username][weather] = True
             # 새 노래 -> 사용자들 -> 현재 사용자 추가
             new_song["likedUsers"].append(likedUser)
             # 새 노래 해당 날씨의 좋아요 = 1 (최초니까)
             new_song["likes"][weather] = 1
             # 사용자가 좋아요를 누른 곡 목록에 위 내용을 더한다
-            print(user["songs_liked"])
-            user["songs_liked"][track_id] = likedUser["likes"]
-            print(user["songs_liked"])
+            user["songs_liked"][track_id] = likedUser[username]
             # 사용자를 업데이트한다. 
             db.users.update_one({"username": username}, {"$set": {"songs_liked": user["songs_liked"]}})
             # 신규 노래 삽입
@@ -195,8 +191,11 @@ def like():
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: -1}}
                     )
-                    user_liked = list(user)[0]["songs_liked"]
+                    user_liked = user["songs_liked"]
+                    print(user_liked)
                     user_liked[track_id][weather] = False
+                    print("________________")
+                    print(user_liked)
                     db.users.update_one(
                         {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
@@ -205,8 +204,11 @@ def like():
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: 1}}
                     )
-                    user_liked = list(user)[0]["songs_liked"]
+                    user_liked = user["songs_liked"]                    
+                    print(user_liked)
                     user_liked[track_id][weather] = True
+                    print("________________")
+                    print(user_liked)
                     db.users.update_one(
                         {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
@@ -266,16 +268,14 @@ def delete_like():
         toUpdate = {}
         x = 0
         for i in range(len(likedUsers)):
-            if likedUsers[i]["username"] == username:
-                toUpdate = likedUsers[i]
+            if likedUsers[i][username]:
                 x = i
-            else:
-                continue
-        toUpdate["likes"][weather] = False
-        likedUsers[x] = toUpdate
+                toUpdate = likedUsers[i]
+        toUpdate[weather] = False
         db.songs.update_one({"track_id": track_id}, {"$set": {"likedUsers": likedUsers}})
         db.songs.update_one({"track_id": track_id}, {"$inc": {f"likes.{weather}": -1}})
         songs_liked = list(user)[0]["songs_liked"]
+        # print(songs_liked)
         songs_liked[track_id][weather] = False
         db.users.update_one({"username": username}, {"$set": {"songs_liked": songs_liked}})
         return redirect("/user/my-profile")
