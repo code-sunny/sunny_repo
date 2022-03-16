@@ -399,4 +399,4 @@ def get_weather():
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", env_variables["PORT"] or 5000, debug=True)
+    app.run("0.0.0.0", env_variables["PORT"])

@@ -41,7 +41,7 @@ def song_ranks(weather):
         return ranks
     # db에 10곡 미만의 노래가 존재 시
     elif len(songs) > 0 and len(songs) < 10:
-        spotify_songs = get_songs(weather)[:10 - len(songs)]
+        spotify_songs = get_songs(weather)[0:10 - len(songs)]
         ranks = songs + spotify_songs
         return ranks
     # db에 노래가 없을 시
