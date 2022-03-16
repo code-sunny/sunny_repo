@@ -39,7 +39,7 @@
             background:
                 url('../static/images/bg/bg-5.png'),
                 radial-gradient(circle, #ffffff 0%, #ffffff 50%, #ECE6FF 100%);
-            height: 100vh;
+            height: 100%;
             background-repeat : no-repeat;
             background-size : cover;
         }
@@ -101,6 +101,12 @@
             margin: auto;
             border-spacing: 20px;
         }
+        .people-table-2 {
+            display: table;
+            width: 800px;
+            margin: auto;
+            border-spacing: 20px 0;
+        }
         .people-table-row {
             display: table-row;
         }
@@ -112,8 +118,6 @@
             box-shadow: 0 0 15px #D8D8D8;
             background-color: #ffffff;
             background-color: rgba( 255, 255, 255, 0.5 );
-
-
         }
         .people-top {
             vertical-align: top;
@@ -123,6 +127,21 @@
         }
         .people-bottom {
             vertical-align: bottom;
+        }
+        .about-function-title {
+            margin-top: 100px;
+            font-family: GmarketSansMedium;
+            font-size: 30px;
+        }
+        .about-function {
+            margin: auto auto 120px auto;
+            padding: 50px 100px;
+            width: 600px;
+            border-radius: 30px;
+            box-shadow: 0 0 15px #D8D8D8;
+            background-color: #ffffff;
+            background-color: rgba( 255, 255, 255, 0.5 );
+            text-align: left;
         }
     </style>
     <link rel="shortcut icon" href="../static/images/logo/favicon.png">
@@ -145,7 +164,7 @@
                 <div class="people-table-row">
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/seonghun.png"
                              style="border-radius: 20px">
                         <p></p>
                         <p>김성훈</p>
@@ -153,7 +172,7 @@
                     </div>
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/sangji.png"
                              style="border-radius: 20px">
                         <p></p>
                         <p>서상지</p>
@@ -161,25 +180,27 @@
                     </div>
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/hyunsug.png"
                              style="border-radius: 20px">
                         <p></p>
-                        <p>오석현</p>
+                        <p>오현석</p>
                         <p>백엔드</p>
                     </div>
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/in.png"
                              style="border-radius: 20px">
                         <p></p>
                         <p>이인</p>
                         <p>백엔드</p>
                     </div>
                 </div>
+            </div>
+            <div class="people-table-2">
                 <div class="people-table-row">
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/jaeho.png"
                              style="border-radius: 20px">
                         <p></p>
                         <p>이재호</p>
@@ -187,7 +208,7 @@
                     </div>
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/eunyeong.png"
                              style="border-radius: 20px">
                         <p></p>
                         <p>장은영</p>
@@ -195,13 +216,24 @@
                     </div>
                     <div class="people-table-cell people-middle">
                         <p></p>
-                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                        <img src="../static/images/profile/hwajin.png"
                              style="border-radius: 20px">
                         <p></p>
                         <p>최화진</p>
-                        <p>백엔드</p>
+                        <p>팀장, 백엔드</p>
                     </div>
                 </div>
+            </div>
+        </div>
+            <p class="about-function-title">사이트에 사용된 기능</p>
+            <div class="about-function">
+                <p>☀ 위치에 맞는 날씨 보여주기</p>
+                <p>☀ 랜딩페이지에서 날씨에 맞는 랜덤 곡 보여주기</p>
+                <p>☀ 메인페이지에서 날씨에 맞는 순위곡 1~10위 보여주기</p>
+                <p>☀ 좋아요 api구현으로 실시간으로 좋아요 수 DB에 업로드 및 페이지 표시</p>
+                <p>☀ 메인페이지 하단에서 랜덤곡 날씨별로 10곡씩 보여주기</p>
+                <p>☀ 마이페이지에서 좋아요를 누른 곡을 날씨별로 보기</p>
+                <p>☀ 노래 검색하기</p>
             </div>
         </div>
     </div>
