@@ -159,7 +159,7 @@ def like():
             }
             # 좋아요를 누른 사용자
             likedUser = {
-                "user": user["username"],
+                "username": user["username"],
                 "likes": {
                     "Sunny": False,
                     "Rainy": False,
@@ -195,20 +195,20 @@ def like():
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: -1}}
                     )
-                    user_liked = user["songs_liked"][track_id]
-                    user_liked[weather] = False
+                    user_liked = list(user)[0]["songs_liked"]
+                    user_liked[track_id][weather] = False
                     db.users.update_one(
-                        {"username": username}, {"$set": {"songs_liked": user["songs_liked"]}}
+                        {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
                 # 좋아요를 누른 적은 있지만 해당 날씨는 아닌 경우
                 else:
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: 1}}
                     )
-                    user_liked = user["songs_liked"][track_id]
-                    user_liked[weather] = True
+                    user_liked = list(user)[0]["songs_liked"]
+                    user_liked[track_id][weather] = True
                     db.users.update_one(
-                        {"username": username}, {"$set": {"songs_liked": user["songs_liked"]}}
+                        {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
             # 유저가 해당 곡에 좋아요를 눌렀던 적이 없는 경우
             else:
@@ -228,7 +228,7 @@ def like():
                 }
                 likedUser["likes"][weather] = True
                 db.songs.update_one(
-                    {"track_id": track_id}, {"$set": {"likedUser": likedUser}}
+                    {"track_id": track_id}, {"$addToSet": {"likedUsers": likedUser}}
                 )
                 # 해당 날씨를 업데이트한다.
                 user["songs_liked"][track_id] = {
@@ -239,7 +239,7 @@ def like():
                 }    
                 user["songs_liked"][track_id][weather] = True
                 db.users.update_one(
-                    {"username": username}, {"$set": {"songs_liked": user["songs_liked"]}}
+                    {"username": username}, {"$addToSet": {"songs_liked": user["songs_liked"]}}
                 )
         return jsonify({"msg": "Likes updated!"})
     else:
@@ -249,6 +249,38 @@ def like():
 def show_song_info():
     song_list = extract_10_songs()
     return jsonify({"song_list": song_list})
+
+@app.route("/api/delete-like", methods=["DELETE"])
+def delete_like():
+    if "username" not in session:
+        return redirect("/")
+    else:
+        # 받아온 트랙아이디, 좋아요가 눌려있는 날씨
+        track_id, weather = request.json.values()
+        username = session["username"]
+        
+        song = db.songs.find({"track_id": track_id}, {"_id": False})
+        user = db.users.find({"username": username}, {"_id": False})
+        likedUsers = list(song)[0]["likedUsers"]
+        # print(likedUsers)
+        toUpdate = {}
+        x = 0
+        for i in range(len(likedUsers)):
+            if likedUsers[i]["username"] == username:
+                toUpdate = likedUsers[i]
+                x = i
+            else:
+                continue
+        toUpdate["likes"][weather] = False
+        likedUsers[x] = toUpdate
+        db.songs.update_one({"track_id": track_id}, {"$set": {"likedUsers": likedUsers}})
+        db.songs.update_one({"track_id": track_id}, {"$inc": {f"likes.{weather}": -1}})
+        songs_liked = list(user)[0]["songs_liked"]
+        songs_liked[track_id][weather] = False
+        db.users.update_one({"username": username}, {"$set": {"songs_liked": songs_liked}})
+        return redirect("/user/my-profile")
+
+
 
 @app.route("/join", methods=["POST"])
 def join():
@@ -336,6 +368,7 @@ def profile():
                 if user_liked[track][weather] is True:
                     [title, artist, cover_image, preview_url] = get_track_info(track)
                     doc = {
+                        "track_id": track,
                         "title": title,
                         "artist": artist,
                         "cover_image": cover_image,

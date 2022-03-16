@@ -6,7 +6,6 @@ async function postLogin(event) {
   const { target } = event;
   const username = target.querySelector("#signin_id").value;
   const password = target.querySelector("#signin_pass").value;
-  console.log(username, password);
   try {
     const response = await fetch("/login", {
       method: "POST",

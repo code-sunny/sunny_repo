@@ -8,5 +8,6 @@ env_variables = {
     "SPOTIFY_ID": os.getenv("SPOTIFY_CLIENT_ID"),
     "SPOTIFY_SECRET": os.getenv("SPOTIFY_CLIENT_SECRET"),
     "FLASK_SECRET": os.getenv("APP_SECRET"),
-    "YOUTUBE_KEY": os.getenv("YOUTUBE_KEY")
+    "DB_ID": os.getenv("DB_ID"),
+    "DB_PW": os.getenv("DB_PW")
 }

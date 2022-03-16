@@ -57,18 +57,6 @@
   </head>
 
   <body>
-    <script>
-      $("#delete").click(function () {
-        $.ajax({
-          url: "/mypage/list",
-          method: "DELETE",
-          dataType: "text",
-          success: function (data) {
-            console.log(data);
-          },
-        });
-      });
-    </script>
     <div class="container">
       <header>
         <section class="header">
@@ -112,7 +100,7 @@
                 </thead>
                 <tbody>
                   {% for track in tracks.Sunny %}
-                  <tr>
+                  <tr data-track_id="{{track.track_id}}" data-weather="Sunny">
                     <td id="table_td">
                       <img
                         class="my_img"
@@ -140,7 +128,7 @@
                           삭제
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">확인</a>
+                          <a class="dropdown-item">확인</a>
                         </div>
                       </div>
                     </td>
@@ -164,7 +152,7 @@
                 </thead>
                 <tbody>
                   {% for track in tracks.Cloudy %}
-                  <tr>
+                  <tr data-track_id="{{track.track_id}}" data-weather="Cloudy">
                     <td id="table_td">
                       <img
                         class="my_img"
@@ -191,7 +179,7 @@
                           삭제
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">확인</a>
+                          <a class="dropdown-item">확인</a>
                         </div>
                       </div>
                     </td>
@@ -215,7 +203,7 @@
                 </thead>
                 <tbody>
                   {% for track in tracks.Rainy %}
-                  <tr>
+                  <tr data-track_id="{{track.track_id}}" data-weather="Rainy">
                     <td id="table_td">
                       <img
                         class="my_img"
@@ -242,7 +230,7 @@
                           삭제
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">확인</a>
+                          <a class="dropdown-item">확인</a>
                         </div>
                       </div>
                     </td>
@@ -266,7 +254,7 @@
                 </thead>
                 <tbody>
                   {% for track in tracks.Snowy %}
-                  <tr>
+                  <tr data-track_id="{{track.track_id}}" data-weather="Snowy">
                     <td id="table_td">
                       <img
                         class="my_img"
@@ -293,7 +281,7 @@
                           삭제
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">확인</a>
+                          <a class="dropdown-item">확인</a>
                         </div>
                       </div>
                     </td>
@@ -316,5 +304,6 @@
         </div>
       </footer>
     </div>
+    <script src="{{url_for('static', filename='js/deleteBtn.js')}}"></script>
   </body>
 </html>
