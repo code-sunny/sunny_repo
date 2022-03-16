@@ -21,7 +21,7 @@
         crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
 
     <title>landing</title>
@@ -88,11 +88,8 @@
             color: #fcb69f;
         }
         .landing-content {
-            position: absolute;
-            top: 5%; left: 0; bottom: 0; right: 0;
-            height: 50%;
-            padding: 3%;
-            margin: auto 25%;
+            padding: 3.5% 0 3.5% 0;
+            margin: 3.5% 25%;
             text-align: center;
             border-radius: 20px;
             box-shadow: 0 0 20px #D8D8D8;
@@ -102,6 +99,7 @@
         .main-text {
             font-family: 'GmarketSansMedium';
             font-size: 40px;
+            white-space: nowrap;
         }
         .main-text-blue {
             color: #694EFF;
@@ -113,6 +111,7 @@
             font-family: 'NEXON Lv1 Gothic OTF';
             font-size: 27px;
             margin: 30px 0 40px 0;
+            white-space: nowrap;
             /*border: 1px solid #bcbcbc;*/
         }
         .modal-header {
@@ -153,7 +152,7 @@
             justify-content: center;
             align-items: center;
             align-content: center;
-            margin: 15px 0 50px 0;
+            margin: 15px 0 0 0;
         }
         .btn00 {
             font-family: 'Gothic A1', sans-serif;
@@ -168,7 +167,7 @@
             text-shadow: 0px 0px 10px rgba(0,0,0,0.2);
             box-shadow: 0 0 10px #D8D8D8;
             border-radius: 15px;
-
+            white-space: nowrap;
          }
         .btn00:hover {
             background-position: right center;
@@ -179,6 +178,7 @@
             background-image: linear-gradient(to right, #f8e0bb 0%, #FFB584 51%, #f8e0bb 100%);
         }
         .btn02 {
+            margin-bottom: 60px;
             background-image: linear-gradient(to right, #c2e9fb 0%, #a1c4fd 51%, #c2e9fb 100%);
         }
         .weather_icon {
@@ -262,13 +262,12 @@
                                  alt="Card image cap">
                             <p class="music-box-title">노래 제목</p>
                             <p class="music-box-artist">가수 이름</p>
-                            <span>오늘의 날씨에는 이런 노래,</span>
-                            <span class="today-wether-icon">
-                                <a href="https://www.naver.com/" class="wether-icon-01">좋아요</a>
-                            </span>
-
+<!--                            <span>오늘의 날씨에는 이런 노래,</span>-->
+<!--                            <span class="today-wether-icon">-->
+<!--                                <a href="https://www.naver.com/" class="wether-icon-01">좋아요</a>-->
+<!--                            </span>-->
                             <div class="another-wether-icon">
-                                <p>다른 날씨에 더 어울릴까요?</p>
+                                <p>어떤 날씨에 어울릴까요?</p>
                                 <div class="weather_icon">
                                     <div class="weather_cloumn">
                                         <button type="button" onclick=""><img src="../static/images/picto_sunny.png"
