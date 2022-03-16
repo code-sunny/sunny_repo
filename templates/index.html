@@ -28,28 +28,21 @@
 
     <style>
         @font-face {
-            font-family: 'Yoonwoo';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Yoonwoo.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
             font-family: 'NEXON Lv1 Gothic OTF';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
             font-weight: normal;
             font-style: normal;
         }
         @font-face {
-            font-family: 'YdestreetL';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetL.woff2') format('woff2');
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
             font-weight: normal;
             font-style: normal;
         }
-
         body {
             background:
-                url('../static/images/bg/bg-1.png'),
-                radial-gradient(circle, #ffffff 0%, #ffffff 50%, #f5ebff 100%);
+                url('../static/images/bg/bg-5.png'),
+                radial-gradient(circle, #ffffff 0%, #ffffff 50%, #ECE6FF 100%);
             height: 100vh;
             background-repeat : no-repeat;
             background-size : cover;
@@ -98,34 +91,29 @@
         }
         .landing-content {
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            height: 40%;
-            padding: 20px;
-            margin: auto;
+            top: 5%; left: 0; bottom: 0; right: 0;
+            height: 50%;
+            padding: 3%;
+            margin: auto 25%;
             text-align: center;
-            /*border: 1px solid #bcbcbc;*/
+            border-radius: 20px;
+            box-shadow: 0 0 20px #D8D8D8;
+            background-color: #ffffff;
+            background-color: rgba( 255, 255, 255, 0.5 );
         }
         .main-text {
-            font-family: 'YdestreetL';
-            font-weight: bold;
-            font-size: 50px;
+            font-family: 'GmarketSansMedium';
+            font-size: 40px;
         }
         .main-text-blue {
-            background: linear-gradient(to left, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #694EFF;
         }
         .main-text-yellow {
-            background: linear-gradient(to left, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #694EFF;
         }
         .weather-box {
-            font-family: 'Yoonwoo';
-            font-weight: bold;
-            font-size: 35px;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size: 27px;
             margin: 30px 0 40px 0;
             /*border: 1px solid #bcbcbc;*/
         }
@@ -190,7 +178,7 @@
             color: white
         }
         .btn01{
-            background-image: linear-gradient(to right, #e9d4ff 0%, #cba0f9 51%, #e9d4ff 100%);
+            background-image: linear-gradient(to right, #f8e0bb 0%, #FFB584 51%, #f8e0bb 100%);
         }
         .btn02 {
             background-image: linear-gradient(to right, #c2e9fb 0%, #a1c4fd 51%, #c2e9fb 100%);
@@ -247,14 +235,14 @@
         {% endif %}
         <div class="logo-box">
             <a href="index.html" class="logo-text">
-                <img src="../static/images/logo/muther_logo.png" width="800" alt="logo">
+                <img src="../static/images/logo/muther_logo_sim.png" width="800" alt="logo">
             </a>
         </div>
     </div>
     <div class="landing-content">
         <div class="box01">
             <h1 class="main-text">오늘의 <span class="main-text-yellow">날씨</span>에</h1>
-            <h1 class="main-text">어울리는 <span class="main-text-blue">음악</span> 은 뭐야?</h1>
+            <h1 class="main-text">어울리는 <span class="main-text-blue">음악</span>은 뭐야?</h1>
             <div class="weather-box">
                 <p class="local">위치 : <span id="now_local">서울</span></p>
                 <p class="temperature">기온 : <span id="now_temperature">{{current_temp}}℃</span></p>
