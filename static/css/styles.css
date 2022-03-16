@@ -10,7 +10,6 @@
   padding: 2vh 0 1vh 0;
   text-align: center;
 }
-
 /* 우축 상단 현재 위치, 기온, 날씨, 로그인 */
 .top_corner {
   display: flex;
