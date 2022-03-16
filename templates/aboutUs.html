@@ -23,6 +23,26 @@
 
     <title>aboutUs</title>
     <style>
+         @font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            background:
+                url('../static/images/bg/bg-5.png'),
+                radial-gradient(circle, #ffffff 0%, #ffffff 50%, #ECE6FF 100%);
+            height: 100vh;
+            background-repeat : no-repeat;
+            background-size : cover;
+        }
         .about-wrap {
             padding: 20px;
             /*border: 1px solid #bcbcbc;*/
@@ -42,8 +62,16 @@
             color: #fcb69f;
         }
         .logo-box{
-            text-align: center;
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
             /*border: 1px solid #bcbcbc;*/
+        }
+        .logo-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
         }
         .logo-text {
             color: black;
@@ -53,19 +81,25 @@
             text-decoration: none;
             color: #fcb69f;
         }
-        .about-content {
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            height: 40%;
+        .about-content-wrap {
+            /*position: absolute;*/
+            /*top: 0; left: 0; bottom: 0; right: 0;*/
+            width: auto;
+            height: 60%;
             padding: 20px;
             margin: auto;
             text-align: center;
+            font-family: "NEXON Lv1 Gothic OTF";
             /*border: 1px solid #bcbcbc;*/
+        }
+        .about-content {
+            max-width: 100%;
         }
         .people-table {
             display: table;
             width: 800px;
             margin: auto;
+            border-spacing: 20px;
         }
         .people-table-row {
             display: table-row;
@@ -74,7 +108,11 @@
             display: table-cell;
             padding: 0px 20px;
             height: 150px;
-            /*border: 1px solid #bcbcbc;*/
+            border-radius: 30px;
+            box-shadow: 0 0 15px #D8D8D8;
+            background-color: #ffffff;
+            background-color: rgba( 255, 255, 255, 0.5 );
+
 
         }
         .people-top {
@@ -87,6 +125,7 @@
             vertical-align: bottom;
         }
     </style>
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png">
 </head>
 <body>
 <div class="about-wrap">
@@ -95,41 +134,73 @@
             <a href="" class="login-text">로그인</a>
         </div>
         <div class="logo-box">
-            <a href="" class="logo-text">오늘의 코딩은 맑음</a>
+            <a href="index.html" class="logo-text">
+                <img src="../static/images/logo/muther_logo_sim.png" width="800" alt="logo">
+            </a>
         </div>
     </div>
-    <div class="about-content">
-        <div class="people-table">
-            <div class="people-table-row">
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
+    <div class="about-content-wrap">
+        <div class="about-content">
+            <div class="people-table">
+                <div class="people-table-row">
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>김성훈</p>
+                        <p>백엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>서상지</p>
+                        <p>프론드엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>오석현</p>
+                        <p>백엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>이인</p>
+                        <p>백엔드</p>
+                    </div>
                 </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-            </div>
-            <div class="people-table-row">
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
+                <div class="people-table-row">
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>이재호</p>
+                        <p>프론드엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>장은영</p>
+                        <p>프론드엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="https://education.eviq.org.au/media/WWW_EVIQEdu/media/placeholder_200x200.gif"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>최화진</p>
+                        <p>백엔드</p>
+                    </div>
                 </div>
             </div>
         </div>
