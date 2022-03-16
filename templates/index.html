@@ -331,10 +331,9 @@
                     </div>
 
                     <span class="btn-container">
-                         <a href="#" class="btn00 btn02">
+                         <a href="#" class="btn00 btn02" id="play-btn">
                              지금 재생
-                             <audio src="{{song.preview_url}}">
-                             </audio>
+                             <audio src="{{song.preview_url}}" id="preview"></audio>
                          </a>
                         <a href="/main" class="btn00 btn02" id="get-recommend">
                             다른 노래 추천
@@ -347,7 +346,16 @@
     <script>
         const weatherLikeBtns = document.querySelectorAll(".weather-likeBtn");
         [...weatherLikeBtns].map(btn => btn.addEventListener("click", (e) => likeBtn(e)));
-        
+        const playBtn = document.querySelector("#play-btn");
+        const preview = document.querySelector("#preview");
+        playBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            if (preview.paused) {
+                preview.play();
+            } else {
+                preview.pause();
+            }
+        })
         function likeBtn(event) {
             event.preventDefault();
             let {target} = event;

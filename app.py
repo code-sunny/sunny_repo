@@ -164,14 +164,12 @@ def like():
             new_song["likedUsers"].append(likedUser)
             # 새 노래 해당 날씨의 좋아요 = 1 (최초니까)
             new_song["likes"][weather] = 1
-            # 사용자가 좋아요를 누른 노래도 집어넣어줘야 한다
-            clickedSong = {track_id: likedUser["likes"]}
             # 사용자가 좋아요를 누른 곡 목록에 위 내용을 더한다
             print(user["songs_liked"])
             user["songs_liked"][track_id] = likedUser["likes"]
             print(user["songs_liked"])
             # 사용자를 업데이트한다. 
-            db.users.update_one({"username": username}, {user})
+            db.users.update_one({"username": username}, {"$set": {"song_liked": user["song_liked"]}})
             # 신규 노래 삽입
             db.songs.insert_one(new_song)
             # 신규 음악의 좋아요 갯수를 돌려보낸다. (받을 곳이 없어 의미는 크게 없는 듯)
@@ -287,7 +285,7 @@ def login():
             # 세션에 사용자명을 담고 랜딩?메인?으로 돌려보낸다
             session["username"] = username
             print("test")
-            return redirect("/")
+            return redirect("/main")
     else:
         return render_template("login.html")
 
