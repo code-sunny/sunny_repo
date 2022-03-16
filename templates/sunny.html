@@ -16,6 +16,8 @@
       crossorigin="anonymous"
     />
 
+    <!-- 구글 폰트 ---------------->
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/styles.css" />
 
@@ -39,7 +41,9 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>{{ weather_to_show or current_weather }} - {{g.title}}</title>
+    <title>
+      {{ weather_to_show or current_weather or "main"}} - {{g.title}}
+    </title>
 
     <style>
       /*각 날씨 페이지마다 다른 이미지를 넣기 위해 css에서 옮김*/
@@ -66,13 +70,16 @@
         <section class="header">
           <div class="top_corner">
             <div class="city_temp_wt">
-              <p>{{current_temp}} ℃ {{current_weather}}</p>
+              <p>
+                {{current_temp or session.current_temp}} ℃ {{current_weather or
+                session.current_weather}}
+              </p>
             </div>
             {% if session.username and session.username != "Guest" %}
-            <div class="btn_login">
+            <div class="btn_mypage">
               <a href="/user/my-profile">{{session.username}}</a>
             </div>
-            <div class="btn_login btn_logout">
+            <div class="btn_logout">
               <a href="/logout">로그아웃</a>
             </div>
             {% else %}
@@ -157,7 +164,7 @@
           <div class="chart">
             <div class="chart_first">
               {% for song in songs_rank[0:5] %}
-              <div class="chart_cloumn" data-track_id="{{song.track_id}}">
+              <div class="chart_column" data-track_id="{{song.track_id}}">
                 <div class="chart_list">
                   <div class="rank">{{ loop.index }}</div>
                   <div>
@@ -176,40 +183,56 @@
                   </div>
                   <div class="weather_icon">
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Sunny">
                         <img
                           src="../static/images/picto_sunny.png"
                           alt="sunny"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Sunny }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Cloudy">
                         <img
                           src="../static/images/picto_cloudy.png"
                           alt="cloudy"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Cloudy }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Rainy">
                         <img
                           src="../static/images/picto_rainy.png"
                           alt="rainy"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Rainy }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Snowy">
                         <img
                           src="../static/images/picto_snowy.png"
                           alt="snowy"
                         />
                       </button>
+                      {% if song.likes %}
+                      <p class="weather_cloumn_txt">{{ song.likes.Snowy }}</p>
+                      {% else %}
                       <p class="weather_cloumn_txt">0</p>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
@@ -218,7 +241,7 @@
             </div>
             <div class="chart_second">
               {% for song in songs_rank[5:] %}
-              <div class="chart_cloumn" data-track_id="{{song.track_id}}">
+              <div class="chart_column" data-track_id="{{song.track_id}}">
                 <div class="chart_list">
                   <div class="rank">{{ 5 + loop.index }}</div>
                   <div>
@@ -237,7 +260,7 @@
                   </div>
                   <div class="weather_icon">
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Sunny">
                         <img
                           src="../static/images/picto_sunny.png"
                           alt="sunny"
@@ -250,7 +273,7 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Cloudy">
                         <img
                           src="../static/images/picto_cloudy.png"
                           alt="cloudy"
@@ -263,7 +286,7 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Rainy">
                         <img
                           src="../static/images/picto_rainy.png"
                           alt="rainy"
@@ -276,7 +299,7 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" onclick="">
+                      <button type="button" value="Snowy">
                         <img
                           src="../static/images/picto_snowy.png"
                           alt="snowy"
@@ -332,13 +355,14 @@
               data-track_index="{{loop.index}}"
               data-track_id="{{song.track_id}}"
             >
-              <div>
+              <div class="empty_class">
                 <img
                   type="button"
                   data-toggle="modal"
                   data-target="#random_modal"
                   src="{{song.cover_image}}"
                   art="albumart"
+                  class="random_albumart"
                 />
               </div>
               <div class="random_list_detail">
@@ -363,7 +387,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">아티스트 이름</h5>
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
               <button
                 type="button"
                 class="close"
@@ -374,27 +398,21 @@
               </button>
             </div>
             <div class="modal-body">
-              <img
-                src="https://w.namu.la/s/fab2b1831bae7cfaf08c4c46191c393b500894614ef248831901d607e8ec21a0257b865cb6693fede29553f86bc1a8fabb9dea24d17908651d55b2a7867b541554a3a2a6954d5eca26884f191d6aa30f39512b4afc9ad69178b4b1bf14b1ca8bfee66b06ae21d4123ef5c838b581beb8"
-                art="albumart"
-              />
+              <img src="" art="albumart" class="modal-albumart" />
             </div>
-            <div class="modal_song_title">
-              노래제목: 제목이 너무 길어서 보기 싫어지면 안되니까 아무말이나
-              하하하하하하하하
-            </div>
+            <div class="modal_song_title"></div>
             <div class="modal-footer">
               <div class="weather_icon" id="modal_wt_icon">
-                <button type="button" onclick="">
+                <button type="button" value="Sunny" class="weather-likeBtn">
                   <img src="../static/images/picto_sunny.png" alt="sunny" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" value="Cloudy" class="weather-likeBtn">
                   <img src="../static/images/picto_cloudy.png" alt="cloudy" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" value="Rainy" class="weather-likeBtn">
                   <img src="../static/images/picto_rainy.png" alt="rainy" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" value="Snowy" class="weather-likeBtn">
                   <img src="../static/images/picto_snowy.png" alt="snowy" />
                 </button>
               </div>
@@ -446,35 +464,34 @@
           alert("검색어를 입력해주세요.");
         } else {
           query = search_input.value;
-          console.log(query);
           window.location.href = `/main/search?query=${query}`;
         }
       });
-      const tracks_rank = {{ songs_rank|tojson }};
-      const tracks_random = {{ random_songs|tojson }};
-
-      const chart_columns = document.querySelectorAll(".chart_column");
+      const random_tracks = {{random_songs|tojson}};
       const random_lists = document.querySelectorAll(".random_list");
-      [...chart_columns].map(column => column.addEventListener("click", (event) => openModal(event)));
-      [...random_lists].map(list => list.addEventListener("click", (event) => openModal(event)));
-
+      [...random_lists].map((list) =>
+        list.addEventListener("click", (event) => openModal(event))
+      );
       function openModal(event) {
-        const {target} = event;
-        while (target.className !== "random_list" || target.className !== "chart_column") {
+        let { target } = event;
+        while (target.className !== "random_list") {
           target = target.parentNode;
         }
         const track_id = target.dataset.track_id;
+        const track_idx = target.dataset.track_index;
+        const track = random_tracks[track_idx - 1];
+        const modal_content = document.querySelector(".modal-content");
         modal_content.dataset.track_id = track_id;
-        const target_track = tracks.filter(({track_id: id}) => id === track_id);
         let modal_title = document.querySelector(".modal-title");
-        modal_title.innerText = target_track[0].artist;
-        let modal_song_title = document.querySelector(".modal_song_title")
-        modal_song_title.innerText = target_track[0].title;
-        let modal_albumart = document.querySelector(".modal-albumart")
-        modal_albumart.src = target_track[0].cover_image;
+        modal_title.innerText = track.artist;
+        let modal_song_title = document.querySelector(".modal_song_title");
+        modal_song_title.innerText = track.title;
+        let modal_albumart = document.querySelector(".modal-albumart");
+        modal_albumart.src = track.cover_image;
         let modal_preview = document.querySelector("audio");
-        modal_preview.src = target_track[0].preview_url;
+        modal_preview.src = track.preview_url;
       }
-    </script>
+      </script>
+      <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
   </body>
 </html>

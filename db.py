@@ -1,5 +1,8 @@
 from pymongo import MongoClient
-
-# 그냥 app을 한 줄 더 줄이기 위한 db 분리
+from env import env_variables
+# db 설정
+# dev
 client = MongoClient("localhost", 27017)
+# production
+# client = MongoClient(f'mongodb://{env_variables["DB_ID"]}{env_variables["DB_PW"]}@0.0.0.0:27017')
 db = client.sunny

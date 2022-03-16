@@ -39,7 +39,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Search - {{g.title}}</title>
+    <title>{{query}} - {{g.title}}</title>
   </head>
 
   <body>
@@ -54,9 +54,16 @@
               <div class="city_temp_wt">
                 <p>서울 {{current_temp}}℃ {{current_weather}}</p>
               </div>
+              {% if not session.username %}
               <div class="btn_login">
                 <a href="/login">로그인</a>
               </div>
+              {% endif %} {% if session.username and session.username !=
+              "Guest"%}
+              <div class="btn_mypage">
+                <a href="/user/my-profile">{{session.username}}</a>
+              </div>
+              {% endif %}
             </div>
           </div>
           <h1><i class="fas fas fa-search"></i> Search</h1>
@@ -91,13 +98,14 @@
           <div class="random">
             {% for song in songs %}
             <div class="random_list" data-track_id="{{song.track_id}}">
-              <div>
+              <div class="empty_class">
                 <img
                   type="button"
                   data-toggle="modal"
                   data-target="#random_modal"
                   src="{{ song.cover_image }}"
                   art="albumart"
+                  class="random_albumart"
                 />
               </div>
               <div class="random_list_detail">
@@ -145,16 +153,16 @@
             </div>
             <div class="modal-footer">
               <div class="weather_icon" id="modal_wt_icon">
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Sunny">
                   <img src="../static/images/picto_sunny.png" alt="sunny" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Cloudy">
                   <img src="../static/images/picto_cloudy.png" alt="cloudy" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Rainy">
                   <img src="../static/images/picto_rainy.png" alt="rainy" />
                 </button>
-                <button type="button" onclick="">
+                <button type="button" class="weather-likeBtn" value="Snowy">
                   <img src="../static/images/picto_snowy.png" alt="snowy" />
                 </button>
               </div>
@@ -179,28 +187,33 @@
     <script>
       const tracks = {{songs|tojson}};
       const random_lists = document.querySelectorAll(".random_list");
-      [...random_lists].map((random_list) =>
-        random_list.addEventListener("click", (event) => setSongInfo(event))
+
+      [...random_lists].map((list) =>
+        list.addEventListener("click", (event) => openModal(event, tracks))
       );
-      const modal_content = document.querySelector(".modal-content");
-      function setSongInfo(event) {
-        event.preventDefault();
+      function openModal(event, tracks) {
         let { target } = event;
-        while (target.className !== "random_list") {
-            target = target.parentNode;
+        while (
+          target.className !== "random_list"
+        ) {
+          target = target.parentNode;
         }
         const track_id = target.dataset.track_id;
+        const modal_content = document.querySelector(".modal-content");
         modal_content.dataset.track_id = track_id;
-        const target_track = tracks.filter(({track_id: id}) => id === track_id);
+        const target_track = tracks.filter(
+          ({ track_id: id }) => id === track_id
+        );
         let modal_title = document.querySelector(".modal-title");
         modal_title.innerText = target_track[0].artist;
-        let modal_song_title = document.querySelector(".modal_song_title")
+        let modal_song_title = document.querySelector(".modal_song_title");
         modal_song_title.innerText = target_track[0].title;
-        let modal_albumart = document.querySelector(".modal-albumart")
+        let modal_albumart = document.querySelector(".modal-albumart");
         modal_albumart.src = target_track[0].cover_image;
         let modal_preview = document.querySelector("audio");
         modal_preview.src = target_track[0].preview_url;
       }
     </script>
+    <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
   </body>
 </html>

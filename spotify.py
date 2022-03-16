@@ -47,12 +47,12 @@ def get_track_info(track_id):
 
 def get_weather_song(keyword):
     try:
-        search_limit = 50
+        search_limit = 30
         search = sp.search(q=keyword, limit=search_limit, type="playlist")
 
         playlist_id = search['playlists']['items'][0]['id']
 
-        playlist_items_limit = 50
+        playlist_items_limit = 30
         playlist_items = sp.playlist_items(playlist_id=playlist_id, fields=None, limit=playlist_items_limit, offset=0, market='KR')
 
 
@@ -68,11 +68,11 @@ def get_weather_song(keyword):
             
             if song_preview_url != None:
                 song = {
-                    'image_url' : song_image_url,
-                    'name' : song_name,
-                    'preview_url' : song_preview_url,
+                    'title' : song_name,
                     'artist' : song_artist,
-                    'track_id' : song_track_id
+                    'track_id' : song_track_id,
+                    'cover_image' : song_image_url,
+                    'preview_url' : song_preview_url,
                     }
                 
                 songs_info.append(song)
