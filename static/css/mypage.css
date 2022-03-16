@@ -11,6 +11,11 @@
             font-style: normal;
         }
 
+* {
+  font-family: 'Gothic A1', sans-serif;
+  /*font-family: 'NEXON Lv1 Gothic OTF';*/
+}
+
 /* ---------- header ---------- */
 .header {
     padding: 2vh 0 1vh 0;
