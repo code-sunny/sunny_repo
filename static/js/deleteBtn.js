@@ -22,6 +22,12 @@ function deleteLike(event) {
     }),
   })
     .then((res) => res.json())
-    .then((json) => console.log(json));
+    .then((json) => {
+      console.log(json);
+      console.log(json["msg"]);
+      if (json["msg"] == "이미 삭제된 곡입니다!") {
+        alert(json["msg"]);
+      }
+    });
   window.location.reload();
 }

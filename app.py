@@ -17,18 +17,15 @@ app.secret_key = env_variables["FLASK_SECRET"]
 
 @app.before_request
 def global_variables():
-    print("Before!")
     # flask 전체에 공유되는 변수를 설정한다. (global variables)
     g.title = "Mu:ther"
 
 @app.after_request
 def after_request(response):
-    print("After!")
     return response
 
 @app.route("/", methods=["GET"])
 def landing_page():
-    print(session)
     # random song 가져오기 -> 보내주기 구현
     # 기본날씨 서울 종로구 기준 부여
     lat = env_variables["BASE_LAT"]
@@ -60,6 +57,8 @@ def about():
 
 @app.route("/main", methods=["GET"])
 def main_page():
+
+    
     # main에 접속함은 랜딩 페이지에서 넘어온 상태이므로 세션에 날씨 정보들이 들어있다.
     # main에 바로 접근 하는 것을 막는다.
     if "current_weather" not in session:
@@ -96,20 +95,35 @@ def main_page():
 def search():
     # search 페이지로 접근 시 검색어를 query로 받아온다
     query = request.args.get("query")
+    
+        # random song 가져오기 -> 보내주기 구현
+    # 기본날씨 서울 종로구 기준 부여
+    lat = env_variables["BASE_LAT"]
+    lon = env_variables["BASE_LON"]
+    # get_current_weather를 통해 날씨, 기온, 도시 이름을 받아옴
+    current_weather, current_temp, current_city = "", "", ""
+    if "current_weather" in session:
+        # get-weather가 실행되면 session에 위의 세 정보가 실제 정보로 저장된다.
+        current_weather = session["current_weather"]
+        current_temp = session["current_temp"]
+        current_city = session["current_city"]
+    else:
+        current_weather, current_temp, current_city = get_current_weather(lat, lon)
+    
     # 사용자명 설정
-    username = "Guset"
+    username = "Guest"
     if "username" in session:
         username = session["username"]
     from spotify import get_songs
     # 스포티파이에서 검색하여 받아온 노래정보를 넘겨 렌더링한다.
     songs = get_songs(query)
-    return render_template("search.html", username=username, query=query, songs=songs)
+    return render_template("search.html", username=username, query=query, songs=songs, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
 
 # 이 부분은 안 쓰게 될 것 같다.
 @app.route("/main/song-rank", methods=["GET"])
 def show_song_ranks():
     weatherToShow = request.args["moveBtn"]
-    print(weatherToShow)
+
     song_rank = list(
         db.songs.find({}, {"_id": False}).sort(weatherToShow, -1).limit(10)
     )
@@ -130,17 +144,22 @@ def show_song_likes():
 # 작업 중
 @app.route("/api/like-btn", methods=["POST"])
 def like():
+    
     # 로그인 된 상태일 때
     if "username" in session:
         username = session["username"]
         # 트랙아이디, 날씨정보, 날씨에 눌린 좋아요 정보
-        track_id, weather, weather_like_state = request.json.values()
+        track_id, weather = request.json.values()
         song = db.songs.find_one({"track_id": track_id})
         user = db.users.find_one({"username": username})
+        print("****************")
+        print(song)
         # 노래가 존재하지 않을 떄
         if song is None:
+            
             # 스포티파이api를 이용, 트랙의 타이틀, 가수명을 불러옴
             title, artist, cover_image, preview_url = get_track_info(track_id)
+
             # 신규 song 문서의 작성
             new_song = {
                 "track_id": track_id,
@@ -187,15 +206,15 @@ def like():
             # 유저가 해당 곡에 좋아요를 눌렀던 적이 있는 경우
             if track_id in user["songs_liked"]:
                 # 좋아요를 누른 적도 있고, 해당 날씨에 좋아요를 누른 곡인 경우
-                if weather_like_state is True:
+                
+                if user["songs_liked"][track_id][weather]:
                     db.songs.update_one(
                         {"track_id": track_id}, {"$inc": {to_update: -1}}
                     )
                     user_liked = user["songs_liked"]
-                    print(user_liked)
+
                     user_liked[track_id][weather] = False
-                    print("________________")
-                    print(user_liked)
+    
                     db.users.update_one(
                         {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
@@ -206,10 +225,9 @@ def like():
                         {"track_id": track_id}, {"$inc": {to_update: 1}}
                     )
                     user_liked = user["songs_liked"]                    
-                    print(user_liked)
+   
                     user_liked[track_id][weather] = True
-                    print("________________")
-                    print(user_liked)
+
                     db.users.update_one(
                         {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
@@ -245,14 +263,22 @@ def like():
                 db.users.update_one(
                     {"username": username}, {"$addToSet": {"songs_liked": user["songs_liked"]}}
                 )
+<<<<<<< HEAD
                 return jsonify({"msg": "TEST"})
+=======
+        return jsonify({"msg": "Likes updated!"})
+    
+    # 로그인 되지 않았으면 로그인 페이지로 redirect
+>>>>>>> seonghun
     else:
-        return redirect("/")
+        return jsonify({'msg' : "먼저 로그인 해주세요!", 'redirect_url' : "/login"})
+  
 
 @app.route("/api/song-info", methods=["GET"])
 def show_song_info():
     song_list = extract_10_songs()
     return jsonify({"song_list": song_list})
+
 
 @app.route("/api/delete-like", methods=["DELETE"])
 def delete_like():
@@ -262,25 +288,38 @@ def delete_like():
         # 받아온 트랙아이디, 좋아요가 눌려있는 날씨
         track_id, weather = request.json.values()
         username = session["username"]
+        likes = list(db.songs.find({"track_id": track_id}, {"_id": False}))[0]
+
         
         song = db.songs.find({"track_id": track_id}, {"_id": False})
         user = db.users.find({"username": username}, {"_id": False})
         likedUsers = list(song)[0]["likedUsers"]
-        # print(likedUsers)
+        
         toUpdate = {}
         x = 0
         for i in range(len(likedUsers)):
             if likedUsers[i][username]:
                 x = i
-                toUpdate = likedUsers[i]
-        toUpdate[weather] = False
+                toUpdate = likedUsers[x]
+        toUpdate[username][weather] = False
         db.songs.update_one({"track_id": track_id}, {"$set": {"likedUsers": likedUsers}})
-        db.songs.update_one({"track_id": track_id}, {"$inc": {f"likes.{weather}": -1}})
+
+        # 좋아요 수가 0 밑으로 간다면
+        if likes['likes'][weather]-1 >= 0:
+            db.songs.update_one({"track_id": track_id}, {"$inc": {f"likes.{weather}": -1}})
+        else:
+            return jsonify({'msg' : "이미 삭제된 곡입니다!"})
+        
         songs_liked = list(user)[0]["songs_liked"]
         # print(songs_liked)
         songs_liked[track_id][weather] = False
         db.users.update_one({"username": username}, {"$set": {"songs_liked": songs_liked}})
+                
         return redirect("/user/my-profile")
+    
+
+    
+        
 
 
 
@@ -331,7 +370,7 @@ def login():
         else:
             # 세션에 사용자명을 담고 랜딩?메인?으로 돌려보낸다
             session["username"] = username
-            print("test")
+
             return redirect("/main")
     else:
         return render_template("login.html")
@@ -339,6 +378,7 @@ def login():
 
 @app.route("/logout", methods=["GET"])
 def logout():
+    print(request.path)
     # 로그인되지 않은 사용자는 돌려보낸다
     if not session["username"]:
         return redirect("/")
@@ -350,6 +390,19 @@ def logout():
 
 @app.route("/user/my-profile")
 def profile():
+    
+     # 기본날씨 서울 종로구 기준 부여
+    lat = env_variables["BASE_LAT"]
+    lon = env_variables["BASE_LON"]
+    # get_current_weather를 통해 날씨, 기온, 도시 이름을 받아옴
+    current_weather, current_temp, current_city = "", "", ""
+    if "current_weather" in session:
+        # get-weather가 실행되면 session에 위의 세 정보가 실제 정보로 저장된다.
+        current_weather = session["current_weather"]
+        current_temp = session["current_temp"]
+        current_city = session["current_city"]
+    else:
+        current_weather, current_temp, current_city = get_current_weather(lat, lon)
     # 로그인 되지 않은 사용자는 돌려보낸다.
     if not "username" in session:
         return redirect("/")
@@ -377,8 +430,8 @@ def profile():
                         "preview_url": preview_url
                     }
                     tracks[weather].append(doc)
-        print(tracks)
-        return render_template("mypage.html", username=session["username"], tracks=tracks)
+
+        return render_template("mypage.html", username=session["username"], tracks=tracks, current_city=current_city, current_weather=current_weather, current_temp=current_temp)
 
 @app.route("/get-weather", methods=["POST"])
 def get_weather():
@@ -402,3 +455,6 @@ def get_weather():
 
 if __name__ == "__main__":
     app.run("0.0.0.0", env_variables["PORT"])
+
+
+ 

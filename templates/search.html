@@ -78,6 +78,11 @@
               <div class="btn_login">
                 <a href="/login">로그인</a>
               </div>
+              {% endif %} {% if session.username and session.username !=
+              "Guest"%}
+              <div class="btn_mypage">
+                <a href="/user/my-profile">{{session.username}}</a>
+              </div>
               {% endif %}
             </div>
           </div>
@@ -143,7 +148,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content song-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">아티스트 이름</h5>
               <button
@@ -214,8 +219,8 @@
           target = target.parentNode;
         }
         const track_id = target.dataset.track_id;
-        const modal_content = document.querySelector(".modal-content");
-        modal_content.dataset.track_id = track_id;
+        const song_content = document.querySelector(".song-content");
+        song_content.dataset.track_id = track_id;
         const target_track = tracks.filter(
           ({ track_id: id }) => id === track_id
         );

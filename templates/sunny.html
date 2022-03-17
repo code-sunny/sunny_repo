@@ -183,7 +183,10 @@
           <div class="chart">
             <div class="chart_first">
               {% for song in songs_rank[0:5] %}
-              <div class="chart_column" data-track_id="{{song.track_id}}">
+              <div
+                class="chart_column song-content"
+                data-track_id="{{song.track_id}}"
+              >
                 <div class="chart_list">
                   <div class="rank">{{ loop.index }}</div>
                   <div>
@@ -202,7 +205,11 @@
                   </div>
                   <div class="weather_icon">
                     <div class="weather_cloumn">
-                      <button type="button" value="Sunny">
+                      <button
+                        type="button"
+                        value="Sunny"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_sunny.png"
                           alt="sunny"
@@ -215,7 +222,11 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" value="Cloudy">
+                      <button
+                        type="button"
+                        value="Cloudy"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_cloudy.png"
                           alt="cloudy"
@@ -228,7 +239,11 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" value="Rainy">
+                      <button
+                        type="button"
+                        value="Rainy"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_rainy.png"
                           alt="rainy"
@@ -241,7 +256,11 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" value="Snowy">
+                      <button
+                        type="button"
+                        value="Snowy"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_snowy.png"
                           alt="snowy"
@@ -260,7 +279,10 @@
             </div>
             <div class="chart_second">
               {% for song in songs_rank[5:] %}
-              <div class="chart_column" data-track_id="{{song.track_id}}">
+              <div
+                class="chart_column song-content"
+                data-track_id="{{song.track_id}}"
+              >
                 <div class="chart_list">
                   <div class="rank">{{ 5 + loop.index }}</div>
                   <div>
@@ -279,7 +301,11 @@
                   </div>
                   <div class="weather_icon">
                     <div class="weather_cloumn">
-                      <button type="button" value="Sunny">
+                      <button
+                        type="button"
+                        value="Sunny"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_sunny.png"
                           alt="sunny"
@@ -292,7 +318,11 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" value="Cloudy">
+                      <button
+                        type="button"
+                        value="Cloudy"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_cloudy.png"
                           alt="cloudy"
@@ -305,7 +335,11 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" value="Rainy">
+                      <button
+                        type="button"
+                        value="Rainy"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_rainy.png"
                           alt="rainy"
@@ -318,7 +352,11 @@
                       {% endif %}
                     </div>
                     <div class="weather_cloumn">
-                      <button type="button" value="Snowy">
+                      <button
+                        type="button"
+                        value="Snowy"
+                        class="weather-likeBtn"
+                      >
                         <img
                           src="../static/images/picto_snowy.png"
                           alt="snowy"
@@ -404,7 +442,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content song-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"></h5>
               <button
@@ -499,8 +537,8 @@
         const track_id = target.dataset.track_id;
         const track_idx = target.dataset.track_index;
         const track = random_tracks[track_idx - 1];
-        const modal_content = document.querySelector(".modal-content");
-        modal_content.dataset.track_id = track_id;
+        const song_content = document.querySelector(".song-content");
+        song_content.dataset.track_id = track_id;
         let modal_title = document.querySelector(".modal-title");
         modal_title.innerText = track.artist;
         let modal_song_title = document.querySelector(".modal_song_title");
@@ -511,9 +549,6 @@
         modal_preview.src = track.preview_url;
       }
     </script>
-    <script
-      type="module"
-      src="{{url_for('static', filename='js/likeBtn.js')}}"
-    ></script>
+    <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
   </body>
 </html>

@@ -46,7 +46,7 @@ def get_track_info(track_id):
 
 def get_weather_song(keyword):
     try:
-        search_limit = 15
+        search_limit = 20
         search = sp.search(q=keyword, limit=search_limit, type="playlist")
 
         playlist_id = search['playlists']['items'][0]['id']
@@ -77,7 +77,8 @@ def get_weather_song(keyword):
                 songs_info.append(song)
     except:
         print(1)
-            
+     
+    # 몇 곡 받아오는지 확인용        
     pprint.pprint(len(songs_info))
     
     return songs_info
