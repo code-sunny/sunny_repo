@@ -26,7 +26,7 @@ def song_recommend(weather):
     return song
 
 def song_ranks(weather):
-    songs = [] or list(db.songs.find({}, {"_id": False}, limit=11).sort(f"likes.{weather}", -1))
+    songs = [] or list(db.songs.find({}, {"_id": False}).sort(f"likes.{weather}", -1))
     # db에 10곡 이상의 노래가 존재 시
     weather_counter = 0
     if weather == "Cloudy":
