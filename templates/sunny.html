@@ -386,7 +386,7 @@
           <div class="search_bar">
             <div class="input-group mb-3">
               <input
-                type="text"
+                type="submit"
                 class="form-control"
                 placeholder="노래 / 아티스트 입력"
                 id="search_input"
@@ -522,7 +522,15 @@
         });
       }
       const search_input = document.querySelector("#search_input");
-      search_input.addEventListener("submit", (e) => e.preventDefault());
+      search_input.addEventListener("submit", (e) => {
+        console.log(e);
+        if (search_input.value.length === 0) {
+          alert("검색어를 입력해주세요.");
+        } else {
+          query = search_input.value;
+          window.location.href = `/main/search?query=${query}`;
+        }
+      });
       const search_btn = document.querySelector("#button-search");
       search_btn.addEventListener("click", (e) => {
         e.preventDefault();
