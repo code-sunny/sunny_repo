@@ -14,7 +14,6 @@ from weather import get_current_weather
 app = Flask(__name__)
 app.secret_key = env_variables["FLASK_SECRET"]
 
-
 @app.before_request
 def global_variables():
     # flask 전체에 공유되는 변수를 설정한다. (global variables)
