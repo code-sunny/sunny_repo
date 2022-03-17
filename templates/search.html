@@ -16,6 +16,11 @@
       crossorigin="anonymous"
     />
 
+    <!-- 구글 폰트 ---------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/search.css" />
 
@@ -80,20 +85,25 @@
               <a href="/main"><i class="fas fa-arrow-circle-left"></i></a>
             </div>
             <div class="top_corner">
-              <div class="city_temp_wt">
-                <p>서울 {{current_temp}}℃ {{current_weather}}</p>
-              </div>
-              {% if not session.username %}
-              <div class="btn_login">
-                <a href="/login">로그인</a>
-              </div>
-              {% endif %} {% if session.username and session.username !=
-              "Guest"%}
-              <div class="btn_mypage">
-                <a href="/user/my-profile">{{session.username}}</a>
-              </div>
-              {% endif %}
+            <div class="city_temp_wt">
+              <p>
+                {{current_temp or session.current_temp}} ℃ {{current_weather or
+                session.current_weather}}
+              </p>
             </div>
+            {% if session.username and session.username != "Guest" %}
+            <div class="btn_mypage">
+              <a href="/user/my-profile">{{session.username}}님의 페이지</a>
+            </div>
+            <div class="btn_logout">
+              <a href="/logout">로그아웃</a>
+            </div>
+            {% else %}
+            <div class="btn_login">
+              <a href="/login">로그인</a>
+            </div>
+            {% endif %}
+          </div>
           </div>
           <h1><i class="fas fas fa-search"></i> Search</h1>
         </section>

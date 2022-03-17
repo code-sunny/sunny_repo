@@ -1,3 +1,21 @@
+@font-face {
+            font-family: 'NEXON Lv1 Gothic OTF';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+@font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+* {
+  font-family: 'Gothic A1', sans-serif;
+  /*font-family: 'NEXON Lv1 Gothic OTF';*/
+}
+
 /* ---------- header ---------- */
 .header {
     padding: 2vh 0 1vh 0;
@@ -27,6 +45,10 @@
     justify-content: end;
 }
 
+.btn_login {
+    margin-left: 3%;
+}
+
 .btn_login a {
     text-decoration-line: none;
     color: dimgrey;
@@ -36,8 +58,30 @@
     color: orange;
 }
 
-.btn_login {
+.btn_logout {
     margin-left: 3%;
+}
+
+.btn_logout a {
+    text-decoration-line: none;
+    color: dimgrey;
+}
+
+.btn_logout a:hover {
+    color: orange;
+}
+
+.btn_mypage {
+  margin-left: 3%;
+}
+
+.btn_mypage a {
+  text-decoration-line: none;
+  color: dimgrey;
+}
+
+.btn_mypage a:hover {
+  color: orange;
 }
 
 .city_temp_wt {
@@ -92,10 +136,12 @@
 
 .random_song_title {
     font-size: 0.8em;
+    font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 12.5em;
+    font-family: 'Gothic A1', sans-serif;
 }
 
 .random_artist {
@@ -104,6 +150,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 12.5em;
+    font-family: 'NEXON Lv1 Gothic OTF';
 }
 
 /* ------------------- modal ------------------------ */

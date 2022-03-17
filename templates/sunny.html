@@ -17,12 +17,10 @@
     />
 
     <!-- 구글 폰트 ---------------->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/styles.css" />
 
@@ -105,7 +103,7 @@
             </div>
             {% if session.username and session.username != "Guest" %}
             <div class="btn_mypage">
-              <a href="/user/my-profile">{{session.username}}</a>
+              <a href="/user/my-profile">{{session.username}}님의 페이지</a>
             </div>
             <div class="btn_logout">
               <a href="/logout">로그아웃</a>
