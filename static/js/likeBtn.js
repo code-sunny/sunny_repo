@@ -10,7 +10,11 @@ function likeBtn(event) {
   }
   let targetContainer = target.parentNode;
   console.log(targetContainer.className);
-  if (targetContainer.className === "weather_icon") {
+  if (location.pathname === "/") {
+    while (targetContainer.className !== "modal-content") {
+      targetContainer = targetContainer.parentNode;
+    }
+  } else if (targetContainer.className === "weather_icon") {
     while (targetContainer.className !== "modal-content") {
       targetContainer = targetContainer.parentNode;
     }
@@ -21,6 +25,7 @@ function likeBtn(event) {
   }
   const weatherValue = target.value;
   const track_id = targetContainer.dataset.track_id;
+  alert(`${weatherValue}가 선택되었습니다.`);
   fetch("/api/like-btn", {
     method: "POST",
     headers: {

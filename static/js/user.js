@@ -7,6 +7,19 @@ function postLogin(event) {
   const username = target.querySelector("#signin_id").value;
   const password = target.querySelector("#signin_pass").value;
   try {
+    if (username === undefined) {
+      alert("아이디를 입력해주세요.");
+      throw Error;
+    } else if (username.length < 3) {
+      alert("3자 이상의 아이디를 입력해주세요.");
+      throw Error;
+    } else if (password === undefined) {
+      alert("비밀번호를 입력해주세요.");
+      throw Error;
+    } else if (password.length < 4) {
+      alert("비밀번호의 길이가 짧습니다.");
+      throw Error;
+    }
     fetch("/login", {
       method: "POST",
       headers: {
@@ -44,6 +57,9 @@ function postJoin(event) {
       throw Error;
     } else if (password.length < 4) {
       alert("5자 이상의 비밀번호를 사용해주세요");
+      throw Error;
+    } else if (password !== password2) {
+      alert("비밀번호가 일치하지 않습니다.");
       throw Error;
     }
     fetch("/join", {
