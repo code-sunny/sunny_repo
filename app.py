@@ -263,13 +263,9 @@ def like():
                 db.users.update_one(
                     {"username": username}, {"$addToSet": {"songs_liked": user["songs_liked"]}}
                 )
-<<<<<<< HEAD
-                return jsonify({"msg": "TEST"})
-=======
         return jsonify({"msg": "Likes updated!"})
     
     # 로그인 되지 않았으면 로그인 페이지로 redirect
->>>>>>> seonghun
     else:
         return jsonify({'msg' : "먼저 로그인 해주세요!", 'redirect_url' : "/login"})
   
