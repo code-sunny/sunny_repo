@@ -553,7 +553,7 @@
         const track_id = target.dataset.track_id;
         const track_idx = target.dataset.track_index;
         const track = random_tracks[track_idx - 1];
-        const song_content = document.querySelector(".modal-content");
+        const modal_content = document.querySelector(".modal-content");
         modal_content.dataset.track_id = track_id;
         let modal_title = document.querySelector(".modal-title");
         modal_title.innerText = track.artist;

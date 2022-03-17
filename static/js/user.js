@@ -39,6 +39,13 @@ function postJoin(event) {
   const password = target.querySelector("#sign_pass").value;
   const password2 = target.querySelector("#sign_pass2").value;
   try {
+    if (username.length < 3) {
+      alert("4자 이상의 username을 입력해주세요");
+      throw Error;
+    } else if (password.length < 4) {
+      alert("5자 이상의 비밀번호를 사용해주세요");
+      throw Error;
+    }
     fetch("/join", {
       method: "POST",
       headers: {
