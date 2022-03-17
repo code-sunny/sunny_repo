@@ -32,13 +32,33 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- bootstrap fas icon을 사용하기 위해 필요 -->
     <script
       src="https://kit.fontawesome.com/a73607bda8.js"
       crossorigin="anonymous"
     ></script>
-
+    <style>
+      @font-face {
+        font-family: "NEXON Lv1 Gothic OTF";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "GmarketSansMedium";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
     <title>{{query}} - {{g.title}}</title>
   </head>
 
@@ -79,13 +99,13 @@
                 placeholder="노래 / 아티스트 입력"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
+                id="search_input"
               />
               <div class="input-group-append">
                 <button
                   class="btn btn-outline-secondary"
                   type="button"
-                  id="button-addon2"
-                  onclick="location.href='search.html'"
+                  id="button-search"
                 >
                   Search
                 </button>
@@ -128,7 +148,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content song-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">아티스트 이름</h5>
               <button
@@ -199,8 +219,8 @@
           target = target.parentNode;
         }
         const track_id = target.dataset.track_id;
-        const modal_content = document.querySelector(".modal-content");
-        modal_content.dataset.track_id = track_id;
+        const song_content = document.querySelector(".song-content");
+        song_content.dataset.track_id = track_id;
         const target_track = tracks.filter(
           ({ track_id: id }) => id === track_id
         );
@@ -213,6 +233,18 @@
         let modal_preview = document.querySelector("audio");
         modal_preview.src = target_track[0].preview_url;
       }
+      const search_input = document.querySelector("#search_input");
+      search_input.addEventListener("submit", (e) => e.preventDefault());
+      const search_btn = document.querySelector("#button-search");
+      search_btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (search_input.value.length === 0) {
+          alert("검색어를 입력해주세요.");
+        } else {
+          query = search_input.value;
+          window.location.href = `/main/search?query=${query}`;
+        }
+      });
     </script>
     <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
   </body>

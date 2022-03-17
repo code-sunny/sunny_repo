@@ -1,7 +1,6 @@
-# from app import env_variables
 from dotenv import load_dotenv
-
 load_dotenv()
+
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from random import randint
@@ -47,7 +46,7 @@ def get_track_info(track_id):
 
 def get_weather_song(keyword):
     try:
-        search_limit = 30
+        search_limit = 20
         search = sp.search(q=keyword, limit=search_limit, type="playlist")
 
         playlist_id = search['playlists']['items'][0]['id']
@@ -70,15 +69,16 @@ def get_weather_song(keyword):
                 song = {
                     'title' : song_name,
                     'artist' : song_artist,
-                    'track_id' : song_track_id,
                     'cover_image' : song_image_url,
                     'preview_url' : song_preview_url,
+                    'track_id' : song_track_id
                     }
                 
                 songs_info.append(song)
     except:
         print(1)
-            
+     
+    # 몇 곡 받아오는지 확인용        
     pprint.pprint(len(songs_info))
     
     return songs_info

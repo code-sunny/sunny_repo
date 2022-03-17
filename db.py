@@ -4,5 +4,5 @@ from env import env_variables
 # dev
 client = MongoClient("localhost", 27017)
 # production
-# client = MongoClient(f'mongodb://{env_variables["DB_ID"]}{env_variables["DB_PW"]}@0.0.0.0:27017')
+# client = MongoClient('mongodb://-@0.0.0.0:27017')
 db = client.sunny
