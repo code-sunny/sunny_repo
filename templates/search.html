@@ -32,9 +32,12 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- bootstrap fas icon을 사용하기 위해 필요 -->
     <script
       src="https://kit.fontawesome.com/a73607bda8.js"
@@ -42,17 +45,19 @@
     ></script>
     <style>
       @font-face {
-            font-family: 'NEXON Lv1 Gothic OTF';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'GmarketSansMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+        font-family: "NEXON Lv1 Gothic OTF";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "GmarketSansMedium";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
     </style>
     <title>{{query}} - {{g.title}}</title>
   </head>
@@ -236,6 +241,9 @@
         }
       });
     </script>
-    <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
+    <script
+      type="module"
+      src="{{url_for('static', filename='js/likeBtn.js')}}"
+    ></script>
   </body>
 </html>

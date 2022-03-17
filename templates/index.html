@@ -254,7 +254,7 @@
         </div>
         <div class="modal fade" id="popup_box">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" data-track_id="{{song.track_id}}">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <p></p>
@@ -275,7 +275,7 @@
                                 <p>다른 날씨에 더 어울릴까요?</p>
                                 <div class="weather_icon">
                                     <div class="weather_cloumn">
-                                        <button type="button" value="Sunny"><img src="../static/images/picto_sunny.png"
+                                        <button type="button" value="Sunny" class="weather-likeBtn"><img src="../static/images/picto_sunny.png"
                                                                               alt="sunny"/>
                                         </button>
                                         {% if song.likes %}
@@ -285,7 +285,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="weather_cloumn">
-                                        <button type="button" value="Cloudy"><img src="../static/images/picto_cloudy.png"
+                                        <button type="button" value="Cloudy" class="weather-likeBtn"><img src="../static/images/picto_cloudy.png"
                                                                               alt="cloudy"/></button>
                                         {% if song.likes %}
                                         <p class="weather_cloumn_txt">{{ song.likes.Cloudy }}</p>
@@ -294,7 +294,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="weather_cloumn">
-                                        <button type="button" value="Rainy"><img src="../static/images/picto_rainy.png"
+                                        <button type="button" value="Rainy" class="weather-likeBtn"><img src="../static/images/picto_rainy.png"
                                                                               alt="rainy"/>
                                         </button>
                                         {% if song.likes %}
@@ -304,7 +304,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="weather_cloumn">
-                                        <button type="button" value="Snowy"><img src="../static/images/picto_snowy.png"
+                                        <button type="button" value="Snowy" class="weather-likeBtn"><img src="../static/images/picto_snowy.png"
                                                                               alt="snowy"/>
                                         </button>
                                         {% if song.likes %}
@@ -344,7 +344,7 @@
         })
         
     </script>
-    <script src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
-    <script src="{{url_for('static', filename='js/getWeather.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='js/likeBtn.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='js/getWeather.js')}}"></script>
 </body>
 </html>

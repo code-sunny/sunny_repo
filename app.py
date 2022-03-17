@@ -199,6 +199,7 @@ def like():
                     db.users.update_one(
                         {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
+                    return jsonify({"msg": "TEST"})
                 # 좋아요를 누른 적은 있지만 해당 날씨는 아닌 경우
                 else:
                     db.songs.update_one(
@@ -212,6 +213,7 @@ def like():
                     db.users.update_one(
                         {"username": username}, {"$set": {"songs_liked": user_liked}}
                     )
+                    return jsonify({"msg": "TEST"})
             # 유저가 해당 곡에 좋아요를 눌렀던 적이 없는 경우
             else:
                 #유저가 해당 곡과 상호작용을 한 적이 없고 db에 노래가 있는 경우
@@ -243,7 +245,7 @@ def like():
                 db.users.update_one(
                     {"username": username}, {"$addToSet": {"songs_liked": user["songs_liked"]}}
                 )
-        return jsonify({"msg": "Likes updated!"})
+                return jsonify({"msg": "TEST"})
     else:
         return redirect("/")
 
