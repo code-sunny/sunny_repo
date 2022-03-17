@@ -243,7 +243,7 @@
             <h1 class="main-text">오늘의 <span class="main-text-yellow">날씨</span>에</h1>
             <h1 class="main-text">어울리는 <span class="main-text-blue">음악</span>은 뭐야?</h1>
             <div class="weather-box">
-                <p class="local">위치 : <span id="now_local">서울</span></p>
+                <p class="local">위치 : <span id="now_local">{{ current_city or 서울}}</span></p>
                 <p class="temperature">기온 : <span id="now_temperature">{{current_temp}}℃</span></p>
             </div>
         </div>

@@ -446,8 +446,6 @@ def get_weather():
     session["current_city"] = weather_city
     return jsonify({"weather": weather, "temp": weather_temp, "city": weather_city})
 
-
-
 if __name__ == "__main__":
     app.run("0.0.0.0", env_variables["PORT"])
 
