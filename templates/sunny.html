@@ -17,9 +17,12 @@
     />
 
     <!-- 구글 폰트 ---------------->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/styles.css" />
@@ -79,10 +82,13 @@
         z-index: -1;
       }
     </style>
-    <link rel="shortcut icon" href="../static/images/logo/favicon.png">
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Mu:ther" />
-    <meta property="og:description" content="Mu:ther에서는 사용자의 위치에 따른 날씨를 파악하고, 오늘의 날씨에 어울리는 노래를 사용자에게 추천합니다." />
+    <meta
+      property="og:description"
+      content="Mu:ther에서는 사용자의 위치에 따른 날씨를 파악하고, 오늘의 날씨에 어울리는 노래를 사용자에게 추천합니다."
+    />
     <meta property="og:image" content="../static/images/og_img.png" />
     <meta property="og:image:width" content="800" />
     <meta property="og:image:height" content="400" />
@@ -97,8 +103,8 @@
           <div class="top_corner">
             <div class="city_temp_wt">
               <p>
-                {{current_temp or session.current_temp}} ℃ {{current_weather or
-                session.current_weather}}
+                {{current_city}} | {{current_temp or session.current_temp}} ℃ |
+                {{current_weather or session.current_weather}}
               </p>
             </div>
             {% if session.username and session.username != "Guest" %}
@@ -190,10 +196,7 @@
           <div class="chart">
             <div class="chart_first">
               {% for song in songs_rank[0:5] %}
-              <div
-                class="chart_column song-content"
-                data-track_id="{{song.track_id}}"
-              >
+              <div class="chart_column" data-track_id="{{song.track_id}}">
                 <div class="chart_list">
                   <div class="rank">{{ loop.index }}</div>
                   <div>
@@ -286,10 +289,7 @@
             </div>
             <div class="chart_second">
               {% for song in songs_rank[5:] %}
-              <div
-                class="chart_column song-content"
-                data-track_id="{{song.track_id}}"
-              >
+              <div class="chart_column" data-track_id="{{song.track_id}}">
                 <div class="chart_list">
                   <div class="rank">{{ 5 + loop.index }}</div>
                   <div>
@@ -449,7 +449,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog" role="document">
-          <div class="modal-content song-content">
+          <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"></h5>
               <button
@@ -520,13 +520,14 @@
         });
       }
       const search_input = document.querySelector("#search_input");
-      search_input.addEventListener("submit", (e) => {
-        console.log(e);
-        if (search_input.value.length === 0) {
-          alert("검색어를 입력해주세요.");
-        } else {
-          query = search_input.value;
-          window.location.href = `/main/search?query=${query}`;
+      search_input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          if (search_input.value.length === 0) {
+            alert("검색어를 입력해주세요.");
+          } else {
+            query = search_input.value;
+            window.location.href = `/main/search?query=${query}`;
+          }
         }
       });
       const search_btn = document.querySelector("#button-search");
@@ -552,8 +553,8 @@
         const track_id = target.dataset.track_id;
         const track_idx = target.dataset.track_index;
         const track = random_tracks[track_idx - 1];
-        const song_content = document.querySelector(".song-content");
-        song_content.dataset.track_id = track_id;
+        const song_content = document.querySelector(".modal-content");
+        modal_content.dataset.track_id = track_id;
         let modal_title = document.querySelector(".modal-title");
         modal_title.innerText = track.artist;
         let modal_song_title = document.querySelector(".modal_song_title");

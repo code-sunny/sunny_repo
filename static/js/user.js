@@ -1,13 +1,13 @@
 const loginForm = document.querySelector(".login-form > form");
 const joinForm = document.querySelector("#join");
 
-async function postLogin(event) {
+function postLogin(event) {
   event.preventDefault();
   const { target } = event;
   const username = target.querySelector("#signin_id").value;
   const password = target.querySelector("#signin_pass").value;
   try {
-    const response = await fetch("/login", {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -16,26 +16,30 @@ async function postLogin(event) {
         username,
         password,
       }),
-    });
-    if (response.code !== 200) {
-      window.location.reload();
-    } else {
-      window.location.href("/");
-    }
-    console.log(response);
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        const { msg, redirect_url } = json;
+        if (msg === "성공!") {
+          window.location.href = redirect_url;
+        } else {
+          alert(msg);
+          window.location.href = redirect_url;
+        }
+      });
   } catch (e) {
     console.log(e);
   }
 }
 
-async function postJoin(event) {
+function postJoin(event) {
   event.preventDefault();
   const { target } = event;
   const username = target.querySelector("#signup_id").value;
   const password = target.querySelector("#sign_pass").value;
   const password2 = target.querySelector("#sign_pass2").value;
   try {
-    const response = await fetch("/join", {
+    fetch("/join", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -45,13 +49,17 @@ async function postJoin(event) {
         password,
         password2,
       }),
-    });
-    if (response.code !== 200) {
-      window.location.reload();
-    } else {
-      window.location.href("/");
-    }
-    console.log(response);
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        const { ok, err } = json;
+        if (ok === true) {
+          alert("회원가입 되었습니다. 로그인 해 주세요.");
+        } else {
+          alert(err);
+        }
+        window.location.href = "/login";
+      });
   } catch (e) {
     console.log(e);
   }

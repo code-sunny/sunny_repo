@@ -8,13 +8,19 @@ function likeBtn(event) {
   if (target.tagName === "IMG") {
     target = target.parentNode;
   }
-  let targetContainer = document.querySelector(".song-content");
+  let targetContainer = target.parentNode;
+  console.log(targetContainer.className);
+  if (targetContainer.className === "weather_icon") {
+    while (targetContainer.className !== "modal-content") {
+      targetContainer = targetContainer.parentNode;
+    }
+  } else {
+    while (targetContainer.className !== "chart_column") {
+      targetContainer = targetContainer.parentNode;
+    }
+  }
   const weatherValue = target.value;
   const track_id = targetContainer.dataset.track_id;
-  let liked = "False";
-  if ([...target.classList].some((x) => x === "liked")) {
-    liked = "True";
-  }
   fetch("/api/like-btn", {
     method: "POST",
     headers: {
@@ -31,8 +37,7 @@ function likeBtn(event) {
       if (json["msg"] == "먼저 로그인 해주세요!") {
         alert(json["msg"]);
         let redirect_url = json["redirect_url"];
-        window.location.replace(redirect_url);
+        window.location.href = redirect_url;
       }
     });
-  target.classList.toggle("liked");
 }

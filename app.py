@@ -239,8 +239,7 @@ def like():
                     {"track_id": track_id}, {"$inc": {to_update: 1}}
                 )
                 likedUser = {
-                    "username": username,
-                    "likes": {
+                    username: {
                         "Sunny": False,
                         "Rainy": False,
                         "Cloudy": False,
@@ -303,14 +302,14 @@ def delete_like():
         if likes['likes'][weather]-1 >= 0:
             db.songs.update_one({"track_id": track_id}, {"$inc": {f"likes.{weather}": -1}})
         else:
-            return jsonify({'msg' : "이미 삭제된 곡입니다!"})
+            return jsonify({"ok": False, 'msg' : "이미 삭제된 곡입니다!"})
         
         songs_liked = list(user)[0]["songs_liked"]
         # print(songs_liked)
         songs_liked[track_id][weather] = False
         db.users.update_one({"username": username}, {"$set": {"songs_liked": songs_liked}})
                 
-        return redirect("/user/my-profile")
+        return jsonify({"ok": True, "msg": "삭제되었습니다."})
     
 
     
@@ -331,9 +330,9 @@ def join():
     # 동일 유저네임의 유저가 존재하는지 확인
     existing_user = db.users.find_one({"username": username})
     if existing_user:
-        return jsonify({"err": "이미 존재하는 사용자입니다."})
+        return jsonify({"ok": False, "err": "이미 존재하는 사용자입니다."})
     elif password != password2:
-        return jsonify({"err": "비밀번호가 일치하지 않습니다."})
+        return jsonify({"ok": False, "err": "비밀번호가 일치하지 않습니다."})
     else:
         # 동일 유저도 없고 암호도 서로 동일 시
         # 암호화한 비밀번호를 문서에 담아 db에 저장한다.
@@ -341,7 +340,7 @@ def join():
         hashed_password = hashpw(password, gensalt())
         doc = {"username": username, "password": hashed_password, "songs_liked": {}}
         db.users.insert_one(doc)
-        return redirect("/")
+        return jsonify({"ok": True})
 
 # 로그인 작업
 @app.route("/login", methods=["GET", "POST"])
@@ -349,7 +348,7 @@ def login():
     # 로그인 된 유저 -> 돌려보낸다.
     if "username" in session:
         return redirect("/")
-    if request.method =="POST":
+    if request.method == "POST":
         # 로그인 정보를 json으로 받는다.
         data = request.json
         username = data["username"]
@@ -358,15 +357,15 @@ def login():
         user = db.users.find_one({"username": username})
         if not user:
             # 사용자를 찾을 수 없습니다
-            return redirect("/login")
+            return jsonify({"msg": "사용자를 찾을 수 없습니다.", "redirect_url": "/login"})
         elif not checkpw(password.encode("utf-8"), user["password"]):
             # 비밀번호가 일치하지 않습니다
-            return redirect("/login")
+            return jsonify({"msg": "비밀번호가 일치하지 않습니다.", "redirect_url": "/login"})
         else:
             # 세션에 사용자명을 담고 랜딩?메인?으로 돌려보낸다
             session["username"] = username
 
-            return redirect("/main")
+            return jsonify({"msg": "성공!", "redirect_url": "/main"})
     else:
         return render_template("login.html")
 

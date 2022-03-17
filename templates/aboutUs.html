@@ -171,9 +171,11 @@
 <body>
 <div class="about-wrap">
     <div class="about-header">
+        {% if not session.username or username == "Guset"%}
         <div class="login-box">
-          <a href="" class="login-text">로그인</a>
+          <a href="/login" class="login-text">로그인</a>
         </div>
+        {% endif %}
         <div class="logo-box">
             <a href="/main" class="logo-text">
                 <img src="../static/images/logo/muther_logo_sim.png" width="800" alt="logo">

@@ -17,9 +17,12 @@
     />
 
     <!-- 구글 폰트 ---------------->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="../static/css/mypage.css" />
@@ -43,7 +46,7 @@
       src="https://kit.fontawesome.com/a73607bda8.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="shortcut icon" href="../static/images/logo/favicon.png">
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png" />
 
     <link
       rel="stylesheet"
@@ -67,7 +70,10 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Mu:ther" />
-    <meta property="og:description" content="Mu:ther에서는 사용자의 위치에 따른 날씨를 파악하고, 오늘의 날씨에 어울리는 노래를 사용자에게 추천합니다." />
+    <meta
+      property="og:description"
+      content="Mu:ther에서는 사용자의 위치에 따른 날씨를 파악하고, 오늘의 날씨에 어울리는 노래를 사용자에게 추천합니다."
+    />
     <meta property="og:image" content="../static/images/og_img.png" />
     <meta property="og:image:width" content="800" />
     <meta property="og:image:height" content="400" />
@@ -102,7 +108,9 @@
             </div>
             <div class="top_corner">
               <div class="city_temp_wt">
-                <p>서울 {{current_temp}}℃ {{current_weather}}</p>
+                <p>
+                  {{current_city}} | {{current_temp}}℃ | {{current_weather}}
+                </p>
               </div>
             </div>
           </div>
