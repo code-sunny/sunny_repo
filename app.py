@@ -18,6 +18,10 @@ app.secret_key = env_variables["FLASK_SECRET"]
 def global_variables():
     # flask 전체에 공유되는 변수를 설정한다. (global variables)
     g.title = "Mu:ther"
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 @app.after_request
 def after_request(response):
