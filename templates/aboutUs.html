@@ -25,7 +25,7 @@
 
     <title>aboutUs</title>
     <style>
-        @font-face {
+         @font-face {
             font-family: 'NEXON Lv1 Gothic OTF';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
             font-weight: normal;
@@ -36,6 +36,14 @@
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
             font-weight: normal;
             font-style: normal;
+        }
+        body {
+            background:
+                url('../static/images/bg/bg-5.png'),
+                radial-gradient(circle, #ffffff 0%, #ffffff 50%, #ECE6FF 100%);
+            height: 100%;
+            background-repeat : no-repeat;
+            background-size : cover;
         }
         .about-wrap {
             padding: 20px;
@@ -56,8 +64,16 @@
             color: #fcb69f;
         }
         .logo-box{
-            text-align: center;
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
             /*border: 1px solid #bcbcbc;*/
+        }
+        .logo-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
         }
         .logo-text {
             color: black;
@@ -67,19 +83,31 @@
             text-decoration: none;
             color: #fcb69f;
         }
-        .about-content {
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            height: 40%;
+        .about-content-wrap {
+            /*position: absolute;*/
+            /*top: 0; left: 0; bottom: 0; right: 0;*/
+            width: auto;
+            height: 60%;
             padding: 20px;
             margin: auto;
             text-align: center;
+            font-family: "NEXON Lv1 Gothic OTF";
             /*border: 1px solid #bcbcbc;*/
+        }
+        .about-content {
+            max-width: 100%;
         }
         .people-table {
             display: table;
             width: 800px;
             margin: auto;
+            border-spacing: 20px;
+        }
+        .people-table-2 {
+            display: table;
+            width: 800px;
+            margin: auto;
+            border-spacing: 20px 0;
         }
         .people-table-row {
             display: table-row;
@@ -88,8 +116,10 @@
             display: table-cell;
             padding: 0px 20px;
             height: 150px;
-            /*border: 1px solid #bcbcbc;*/
-
+            border-radius: 30px;
+            box-shadow: 0 0 15px #D8D8D8;
+            background-color: #ffffff;
+            background-color: rgba( 255, 255, 255, 0.5 );
         }
         .people-top {
             vertical-align: top;
@@ -100,7 +130,23 @@
         .people-bottom {
             vertical-align: bottom;
         }
+        .about-function-title {
+            margin-top: 100px;
+            font-family: GmarketSansMedium;
+            font-size: 30px;
+        }
+        .about-function {
+            margin: auto auto 120px auto;
+            padding: 50px 100px;
+            width: 600px;
+            border-radius: 30px;
+            box-shadow: 0 0 15px #D8D8D8;
+            background-color: #ffffff;
+            background-color: rgba( 255, 255, 255, 0.5 );
+            text-align: left;
+        }
     </style>
+    <link rel="shortcut icon" href="../static/images/logo/favicon.png">
 </head>
 <body>
 <div class="about-wrap">
@@ -109,42 +155,87 @@
             <a href="" class="login-text">로그인</a>
         </div>
         <div class="logo-box">
-            <a href="" class="logo-text">오늘의 코딩은 맑음</a>
+            <a href="index.html" class="logo-text">
+                <img src="../static/images/logo/muther_logo_sim.png" width="800" alt="logo">
+            </a>
         </div>
     </div>
-    <div class="about-content">
-        <div class="people-table">
-            <div class="people-table-row">
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
+    <div class="about-content-wrap">
+        <div class="about-content">
+            <div class="people-table">
+                <div class="people-table-row">
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/seonghun.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>김성훈</p>
+                        <p>백엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/sangji.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>서상지</p>
+                        <p>프론드엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/hyunsug.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>오현석</p>
+                        <p>백엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/in.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>이인</p>
+                        <p>백엔드</p>
+                    </div>
                 </div>
             </div>
-            <div class="people-table-row">
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
+            <div class="people-table-2">
+                <div class="people-table-row">
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/jaeho.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>이재호</p>
+                        <p>프론드엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/eunyeong.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>장은영</p>
+                        <p>프론드엔드</p>
+                    </div>
+                    <div class="people-table-cell people-middle">
+                        <p></p>
+                        <img src="../static/images/profile/hwajin.png"
+                             style="border-radius: 20px">
+                        <p></p>
+                        <p>최화진</p>
+                        <p>팀장, 백엔드</p>
+                    </div>
                 </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
-                <div class="people-table-cell people-middle">
-                    <p>이름</p>
-                    <p>역할</p>
-                </div>
+            </div>
+        </div>
+            <p class="about-function-title">사이트에 사용된 기능</p>
+            <div class="about-function">
+                <p>☀ 위치에 맞는 날씨 보여주기</p>
+                <p>☀ 랜딩페이지에서 날씨에 맞는 랜덤 곡 보여주기</p>
+                <p>☀ 메인페이지에서 날씨에 맞는 순위곡 1~10위 보여주기</p>
+                <p>☀ 좋아요 api구현으로 실시간으로 좋아요 수 DB에 업로드 및 페이지 표시</p>
+                <p>☀ 메인페이지 하단에서 랜덤곡 날씨별로 10곡씩 보여주기</p>
+                <p>☀ 마이페이지에서 좋아요를 누른 곡을 날씨별로 보기</p>
+                <p>☀ 노래 검색하기</p>
             </div>
         </div>
     </div>
