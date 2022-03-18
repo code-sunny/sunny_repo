@@ -246,7 +246,7 @@ def like():
                         "Snowy": False,
                     },
                 }
-                likedUser["likes"][weather] = True
+                likedUser[username][weather] = True
                 db.songs.update_one(
                     {"track_id": track_id}, {"$addToSet": {"likedUsers": likedUser}}
                 )
@@ -288,13 +288,15 @@ def delete_like():
         song = db.songs.find({"track_id": track_id}, {"_id": False})
         user = db.users.find({"username": username}, {"_id": False})
         likedUsers = list(song)[0]["likedUsers"]
-        
-        toUpdate = {}
+        toUpdate = []
         x = 0
         for i in range(len(likedUsers)):
             if likedUsers[i][username]:
                 x = i
                 toUpdate = likedUsers[x]
+                break
+            else:
+                continue
         toUpdate[username][weather] = False
         db.songs.update_one({"track_id": track_id}, {"$set": {"likedUsers": likedUsers}})
 
